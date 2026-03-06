@@ -61,9 +61,11 @@ function Project() {
   ];
 
   return (
-    <div className="flex min-h-screen w-full justify-center px-6 py-20 text-white">
+    <div className="flex min-h-screen w-full justify-center px-6 mt-0 md:mt-55 lg:mt-55 text-white">
       <div className="w-full max-w-6xl">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">Selected Projects</h1>
+        <h1 className="text-3xl font-extrabold sm:text-4xl">
+          Selected Projects
+        </h1>
         <p className="mt-2 mb-10 text-lg text-white/70">
           A collection of recent frontend work with a focus on product UI,
           component structure, and responsive implementation.
