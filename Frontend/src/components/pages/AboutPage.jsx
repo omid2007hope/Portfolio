@@ -2,8 +2,8 @@ import Link from "next/link";
 
 function About() {
   return (
-    <div className="w-full h-334 bg-[#0f172a] text-white px-6 flex justify-center">
-      <div className="w-full max-w-6xl md:mt-55 lg:mt-55">
+    <section className="flex w-full justify-center px-6 py-8 text-white">
+      <div className="w-full max-w-6xl">
         <div className="mb-10">
           <h1 className="text-4xl font-extrabold">About & Contact</h1>
           <p className="text-white/70 mt-2 text-lg">
@@ -98,7 +98,7 @@ function About() {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -61,8 +61,8 @@ function Contact() {
   };
 
   return (
-    <div className="w-full h-334 bg-[#0f172a] text-white px-6  flex justify-center">
-      <div className="w-full max-w-6xl mt-0 md:mt-60 lg:mt-60">
+    <section className="flex w-full justify-center px-6 py-8 text-white">
+      <div className="w-full max-w-6xl">
         <h1 className="text-4xl font-extrabold">Get in Touch</h1>
         <p className="text-white/70 text-lg mt-2 mb-12 max-w-2xl">
           Have a question or want to work together? Fill out the form below and
@@ -278,7 +278,7 @@ function Contact() {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

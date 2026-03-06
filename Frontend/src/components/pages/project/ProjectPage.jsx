@@ -61,7 +61,7 @@ function Project() {
   ];
 
   return (
-    <div className="flex h-279 w-full justify-center px-6 mt-0 md:mt-55 lg:mt-55 text-white">
+    <section className="flex w-full justify-center px-6 py-8 text-white">
       <div className="w-full max-w-6xl">
         <h1 className="text-3xl font-extrabold sm:text-4xl">
           Selected Projects
@@ -199,7 +199,7 @@ function Project() {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
