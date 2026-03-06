@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Omid Teimory monogram</title>
+  <desc id="desc">Rounded square with the letters O and T intertwined</desc>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stop-color="#38bdf8" offset="0"/>
+      <stop stop-color="#6366f1" offset="1"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="144" height="144" rx="32" fill="#0f172a"/>
+  <rect x="16" y="16" width="128" height="128" rx="28" fill="url(#g)" opacity="0.22"/>
+  <path d="M46 52c0-6 4.7-10.8 10.6-10.8h46.8c5.9 0 10.6 4.8 10.6 10.8v56.8c0 6-4.7 10.8-10.6 10.8H56.6C50.7 120 46 115.2 46 109V52z" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M54 80h52m-26-34v68" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+</svg>
