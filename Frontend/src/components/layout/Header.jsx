@@ -18,6 +18,7 @@ const ensureResumeLink = (items) => {
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  const progressMessage = "In progress: I am constantly updating this portfolio.";
 
   const navItems = ensureResumeLink(
     profile?.navigationLinks?.length
@@ -36,6 +37,10 @@ function Header({ profile }) {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-slate-950/65 backdrop-blur-xl">
+      <div className="border-b border-amber-300/15 bg-amber-400/10 px-6 py-2 text-center text-xs font-medium tracking-[0.18em] text-amber-100 uppercase">
+        {progressMessage}
+      </div>
+
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-4">
           {profile?.logoImage ? (
@@ -109,6 +114,10 @@ function Header({ profile }) {
 
       {open && (
         <div className="space-y-4 border-t border-white/10 bg-slate-950/95 px-6 py-5 backdrop-blur-md md:hidden">
+          <div className="rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100">
+            {progressMessage}
+          </div>
+
           {navItems.map((item) => (
             <Link
               key={item.to}

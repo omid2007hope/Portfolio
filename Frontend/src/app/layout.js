@@ -46,7 +46,7 @@ export default async function RootLayout({ children }) {
           />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.22),transparent_55%)]" />
           <Header profile={profile} />
-          <main className="relative pt-20">{children}</main>
+          <main className="relative pt-28">{children}</main>
         </div>
       </body>
     </html>
