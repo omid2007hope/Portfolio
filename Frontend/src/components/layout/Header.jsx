@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -18,33 +19,33 @@ function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-[#0f172a]/95 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-        {/* LOGO */}
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-slate-950/65 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-4">
-          <img
+          <Image
             src={Logo}
             alt="Omid Teimory logo"
-            width="56"
-            height="56"
-            className="w-14 h-14 rounded-md border border-white"
-            fetchPriority="high"
+            width={56}
+            height={56}
+            className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2"
+            priority
           />
 
           <div className="flex flex-col leading-none">
             <Link href="/resume">
-              <span className="text-xl font-bold text-white">Omid Teimory</span>
+              <span className="text-lg font-semibold tracking-tight text-white">
+                Omid Teimory
+              </span>
             </Link>
             <Link href="/resume">
-              <span className="text-sm text-white/70 hover:text-white transition">
-                See my resume
+              <span className="text-sm text-slate-300 transition hover:text-white">
+                Frontend developer
               </span>
             </Link>
           </div>
         </div>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden items-center gap-10 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.to}
@@ -58,33 +59,32 @@ function Header() {
               {item.label}
             </Link>
           ))}
-          <span className="px-3 py-1 text-xs font-semibold bg-green-600/20 border border-green-500/30 text-green-100 rounded-full">
+
+          <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-100">
             Open to work
           </span>
 
           <Link
             href="/contact"
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition text-white"
+            className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
           >
             Get In Touch
           </Link>
         </nav>
 
-        {/* MOBILE BUTTON */}
         <button
           type="button"
-          className="md:hidden text-white p-3 -mr-2"
+          className="p-3 text-white md:hidden"
           aria-expanded={open}
           aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((prev) => !prev)}
         >
           {open ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* MOBILE DROPDOWN */}
       {open && (
-        <div className="md:hidden bg-[#0f172a]/95 backdrop-blur-md border-t border-white/10 px-6 py-5 space-y-4">
+        <div className="space-y-4 border-t border-white/10 bg-slate-950/95 px-6 py-5 backdrop-blur-md md:hidden">
           {navItems.map((item) => (
             <Link
               key={item.to}
@@ -100,14 +100,14 @@ function Header() {
             </Link>
           ))}
 
-          <div className="px-3 py-2 bg-green-600/20 border border-green-500/30 text-green-100 rounded-lg text-sm font-semibold">
+          <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/10 px-3 py-2 text-sm font-semibold text-emerald-100">
             Open to work
           </div>
 
           <Link
             href="/contact"
             onClick={() => setOpen(false)}
-            className="block w-full text-center px-5 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition text-white"
+            className="block w-full rounded-xl bg-white px-5 py-3 text-center font-semibold text-slate-950 transition hover:bg-slate-200"
           >
             Get In Touch
           </Link>

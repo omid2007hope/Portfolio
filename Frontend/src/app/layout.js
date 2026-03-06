@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import Header from "@/components/layout/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,7 +18,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="relative min-h-screen">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.22),transparent_55%)]" />
+          <Header />
+          <main className="relative pt-24">{children}</main>
+        </div>
       </body>
     </html>
   );
