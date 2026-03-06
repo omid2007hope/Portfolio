@@ -1,0 +1,22 @@
+{
+  "name": "portfolio-prime-backend",
+  "version": "0.1.0",
+  "description": "Portfolio Prime backend API",
+  "main": "Server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node Server.js",
+    "dev": "nodemon Server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.3",
+    "express": "^4.19.4",
+    "mongoose": "^8.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
