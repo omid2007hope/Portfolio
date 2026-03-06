@@ -61,7 +61,7 @@ function Project() {
   ];
 
   return (
-    <div className="flex min-h-screen w-full justify-center px-6 mt-0 md:mt-55 lg:mt-55 text-white">
+    <div className="flex h-279 w-full justify-center px-6 mt-0 md:mt-55 lg:mt-55 text-white">
       <div className="w-full max-w-6xl">
         <h1 className="text-3xl font-extrabold sm:text-4xl">
           Selected Projects

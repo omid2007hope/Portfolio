@@ -61,7 +61,7 @@ function Contact() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#0f172a] text-white px-6  flex justify-center">
+    <div className="w-full h-334 bg-[#0f172a] text-white px-6  flex justify-center">
       <div className="w-full max-w-6xl mt-0 md:mt-60 lg:mt-60">
         <h1 className="text-4xl font-extrabold">Get in Touch</h1>
         <p className="text-white/70 text-lg mt-2 mb-12 max-w-2xl">
