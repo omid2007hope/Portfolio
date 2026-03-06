@@ -2,8 +2,16 @@
 
 import Link from "next/link";
 
+const ensureResumeLink = (items) => {
+  if (items.some((item) => item.to === "/resume")) {
+    return items;
+  }
+
+  return [...items.slice(0, 2), { label: "Resume", to: "/resume" }, ...items.slice(2)];
+};
+
 function SiteFooter({ profile }) {
-  const navigationLinks =
+  const navigationLinks = ensureResumeLink(
     profile?.navigationLinks?.length
       ? profile.navigationLinks
       : [
@@ -11,7 +19,8 @@ function SiteFooter({ profile }) {
           { label: "Projects", to: "/projects" },
           { label: "About", to: "/about" },
           { label: "Contact", to: "/contact" },
-        ];
+        ],
+  );
 
   const footerText =
     profile?.footerText ||

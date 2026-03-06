@@ -43,13 +43,28 @@ const readResponseBody = async (response) => {
 };
 
 export const fetchJson = async (path, options = {}) => {
+  const { revalidate, ...fetchOptions } = options;
+  const method = (fetchOptions.method || "GET").toUpperCase();
+  const isReadRequest = method === "GET" || method === "HEAD";
+
   const response = await fetch(getApiUrl(path), {
-    cache: "no-store",
-    ...options,
+    ...fetchOptions,
+    ...(isReadRequest
+      ? fetchOptions.cache
+        ? {}
+        : {
+            next: {
+              revalidate: revalidate ?? 300,
+              ...(fetchOptions.next || {}),
+            },
+          }
+      : {
+          cache: fetchOptions.cache || "no-store",
+        }),
     headers: {
       Accept: "application/json",
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
-      ...(options.headers || {}),
+      ...(fetchOptions.body ? { "Content-Type": "application/json" } : {}),
+      ...(fetchOptions.headers || {}),
     },
   });
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { Sparkle } from "lucide-react";
 
@@ -9,6 +10,21 @@ function ProjectShowcase({ project, profile }) {
   return (
     <div className="flex min-h-screen w-full justify-center px-6 py-16 text-white">
       <div className="w-full max-w-7xl">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/60"
+        >
+          <Link href="/" className="transition hover:text-white">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href="/projects" className="transition hover:text-white">
+            Projects
+          </Link>
+          <span>/</span>
+          <span className="text-white">{project.title}</span>
+        </nav>
+
         <h1 className="text-4xl font-extrabold leading-snug">{project.title}</h1>
         <p className="mb-12 mt-2 max-w-3xl text-lg text-white/70">
           {project.shortDescription}

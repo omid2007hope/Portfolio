@@ -30,9 +30,11 @@ function About({ profile }) {
     <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
       <div className="flex w-full max-w-6xl flex-col justify-center">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold">About & Contact</h1>
+          <h1 className="text-4xl font-extrabold">
+            About {profile?.fullName || "Omid Teimory"}
+          </h1>
           <p className="mt-2 text-lg text-white/70">
-            Learn more about {profile?.fullName || "me"} and how we can work together.
+            Learn more about {profile?.fullName || "me"}, the work behind this portfolio, and how we can collaborate.
           </p>
         </div>
 

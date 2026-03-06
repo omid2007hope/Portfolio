@@ -7,11 +7,19 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../../app/assets/image/Logo.svg";
 
+const ensureResumeLink = (items) => {
+  if (items.some((item) => item.to === "/resume")) {
+    return items;
+  }
+
+  return [...items.slice(0, 3), { label: "Resume", to: "/resume" }, ...items.slice(3)];
+};
+
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
 
-  const navItems =
+  const navItems = ensureResumeLink(
     profile?.navigationLinks?.length
       ? profile.navigationLinks
       : [
@@ -19,7 +27,8 @@ function Header({ profile }) {
           { label: "About", to: "/about" },
           { label: "Projects", to: "/projects" },
           { label: "Contact", to: "/contact" },
-        ];
+        ],
+  );
 
   const isActive = (route) => pathname === route;
   const availabilityText = profile?.availabilityText || "Open to work";
