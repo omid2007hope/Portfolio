@@ -61,15 +61,17 @@ function Contact() {
   };
 
   return (
-    <section className="flex w-full justify-center px-6 py-8 text-white">
-      <div className="w-full max-w-6xl">
-        <h1 className="text-4xl font-extrabold">Get in Touch</h1>
-        <p className="text-white/70 text-lg mt-2 mb-12 max-w-2xl">
-          Have a question or want to work together? Fill out the form below and
-          I&apos;ll get back to you as soon as possible.
-        </p>
+    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
+      <div className="flex w-full max-w-6xl flex-col justify-center">
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-extrabold">Get in Touch</h1>
+          <p className="mt-2 text-lg text-white/70">
+            Have a question or want to work together? Fill out the form below
+            and I&apos;ll get back to you as soon as possible.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
           <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
@@ -225,7 +227,7 @@ function Contact() {
           </div>
         </div>
 
-        <div className="mt-20 border-t border-white/10 pt-8 flex flex-col items-center space-y-4">
+        <div className="mt-20 flex flex-col items-center space-y-4 border-t border-white/10 pt-8">
           <div className="flex gap-10 text-white/70">
             <Link href="/" className="hover:text-white transition">
               Home

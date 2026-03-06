@@ -2,16 +2,16 @@ import Link from "next/link";
 
 function About() {
   return (
-    <section className="flex w-full justify-center px-6 py-8 text-white">
-      <div className="w-full max-w-6xl">
-        <div className="mb-10">
+    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
+      <div className="flex w-full max-w-6xl flex-col justify-center">
+        <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold">About & Contact</h1>
           <p className="text-white/70 mt-2 text-lg">
             Learn more about me and how we can work together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
           <div className="flex flex-col gap-6">
             <div className="border border-white/10 rounded-2xl p-6 bg-white/5">
               <p className="text-white/60 text-sm font-semibold uppercase tracking-wide">
@@ -80,7 +80,7 @@ function About() {
           </div>
         </div>
 
-        <div className="mt-20 border-t border-white/10 pt-8 flex flex-col items-center space-y-4">
+        <div className="mt-20 flex flex-col items-center space-y-4 border-t border-white/10 pt-8">
           <div className="flex gap-10 text-white/70">
             <Link href="/" className="hover:text-white transition">
               Home

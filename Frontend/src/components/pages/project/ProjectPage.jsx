@@ -61,17 +61,19 @@ function Project() {
   ];
 
   return (
-    <section className="flex w-full justify-center px-6 py-8 text-white">
-      <div className="w-full max-w-6xl">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">
-          Selected Projects
-        </h1>
-        <p className="mt-2 mb-10 text-lg text-white/70">
-          A collection of recent frontend work with a focus on product UI,
-          component structure, and responsive implementation.
-        </p>
+    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
+      <div className="flex w-full max-w-6xl flex-col justify-center">
+        <div className="mb-10 text-center">
+          <h1 className="text-3xl font-extrabold sm:text-4xl">
+            Selected Projects
+          </h1>
+          <p className="mt-2 text-lg text-white/70">
+            A collection of recent frontend work with a focus on product UI,
+            component structure, and responsive implementation.
+          </p>
+        </div>
 
-        <div className="mb-10 flex gap-4">
+        <div className="mb-10 flex justify-center gap-4">
           <button className="rounded-lg border border-white/10 bg-white/5 px-5 py-2 font-medium transition hover:bg-white/10">
             All
           </button>
