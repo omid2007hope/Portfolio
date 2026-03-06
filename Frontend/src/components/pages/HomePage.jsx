@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,52 +8,68 @@ import {
   ArrowRight,
   Atom,
   BriefcaseBusiness,
-  Github,
-  Linkedin,
   Sparkles,
-  X,
 } from "lucide-react";
 import Me from "../../app/assets/image/Me.jpg";
+import { getSocialIcon } from "@/lib/social-icons";
 
 const ChatBox = dynamic(() => import("./AiChatBox"), { ssr: false });
 
-function Home() {
+function Home({ profile }) {
   const [open, setOpen] = useState(false);
 
-  const skills = [
-    "HTML",
-    "CSS",
-    "Tailwind CSS",
-    "JavaScript",
-    "React",
-    "React Suite",
-    "Redux",
-    "React Router DOM",
-    "GitHub",
-    "Figma",
-    "Adobe Illustrator",
-    "Postman",
-  ];
+  const skills = profile?.heroSkills?.length
+    ? profile.heroSkills
+    : [
+        "HTML",
+        "CSS",
+        "Tailwind CSS",
+        "JavaScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+      ];
 
-  const social = [
-    {
-      name: "GitHub",
-      icon: <Github />,
-      url: "https://github.com/omid2007hope",
-    },
-    {
-      name: "LinkedIn",
-      icon: <Linkedin />,
-      url: "https://www.linkedin.com/in/omid-teimory-48233638b/",
-    },
-    { name: "X", icon: <X />, url: "https://x.com/Omid2007hope" },
-  ];
+  const social = useMemo(
+    () =>
+      profile?.socialLinks?.length
+        ? profile.socialLinks
+        : [
+            {
+              name: "GitHub",
+              iconKey: "github",
+              url: "https://github.com/omid2007hope",
+            },
+            {
+              name: "LinkedIn",
+              iconKey: "linkedin",
+              url: "https://www.linkedin.com/in/omid-teimory-48233638b/",
+            },
+            { name: "X", iconKey: "x", url: "https://x.com/Omid2007hope" },
+          ],
+    [profile],
+  );
 
-  const highlights = [
-    { label: "Based in", value: "Vienna, Austria" },
-    { label: "Primary stack", value: "React, Next.js, Tailwind" },
-    { label: "Current focus", value: "Frontend + backend growth" },
-  ];
+  const highlights =
+    profile?.highlights?.length
+      ? profile.highlights
+      : [
+          { label: "Based in", value: profile?.location || "Vienna, Austria" },
+          {
+            label: "Primary stack",
+            value: profile?.primaryStack || "React, Next.js, Tailwind",
+          },
+          {
+            label: "Current focus",
+            value: profile?.currentFocus || "Frontend + backend growth",
+          },
+        ];
+
+  const primaryCtaLabel = profile?.homePrimaryCtaLabel || "View Portfolio";
+  const primaryCtaUrl = profile?.homePrimaryCtaUrl || profile?.portfolioUrl || "/projects";
+  const secondaryCtaLabel = profile?.homeSecondaryCtaLabel || "Explore Projects";
+  const secondaryCtaUrl = profile?.homeSecondaryCtaUrl || "/projects";
 
   return (
     <section className="relative flex min-h-[calc(100vh-5rem)] items-center overflow-hidden px-6 py-8 text-white">
@@ -61,20 +77,19 @@ function Home() {
         <div className="order-2 space-y-8 lg:order-1">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
             <BriefcaseBusiness className="h-4 w-4" />
-            Open to freelance and full-time frontend roles
+            {profile?.availabilityText || "Open to freelance and full-time frontend roles"}
           </div>
 
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-200/75">
-              Frontend Engineer
+              {profile?.jobTitle || "Frontend Engineer"}
             </p>
             <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-              Interfaces with structure, motion, and clarity.
+              {profile?.headline || "Interfaces with structure, motion, and clarity."}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              I build polished web products with React, modern CSS, and strong
-              layout discipline. The goal is simple: clear UX, sharp visuals,
-              and frontend code that scales cleanly.
+              {profile?.shortBio ||
+                "I build polished web products with React, modern CSS, and strong layout discipline. The goal is simple: clear UX, sharp visuals, and frontend code that scales cleanly."}
             </p>
           </div>
 
@@ -108,19 +123,19 @@ function Home() {
           <div className="flex flex-wrap gap-4 pt-2">
             <a
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200"
-              href="https://github.com/omid2007hope"
+              href={primaryCtaUrl}
               rel="noopener noreferrer"
-              target="_blank"
+              target={primaryCtaUrl.startsWith("http") ? "_blank" : undefined}
             >
-              View GitHub
+              {primaryCtaLabel}
               <ArrowRight className="h-4 w-4" />
             </a>
 
             <Link
-              href="/projects"
+              href={secondaryCtaUrl}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
             >
-              Explore Projects
+              {secondaryCtaLabel}
               <Sparkles className="h-4 w-4" />
             </Link>
 
@@ -133,25 +148,25 @@ function Home() {
           </div>
 
           <div className="flex flex-wrap gap-8 pt-4">
-            {social.map((item) => (
-              <div
-                key={item.name}
-                className="flex flex-col items-center space-y-2"
-              >
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10"
-                  aria-label={item.name}
-                >
-                  {item.icon}
-                </a>
-                <span className="text-sm font-semibold text-slate-300">
-                  {item.name}
-                </span>
-              </div>
-            ))}
+            {social.map((item) => {
+              const Icon = getSocialIcon(item.iconKey);
+              return (
+                <div key={`${item.name}-${item.url}`} className="flex flex-col items-center space-y-2">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10"
+                    aria-label={item.name}
+                  >
+                    <Icon />
+                  </a>
+                  <span className="text-sm font-semibold text-slate-300">
+                    {item.name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -162,10 +177,10 @@ function Home() {
               <div className="mb-5 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/65">
-                    Currently building
+                    {profile?.heroBadge || "Currently building"}
                   </p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    Clean portfolio and product interfaces
+                    {profile?.currentFocus || "Clean portfolio and product interfaces"}
                   </p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 p-3 text-emerald-200">
@@ -174,13 +189,21 @@ function Home() {
               </div>
 
               <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/50">
-                <Image
-                  src={Me}
-                  alt="Portrait of Omid Teimory"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="aspect-[4/5] w-full object-cover object-center"
-                />
+                {profile?.portraitImage ? (
+                  <img
+                    src={profile.portraitImage}
+                    alt={`Portrait of ${profile.fullName || "Omid Teimory"}`}
+                    className="aspect-[4/5] w-full object-cover object-center"
+                  />
+                ) : (
+                  <Image
+                    src={Me}
+                    alt="Portrait of Omid Teimory"
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="aspect-[4/5] w-full object-cover object-center"
+                  />
+                )}
               </div>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -189,8 +212,8 @@ function Home() {
                     Core strengths
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-200">
-                    Responsive layout systems, component design, interaction
-                    polish, and frontend implementation quality.
+                    {profile?.primaryStack ||
+                      "Responsive layout systems, component design, interaction polish, and frontend implementation quality."}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-sky-400/10 p-4">
@@ -198,8 +221,8 @@ function Home() {
                     Next step
                   </p>
                   <p className="mt-2 text-sm leading-6 text-sky-50">
-                    Expanding into Node.js and backend architecture without
-                    losing frontend precision.
+                    {profile?.longBio ||
+                      "Expanding into Node.js and backend architecture without losing frontend precision."}
                   </p>
                 </div>
               </div>

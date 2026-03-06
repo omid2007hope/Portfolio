@@ -1,0 +1,348 @@
+{
+  "info": {
+    "name": "Portfolio Prime API",
+    "_postman_id": "c8d6d2ce-3f55-4a2d-9cb4-portfolio-prime-api",
+    "description": "Routes and sample payloads for the Portfolio Prime backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "key": "profileId",
+      "value": "replace-with-profile-id"
+    },
+    {
+      "key": "projectId",
+      "value": "replace-with-project-id"
+    },
+    {
+      "key": "resumeId",
+      "value": "replace-with-resume-id"
+    },
+    {
+      "key": "contactId",
+      "value": "replace-with-contact-id"
+    },
+    {
+      "key": "chatSessionId",
+      "value": "portfolio-test-session-1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /server",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/server"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profiles",
+      "item": [
+        {
+          "name": "GET /profile",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/profile"
+          }
+        },
+        {
+          "name": "GET /profiles",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/profiles"
+          }
+        },
+        {
+          "name": "POST /profiles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Omid Teimory\",\n  \"jobTitle\": \"Frontend Developer\",\n  \"headline\": \"Interfaces with structure, motion, and clarity.\",\n  \"shortBio\": \"Frontend developer focused on polished interfaces and scalable product UI.\",\n  \"longBio\": \"I build modern web products with React, Next.js, Node.js, and MongoDB.\",\n  \"heroBadge\": \"Currently building\",\n  \"availabilityText\": \"Open to freelance and full-time roles\",\n  \"currentFocus\": \"Full-stack portfolio and product work\",\n  \"location\": \"Vienna, Austria\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"portfolioUrl\": \"https://omidteimory.com\",\n  \"primaryStack\": \"React, Next.js, Node.js, MongoDB\",\n  \"openToWork\": true,\n  \"portraitImage\": \"https://images.example.com/me.jpg\",\n  \"logoImage\": \"https://images.example.com/logo.png\",\n  \"heroSkills\": [\"React\", \"Next.js\", \"Tailwind CSS\", \"Node.js\"],\n  \"spokenLanguages\": [\"English\", \"German\", \"Persian\"],\n  \"socialLinks\": [{\"name\": \"GitHub\", \"iconKey\": \"github\", \"url\": \"https://github.com/omid2007hope\"}],\n  \"highlights\": [{\"label\": \"Based in\", \"value\": \"Vienna, Austria\"}],\n  \"aboutCards\": [{\"label\": \"Primary stack\", \"value\": \"React, Next.js, Node.js\"}],\n  \"aboutParagraphs\": [{\"content\": \"I build responsive, accessible, and polished web applications.\"}],\n  \"navigationLinks\": [{\"label\": \"Home\", \"to\": \"/\"}, {\"label\": \"Projects\", \"to\": \"/projects\"}, {\"label\": \"Contact\", \"to\": \"/contact\"}],\n  \"footerText\": \"© 2026 Omid Teimory. All rights reserved.\",\n  \"homePrimaryCtaLabel\": \"View Portfolio\",\n  \"homePrimaryCtaUrl\": \"https://omidteimory.com\",\n  \"homeSecondaryCtaLabel\": \"Explore Projects\",\n  \"homeSecondaryCtaUrl\": \"/projects\"\n}"
+            },
+            "url": "{{baseUrl}}/profiles"
+          }
+        },
+        {
+          "name": "PATCH /profiles/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"availabilityText\": \"Open to selected freelance projects\",\n  \"currentFocus\": \"Backend integration and portfolio CMS\"\n}"
+            },
+            "url": "{{baseUrl}}/profiles/{{profileId}}"
+          }
+        },
+        {
+          "name": "DELETE /profiles/:id",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/profiles/{{profileId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "GET /projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects"
+          }
+        },
+        {
+          "name": "GET /projects?includeAll=true",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?includeAll=true"
+          }
+        },
+        {
+          "name": "GET /projects/:identifier",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/portfolio-prime"
+          }
+        },
+        {
+          "name": "POST /projects",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": 1,\n  \"slug\": \"portfolio-prime\",\n  \"title\": \"Portfolio Prime\",\n  \"shortDescription\": \"Personal portfolio with case studies, resume, contact workflows, and AI chat.\",\n  \"overview\": \"Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.\",\n  \"challengesAndSolutions\": \"Replacing hardcoded UI content with structured backend data while keeping the design polished.\",\n  \"improvements\": \"Add authentication, uploads, and a dashboard CMS.\",\n  \"highlightQuote\": \"Backend-driven content keeps the portfolio flexible and maintainable.\",\n  \"role\": \"Full-Stack Developer\",\n  \"duration\": \"3 Weeks\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"techStack\": [\"Next.js\", \"React\", \"Express\", \"MongoDB\", \"Tailwind CSS\"],\n  \"coverImage\": {\"url\": \"https://images.example.com/portfolio-cover.png\", \"alt\": \"Portfolio Prime cover\", \"kind\": \"cover\"},\n  \"showcaseImages\": [{\"url\": \"https://images.example.com/portfolio-screen-1.png\", \"alt\": \"Home page\", \"kind\": \"showcase\"}],\n  \"actions\": [{\"label\": \"Live Demo\", \"url\": \"https://omidteimory.com\", \"kind\": \"liveDemo\"}],\n  \"repositoryUrl\": \"https://github.com/omid2007hope/Omid-Teimory\",\n  \"liveDemoUrl\": \"https://omidteimory.com\",\n  \"sortOrder\": 1\n}"
+            },
+            "url": "{{baseUrl}}/projects"
+          }
+        },
+        {
+          "name": "PATCH /projects/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"featured\": true,\n  \"sortOrder\": 1,\n  \"status\": \"published\"\n}"
+            },
+            "url": "{{baseUrl}}/projects/{{projectId}}"
+          }
+        },
+        {
+          "name": "DELETE /projects/:id",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/projects/{{projectId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resume",
+      "item": [
+        {
+          "name": "GET /resume",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/resume"
+          }
+        },
+        {
+          "name": "GET /resumes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/resumes"
+          }
+        },
+        {
+          "name": "POST /resumes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profileName\": \"Omid Teimory\",\n  \"headline\": \"Frontend Developer & UI Engineer\",\n  \"summary\": \"Frontend developer specializing in React, Next.js, Tailwind CSS, and clean product interfaces.\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"avatarImage\": \"https://images.example.com/me-avatar.jpg\",\n  \"importantLinks\": [{\"label\": \"Portfolio\", \"url\": \"https://omidteimory.com\"}],\n  \"languages\": [\"English - Fluent\", \"German - Basic\"],\n  \"certificates\": [{\"title\": \"IBM Web Development Fundamentals\", \"issuer\": \"IBM\", \"issuedAtLabel\": \"Oct 26, 2025\", \"score\": \"Passed\", \"credentialUrl\": \"https://credentials.example.com/ibm\"}],\n  \"experience\": [{\"title\": \"Frontend Developer - Freelancer\", \"subtitle\": \"Independent\", \"period\": \"2024 - Present\", \"location\": \"Vienna, Austria\", \"description\": \"Building modern frontend interfaces and portfolio-grade product UI.\", \"bullets\": [\"Built responsive interfaces with React and Tailwind CSS.\"], \"sortOrder\": 1}],\n  \"education\": [{\"title\": \"Full-Stack Web Development\", \"subtitle\": \"Self-Taught\", \"period\": \"2023 - Present\", \"location\": \"Online\", \"description\": \"Studying frontend and backend through projects.\", \"bullets\": [\"React\", \"Node.js\", \"MongoDB\"], \"sortOrder\": 1}],\n  \"skillGroups\": [{\"title\": \"Frontend\", \"items\": [\"React\", \"Next.js\", \"Tailwind CSS\"], \"sortOrder\": 1}, {\"title\": \"Backend\", \"items\": [\"Node.js\", \"Express\", \"MongoDB\"], \"sortOrder\": 2}]\n}"
+            },
+            "url": "{{baseUrl}}/resumes"
+          }
+        },
+        {
+          "name": "PATCH /resumes/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"headline\": \"Frontend Developer & Full-Stack Learner\",\n  \"summary\": \"Updated summary text from Postman.\"\n}"
+            },
+            "url": "{{baseUrl}}/resumes/{{resumeId}}"
+          }
+        },
+        {
+          "name": "DELETE /resumes/:id",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/resumes/{{resumeId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "POST /contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"subject\": \"Portfolio project inquiry\",\n  \"message\": \"Hi Omid, I would like to discuss a frontend project with you.\",\n  \"source\": \"portfolio-contact-form\"\n}"
+            },
+            "url": "{{baseUrl}}/contact"
+          }
+        },
+        {
+          "name": "GET /contacts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts"
+          }
+        },
+        {
+          "name": "PATCH /contacts/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"replied\"\n}"
+            },
+            "url": "{{baseUrl}}/contacts/{{contactId}}"
+          }
+        },
+        {
+          "name": "DELETE /contacts/:id",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contacts/{{contactId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "POST /chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"{{chatSessionId}}\",\n  \"message\": \"Tell me about your latest projects\"\n}"
+            },
+            "url": "{{baseUrl}}/chat"
+          }
+        },
+        {
+          "name": "GET /chats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chats"
+          }
+        },
+        {
+          "name": "GET /chat/:sessionId",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
+          }
+        },
+        {
+          "name": "PATCH /chat/:sessionId",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Project questions\",\n  \"status\": \"closed\"\n}"
+            },
+            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
+          }
+        },
+        {
+          "name": "DELETE /chat/:sessionId",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
+          }
+        }
+      ]
+    }
+  ]
+}

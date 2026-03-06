@@ -9,6 +9,23 @@ dotenv.config({ path: ".env.local" });
 
 const app = express();
 
+app.use((req, res, next) => {
+  const allowedOrigin = process.env.CORS_ORIGIN || "*";
+
+  res.header("Access-Control-Allow-Origin", allowedOrigin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,PUT,DELETE,OPTIONS");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  return next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,7 +48,26 @@ app.use((err, _req, res, _next) => {
   if (res.headersSent) {
     return;
   }
-  res.status(500).json({ error: "Internal Server Error" });
+
+  if (err.name === "ValidationError") {
+    return res.status(400).json({
+      error: "Validation failed.",
+      details: Object.values(err.errors).map((item) => item.message),
+    });
+  }
+
+  if (err.name === "CastError") {
+    return res.status(400).json({ error: "Invalid identifier format." });
+  }
+
+  if (err.code === 11000) {
+    return res.status(409).json({
+      error: "A record with the same unique field already exists.",
+      details: err.keyValue,
+    });
+  }
+
+  res.status(500).json({ error: err.message || "Internal Server Error" });
 });
 
 module.exports = app;

@@ -1,5 +1,7 @@
 import AboutPage from "@/components/pages/AboutPage";
+import { getProfile } from "@/lib/api";
 
-export default function AboutRoute() {
-  return <AboutPage />;
+export default async function AboutRoute() {
+  const profile = await getProfile();
+  return <AboutPage profile={profile} />;
 }

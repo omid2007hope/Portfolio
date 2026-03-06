@@ -2,159 +2,137 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Forward, X } from "lucide-react";
+import { getChatConversation, sendChatMessage } from "@/lib/api";
+
+const STORAGE_KEY = "portfolio-chat-session-id";
+const defaultMessage = {
+  id: "welcome",
+  text: "Welcome! Ask me anything.",
+  from: "bot",
+  time: "now",
+};
+
+const formatMessageTime = (value) => {
+  if (!value) {
+    return "now";
+  }
+
+  return new Date(value).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const mapBackendMessages = (messages = []) =>
+  messages.map((message, index) => ({
+    id: `${message.sentAt || index}-${index}`,
+    text: message.text,
+    from: message.sender === "user" ? "you" : "bot",
+    time: formatMessageTime(message.sentAt),
+  }));
 
 function ChatBox({ open, setOpen }) {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([
-    { id: 1, text: "Welcome! Ask me anything.", from: "bot", time: "now" },
-  ]);
+  const [messages, setMessages] = useState([defaultMessage]);
+  const [sessionId] = useState(() => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+
+    const existingSessionId = window.localStorage.getItem(STORAGE_KEY);
+    const nextSessionId =
+      existingSessionId ||
+      window.crypto?.randomUUID?.() ||
+      `portfolio-${Date.now()}`;
+
+    window.localStorage.setItem(STORAGE_KEY, nextSessionId);
+    return nextSessionId;
+  });
 
   const listRef = useRef(null);
   const taRef = useRef(null);
 
-  // Auto-scroll
+  useEffect(() => {
+    if (!sessionId || !open) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const loadConversation = async () => {
+      const conversation = await getChatConversation(sessionId);
+
+      if (cancelled || !conversation?.messages?.length) {
+        return;
+      }
+
+      setMessages(mapBackendMessages(conversation.messages));
+    };
+
+    loadConversation();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, sessionId]);
+
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [messages, open]);
 
-  // Auto-resize textarea
   useEffect(() => {
     const ta = taRef.current;
     if (!ta) return;
     ta.style.height = "auto";
-    ta.style.height = ta.scrollHeight + "px";
+    ta.style.height = `${ta.scrollHeight}px`;
   }, [message]);
+
+  const markError = (id, text) => {
+    setMessages((prev) =>
+      prev.map((entry) =>
+        entry.id === id
+          ? {
+              ...entry,
+              text,
+              time: formatMessageTime(new Date()),
+            }
+          : entry,
+      ),
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!message.trim()) return;
+    if (!message.trim() || !sessionId) return;
 
     const userMsg = {
       id: Date.now(),
       text: message.trim(),
       from: "you",
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      time: formatMessageTime(new Date()),
     };
 
     setMessages((prev) => [...prev, userMsg]);
     setMessage("");
 
-    const thinkingId = Date.now() + 1;
+    const thinkingId = `${Date.now()}-thinking`;
 
     setMessages((prev) => [
       ...prev,
       { id: thinkingId, text: "Thinking...", from: "bot", time: "now" },
     ]);
 
-    const isDev = process.env.NODE_ENV === "development";
-    const DEFAULT_CHAT_API = isDev
-      ? "http://localhost:3001/api/chat"
-      : "/api/chat";
-    const endpoint = process.env.NEXT_PUBLIC_CHAT_API?.trim() || DEFAULT_CHAT_API;
-
-    const markError = (errMsg) => {
-      setMessages((prev) =>
-        prev.map((m) =>
-          m.id === thinkingId
-            ? {
-                ...m,
-                text: errMsg,
-                time: new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                }),
-              }
-            : m,
-        ),
-      );
-    };
-
-    if (!endpoint) {
-      markError("Chat backend not configured.");
-      return;
-    }
-
-    // Dev fallback: avoid noisy 404s when no local backend exists.
-    const isDefaultEndpoint = endpoint === DEFAULT_CHAT_API;
-    if (
-      isDev &&
-      isDefaultEndpoint &&
-      endpoint.includes("localhost")
-    ) {
-      markError(
-        "Chat is offline in dev. Run `npm start` in /Server or set NEXT_PUBLIC_CHAT_API.",
-      );
-      return;
-    }
-
     try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg.text }),
+      const data = await sendChatMessage({
+        sessionId,
+        message: userMsg.text,
       });
 
-      const contentType = res.headers.get("content-type") || "";
-      const rawText = await res.text();
-      const isJson = contentType.includes("application/json");
-
-      let data = {};
-      if (isJson && rawText.trim().length) {
-        try {
-          data = JSON.parse(rawText);
-        } catch (err) {
-          console.error("Failed to parse JSON from /api/chat", err);
-          throw new Error("Invalid JSON response from server");
-        }
-      }
-
-      if (!res.ok) {
-        const errMsg =
-          data?.reply || rawText || `Request failed with status ${res.status}`;
-        console.error("Non-200 response from /api/chat:", res.status, errMsg);
-        if (res.status === 404 && isDefaultEndpoint) {
-          markError(
-            "Chat service not running. Start /Server or set NEXT_PUBLIC_CHAT_API.",
-          );
-          return;
-        }
-        throw new Error(errMsg);
-      }
-
-      const reply =
-        (typeof data?.reply === "string" && data.reply.trim().length
-          ? data.reply
-          : null) ||
-        (rawText?.trim().length ? rawText : null) ||
-        "No reply received.";
-
-      setMessages((prev) =>
-        prev.map((m) =>
-          m.id === thinkingId
-            ? {
-                ...m,
-                text: reply,
-                time: new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                }),
-              }
-            : m,
-        ),
-      );
+      markError(thinkingId, data.reply || "No reply received.");
     } catch (err) {
-      console.error("Chat request failed", err);
-      const msg = err?.message || "Could not reach server.";
-      const hint =
-        msg.includes("404") || msg.includes("Not Found")
-          ? " (deploy /api/chat or set NEXT_PUBLIC_CHAT_API)"
-          : "";
-      markError(`Error: ${msg}${hint}`);
+      markError(thinkingId, `Error: ${err.message || "Could not reach server."}`);
     }
   };
 
@@ -170,22 +148,20 @@ function ChatBox({ open, setOpen }) {
       id="portfolio-chatbox"
       role="complementary"
       aria-label="Chat"
-      className={`fixed right-6 bottom-6 z-[170] h-[75vh] max-h-[75vh] w-80 overflow-hidden rounded-xl shadow-2xl transform transition-all duration-200 ${
+      className={`fixed bottom-6 right-6 z-[170] h-[75vh] max-h-[75vh] w-80 overflow-hidden rounded-xl shadow-2xl transition-all duration-200 ${
         open
           ? "scale-100 opacity-100"
-          : "scale-95 opacity-0 pointer-events-none"
+          : "pointer-events-none scale-95 opacity-0"
       }`}
       style={{
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto",
       }}
     >
-      {/* MAIN CONTAINER */}
-      <div className="flex flex-col h-full bg-slate-100 border border-blue-200 rounded-xl overflow-hidden shadow-lg">
-        {/* HEADER */}
-        <header className="flex items-center justify-between px-3 py-2 bg-blue-600 text-white">
+      <div className="flex h-full flex-col overflow-hidden rounded-xl border border-blue-200 bg-slate-100 shadow-lg">
+        <header className="flex items-center justify-between bg-blue-600 px-3 py-2 text-white">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center text-sm font-semibold">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/25 text-sm font-semibold">
               CB
             </div>
             <div>
@@ -193,48 +169,39 @@ function ChatBox({ open, setOpen }) {
               <div className="text-xs opacity-90">Online</div>
             </div>
           </div>
-          <button
-            onClick={() => setOpen(false)}
-            className="p-1 hover:bg-white/10 rounded-md"
-          >
+          <button onClick={() => setOpen(false)} className="rounded-md p-1 hover:bg-white/10">
             <X size={16} />
           </button>
         </header>
 
-        {/* MESSAGES */}
         <div
           ref={listRef}
-          className="flex-1 min-h-0 px-3 py-3 overflow-y-auto space-y-3 bg-slate-50"
+          className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-slate-50 px-3 py-3"
           role="log"
           aria-live="polite"
         >
-          {messages.map((m) => (
+          {messages.map((entry) => (
             <div
-              key={m.id}
-              className={`flex ${
-                m.from === "you" ? "justify-end" : "justify-start"
-              }`}
+              key={entry.id}
+              className={`flex ${entry.from === "you" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[78%] px-3 py-2 rounded-lg text-sm leading-snug shadow-sm ${
-                  m.from === "you"
-                    ? "bg-blue-600 text-white rounded-br-sm"
-                    : "bg-white border border-blue-100 text-slate-700"
+                className={`max-w-[78%] rounded-lg px-3 py-2 text-sm leading-snug shadow-sm ${
+                  entry.from === "you"
+                    ? "rounded-br-sm bg-blue-600 text-white"
+                    : "border border-blue-100 bg-white text-slate-700"
                 }`}
               >
-                <div>{m.text}</div>
-                <div className="text-[10px] opacity-70 mt-1 text-right">
-                  {m.time}
-                </div>
+                <div>{entry.text}</div>
+                <div className="mt-1 text-right text-[10px] opacity-70">{entry.time}</div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* INPUT BAR */}
         <form
           onSubmit={handleSubmit}
-          className="px-3 pb-3 pt-2 bg-slate-100 border-t border-blue-100"
+          className="border-t border-blue-100 bg-slate-100 px-3 pb-3 pt-2"
         >
           <div className="flex items-end gap-2">
             <textarea
@@ -245,13 +212,13 @@ function ChatBox({ open, setOpen }) {
               onKeyDown={onKeyDown}
               placeholder="Type a message..."
               aria-label="Message text"
-              className="flex-1 resize-none text-black px-3 py-2 min-h-[36px] max-h-28 rounded-lg border border-blue-300 focus:ring-2 focus:ring-blue-400 bg-white text-sm"
+              className="min-h-[36px] max-h-28 flex-1 resize-none rounded-lg border border-blue-300 bg-white px-3 py-2 text-sm text-black focus:ring-2 focus:ring-blue-400"
             />
 
             <button
               type="submit"
               disabled={!message.trim()}
-              className="p-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition"
+              className="rounded-lg bg-blue-600 p-2.5 text-white transition hover:bg-blue-700 disabled:opacity-50"
               aria-label="Send message"
             >
               <Forward size={16} />

@@ -1,78 +1,7 @@
-"use client";
-
-import Image from "next/image";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { Sparkle } from "lucide-react";
-import Portfolio from "../../../app/assets/image/Portfolio.jpeg";
-import Portfolio1 from "../../../app/assets/image/Portfolio1.png";
-import Portfolio2 from "../../../app/assets/image/Portfolio2.png";
-import Velora from "../../../app/assets/image/Velora.jpeg";
-import Velora1 from "../../../app/assets/image/Velora1.png";
-import Velora2 from "../../../app/assets/image/Velora2.png";
 
-function ProjectShowcase({ projectId }) {
-  const projects = [
-    {
-      id: 0,
-      title: "Velora || E-commerce",
-      desc: "Front-end e-commerce website showcasing modern UX, product logic, and performance.",
-      img: Velora,
-      showCase: [Velora1, Velora2],
-      tech: [
-        "HTML",
-        "Tailwind CSS",
-        "React",
-        "React Router DOM",
-        "Redux",
-        "React Suite",
-        "GitHub",
-      ],
-      src: "https://github.com/omid2007hope/Velora",
-      liveDemo: "https://velorashop.app",
-      duration: "8 Weeks",
-    },
-    {
-      id: 1,
-      title: "Omid Teimory || Portfolio",
-      desc: "Personal portfolio with case studies, resume, and contact workflows.",
-      img: Portfolio,
-      showCase: [Portfolio1, Portfolio2],
-      tech: [
-        "HTML",
-        "Tailwind CSS",
-        "React",
-        "React Router DOM",
-        "Redux",
-        "React Suite",
-        "GitHub",
-      ],
-      src: "https://github.com/omid2007hope/Omid-Teimory",
-      liveDemo: "https://omidteimory.com",
-      duration: "2 Weeks",
-    },
-    {
-      id: 2,
-      title: "Spectre",
-      desc: "Project Spectre",
-      showCase: [],
-      tech: [
-        "HTML",
-        "Tailwind CSS",
-        "React",
-        "React Router DOM",
-        "Redux",
-        "React Suite",
-        "GitHub",
-        "node.js",
-        "express.js",
-      ],
-      src: "https://github.com/omid2007hope/Data-Science-Project",
-      liveDemo: "",
-      duration: "In Progress",
-    },
-  ];
-
-  const project = projects.find((item) => item.id === projectId);
-
+function ProjectShowcase({ project, profile }) {
   if (!project) {
     return <div className="p-20 text-white">Project not found.</div>;
   }
@@ -81,18 +10,15 @@ function ProjectShowcase({ projectId }) {
     <div className="flex min-h-screen w-full justify-center px-6 py-16 text-white">
       <div className="w-full max-w-7xl">
         <h1 className="text-4xl font-extrabold leading-snug">{project.title}</h1>
-        <p className="mt-2 mb-12 max-w-3xl text-lg text-white/70">
-          {project.desc}
+        <p className="mb-12 mt-2 max-w-3xl text-lg text-white/70">
+          {project.shortDescription}
         </p>
 
         <div className="mb-12 h-96 w-full overflow-hidden rounded-2xl">
-          {project.img ? (
-            <Image
-              src={project.img}
-              alt={`${project.title} cover`}
-              width={1280}
-              height={720}
-              priority
+          {project.coverImage?.url ? (
+            <img
+              src={project.coverImage.url}
+              alt={project.coverImage.alt || `${project.title} cover`}
               className="h-full w-full object-cover"
             />
           ) : (
@@ -109,12 +35,12 @@ function ProjectShowcase({ projectId }) {
                 Tech Stack
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
+                {(project.techStack || []).map((techItem) => (
                   <span
-                    key={tech}
+                    key={techItem}
                     className="rounded-lg border border-white/10 bg-white/10 px-4 py-1 text-sm font-semibold"
                   >
-                    {tech}
+                    {techItem}
                   </span>
                 ))}
               </div>
@@ -126,55 +52,35 @@ function ProjectShowcase({ projectId }) {
               </h3>
 
               <div className="space-y-4">
-                <div className="flex gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
-                    <Sparkle />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium uppercase text-white/60">
-                      Role
-                    </p>
-                    <p className="font-semibold">Developer</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
-                    <Sparkle />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium uppercase text-white/60">
-                      Duration
-                    </p>
-                    <p className="font-semibold">{project.duration}</p>
-                  </div>
-                </div>
+                <DetailCard label="Role" value={project.role || "Developer"} />
+                <DetailCard label="Duration" value={project.duration || "In progress"} />
+                <DetailCard label="Status" value={project.status || "published"} />
               </div>
             </div>
 
             <div className="space-y-4 pt-4">
-              <button
-                type="button"
-                onClick={() =>
-                  project.liveDemo && window.open(project.liveDemo, "_blank")
-                }
-                className={`w-full rounded-xl py-3 font-semibold transition ${
-                  project.liveDemo
+              <a
+                href={project.liveDemoUrl || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`block w-full rounded-xl py-3 text-center font-semibold transition ${
+                  project.liveDemoUrl
                     ? "bg-blue-600 hover:bg-blue-700"
                     : "cursor-not-allowed border border-white/10 bg-white/5 opacity-70"
                 }`}
-                aria-disabled={!project.liveDemo}
+                aria-disabled={!project.liveDemoUrl}
               >
-                {project.liveDemo ? "View Live Site" : "Live site coming soon"}
-              </button>
+                {project.liveDemoUrl ? "View Live Site" : "Live site coming soon"}
+              </a>
 
-              <button
-                type="button"
-                onClick={() => window.open(project.src, "_blank")}
-                className="w-full rounded-xl border border-white/10 bg-white/10 py-3 font-semibold transition hover:bg-white/20"
+              <a
+                href={project.repositoryUrl || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full rounded-xl border border-white/10 bg-white/10 py-3 text-center font-semibold transition hover:bg-white/20"
               >
                 View on GitHub
-              </button>
+              </a>
             </div>
           </aside>
 
@@ -182,50 +88,61 @@ function ProjectShowcase({ projectId }) {
             <section>
               <h2 className="mb-4 text-2xl font-bold">Project Overview</h2>
               <p className="leading-relaxed text-white/80">
-                This project was built with performance, modern UI, and
-                responsive design as top priorities. It demonstrates my
-                capability to design, structure, and implement a complete
-                frontend application using industry-level tools.
+                {project.overview ||
+                  "This project was built with performance, modern UI, and responsive design as top priorities."}
               </p>
             </section>
 
             <section>
               <h2 className="mb-4 text-2xl font-bold">Challenges & Solutions</h2>
               <p className="leading-relaxed text-white/80">
-                The main challenge was crafting a visually polished UI while
-                maintaining lightweight performance. Each screen is optimized
-                for clarity, motion balance, and strong contrast.
+                {project.challengesAndSolutions ||
+                  "Challenge and solution notes have not been added yet."}
               </p>
 
-              {!!project.showCase.length && (
+              {!!project.showcaseImages?.length && (
                 <div className="my-8 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
-                  {project.showCase.map((imgSrc, index) => (
-                    <Image
-                      key={imgSrc.src}
-                      src={imgSrc}
-                      alt={`${project.title} showcase ${index + 1}`}
-                      width={640}
-                      height={360}
+                  {project.showcaseImages.map((image, index) => (
+                    <img
+                      key={`${image.url}-${index}`}
+                      src={image.url}
+                      alt={image.alt || `${project.title} showcase ${index + 1}`}
                       className="h-64 w-full rounded-xl bg-slate-700 object-cover"
                     />
                   ))}
                 </div>
               )}
 
-              <div className="mt-6 rounded-xl border border-blue-600/30 bg-blue-700/20 p-6">
-                <p className="font-semibold leading-relaxed text-blue-300">
-                  &ldquo;Building clean UI components with Tailwind ensured speed
-                  and full consistency across the project.&rdquo;
-                </p>
-              </div>
+              {project.highlightQuote ? (
+                <div className="mt-6 rounded-xl border border-blue-600/30 bg-blue-700/20 p-6">
+                  <p className="font-semibold leading-relaxed text-blue-300">
+                    &ldquo;{project.highlightQuote}&rdquo;
+                  </p>
+                </div>
+              ) : null}
 
               <p className="mt-6 leading-relaxed text-white/80">
-                Additional improvements included modular component design and
-                reusable logic.
+                {project.improvements || "Additional improvements have not been added yet."}
               </p>
             </section>
           </div>
         </div>
+
+        <SiteFooter profile={profile} />
+      </div>
+    </div>
+  );
+}
+
+function DetailCard({ label, value }) {
+  return (
+    <div className="flex gap-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
+        <Sparkle />
+      </div>
+      <div>
+        <p className="text-xs font-medium uppercase text-white/60">{label}</p>
+        <p className="font-semibold">{value}</p>
       </div>
     </div>
   );

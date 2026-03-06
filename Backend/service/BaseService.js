@@ -160,7 +160,10 @@ class BaseService {
 
   // Update a single document and optionally return the updated version.
   update = async (condition, data, returnNew = true) =>
-    this.model.findOneAndUpdate(condition, data, { new: returnNew });
+    this.model.findOneAndUpdate(condition, data, {
+      new: returnNew,
+      runValidators: true,
+    });
 
   // Soft-delete a document and then create a new replacement document.
   updateBySoftDelete = async (condition, data, req) => {

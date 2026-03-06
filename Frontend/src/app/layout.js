@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
+import { getProfile } from "@/lib/api";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,7 +13,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const profile = await getProfile();
+
   return (
     <html lang="en">
       <body
@@ -20,7 +23,7 @@ export default function RootLayout({ children }) {
       >
         <div className="relative min-h-screen">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.22),transparent_55%)]" />
-          <Header />
+          <Header profile={profile} />
           <main className="relative pt-20">{children}</main>
         </div>
       </body>
