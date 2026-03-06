@@ -170,7 +170,7 @@ function ChatBox({ open, setOpen }) {
       id="portfolio-chatbox"
       role="complementary"
       aria-label="Chat"
-      className={`fixed right-6 bottom-6 w-80 max-h-[75vh] h-[75vh] rounded-xl z-[150] shadow-2xl overflow-hidden transform transition-all duration-200 ${
+      className={`fixed right-6 bottom-6 z-[170] h-[75vh] max-h-[75vh] w-80 overflow-hidden rounded-xl shadow-2xl transform transition-all duration-200 ${
         open
           ? "scale-100 opacity-100"
           : "scale-95 opacity-0 pointer-events-none"
