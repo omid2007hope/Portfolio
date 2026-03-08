@@ -1,7 +1,5 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const BaseService = require("./BaseService");
-const { PortfolioProfile } = require("../model/version_1");
+const { PortfolioProfile } = require("../models");
 
 class PortfolioProfileService extends BaseService {
   constructor() {

@@ -1,30 +1,11 @@
 "use client";
 
 import Link from "next/link";
-
-const ensureResumeLink = (items) => {
-  if (items.some((item) => item.to === "/resume")) {
-    return items;
-  }
-
-  return [...items.slice(0, 2), { label: "Resume", to: "/resume" }, ...items.slice(2)];
-};
+import { getFooterText, getNavigationLinks } from "@/lib/site-content";
 
 function SiteFooter({ profile }) {
-  const navigationLinks = ensureResumeLink(
-    profile?.navigationLinks?.length
-      ? profile.navigationLinks
-      : [
-          { label: "Home", to: "/" },
-          { label: "Projects", to: "/projects" },
-          { label: "About", to: "/about" },
-          { label: "Contact", to: "/contact" },
-        ],
-  );
-
-  const footerText =
-    profile?.footerText ||
-    `© ${new Date().getFullYear()} Omid Teimory. All rights reserved.`;
+  const navigationLinks = getNavigationLinks(profile);
+  const footerText = getFooterText(profile);
 
   return (
     <div className="mt-20 flex flex-col items-center space-y-4 border-t border-white/10 pt-8">

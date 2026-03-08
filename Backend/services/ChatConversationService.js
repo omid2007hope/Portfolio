@@ -1,8 +1,6 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const { randomUUID } = require("crypto");
 const BaseService = require("./BaseService");
-const { ChatConversation } = require("../model/version_1");
+const { ChatConversation } = require("../models");
 const portfolioProfileService = require("./PortfolioProfileService");
 const projectService = require("./ProjectService");
 const resumeService = require("./ResumeService");

@@ -1,6 +1,8 @@
-const DEFAULT_SERVER_API_BASE = "http://localhost:4000/api";
+const DEFAULT_DEV_SERVER_API_BASE = "http://127.0.0.1:4000/api";
+const DEFAULT_PROD_SERVER_API_BASE = "http://127.0.0.1:5000/api";
 
 const trimTrailingSlash = (value) => value.replace(/\/+$/, "");
+const DEFAULT_REVALIDATE_SECONDS = 300;
 
 export const getApiBaseUrl = () => {
   const envBase =
@@ -19,7 +21,15 @@ export const getApiBaseUrl = () => {
     return `${window.location.origin}/api`;
   }
 
-  return DEFAULT_SERVER_API_BASE;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+  if (siteUrl) {
+    return `${trimTrailingSlash(siteUrl)}/api`;
+  }
+
+  return process.env.NODE_ENV === "production"
+    ? DEFAULT_PROD_SERVER_API_BASE
+    : DEFAULT_DEV_SERVER_API_BASE;
 };
 
 export const getApiUrl = (path) => {
@@ -46,6 +56,15 @@ export const fetchJson = async (path, options = {}) => {
   const { revalidate, ...fetchOptions } = options;
   const method = (fetchOptions.method || "GET").toUpperCase();
   const isReadRequest = method === "GET" || method === "HEAD";
+  const headers = new Headers(fetchOptions.headers || {});
+
+  if (fetchOptions.body && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
+  if (!headers.has("Accept")) {
+    headers.set("Accept", "application/json");
+  }
 
   const response = await fetch(getApiUrl(path), {
     ...fetchOptions,
@@ -54,18 +73,14 @@ export const fetchJson = async (path, options = {}) => {
         ? {}
         : {
             next: {
-              revalidate: revalidate ?? 300,
+              revalidate: revalidate ?? DEFAULT_REVALIDATE_SECONDS,
               ...(fetchOptions.next || {}),
             },
           }
       : {
           cache: fetchOptions.cache || "no-store",
         }),
-    headers: {
-      Accept: "application/json",
-      ...(fetchOptions.body ? { "Content-Type": "application/json" } : {}),
-      ...(fetchOptions.headers || {}),
-    },
+    headers,
   });
 
   const data = await readResponseBody(response);

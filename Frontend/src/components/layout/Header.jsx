@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import Image from "next/image";
 import Link from "next/link";
@@ -6,30 +7,17 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../../app/assets/image/Logo.svg";
-
-const ensureResumeLink = (items) => {
-  if (items.some((item) => item.to === "/resume")) {
-    return items;
-  }
-
-  return [...items.slice(0, 3), { label: "Resume", to: "/resume" }, ...items.slice(3)];
-};
+import {
+  getDisplayName,
+  getJobTitle,
+  getNavigationLinks,
+} from "@/lib/site-content";
 
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const progressMessage = "In progress: I am constantly updating this portfolio.";
-
-  const navItems = ensureResumeLink(
-    profile?.navigationLinks?.length
-      ? profile.navigationLinks
-      : [
-          { label: "Home", to: "/" },
-          { label: "About", to: "/about" },
-          { label: "Projects", to: "/projects" },
-          { label: "Contact", to: "/contact" },
-        ],
-  );
+  const navItems = getNavigationLinks(profile);
 
   const isActive = (route) => pathname === route;
   const availabilityText = profile?.availabilityText || "Open to work";
@@ -46,7 +34,7 @@ function Header({ profile }) {
           {profile?.logoImage ? (
             <img
               src={profile.logoImage}
-              alt={`${profile.fullName || "Portfolio"} logo`}
+              alt={`${getDisplayName(profile)} logo`}
               className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2 object-cover"
             />
           ) : (
@@ -63,12 +51,12 @@ function Header({ profile }) {
           <div className="flex flex-col leading-none">
             <Link href="/resume">
               <span className="text-lg font-semibold tracking-tight text-white">
-                {profile?.fullName || "Omid Teimory"}
+                {getDisplayName(profile)}
               </span>
             </Link>
             <Link href="/resume">
               <span className="text-sm text-slate-300 transition hover:text-white">
-                {profile?.jobTitle || "Frontend developer"}
+                {getJobTitle(profile)}
               </span>
             </Link>
           </div>

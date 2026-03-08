@@ -1,4 +1,4 @@
-import Project from "@/components/pages/project/ProjectPage";
+import ProjectsPage from "@/components/features/projects/ProjectsPage";
 import { getProfile, getProjects } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import {
@@ -42,7 +42,7 @@ export default async function ProjectsRoute() {
           ),
         ]}
       />
-      <Project projects={projects} profile={profile} />
+      <ProjectsPage projects={projects} profile={profile} />
     </>
   );
 }

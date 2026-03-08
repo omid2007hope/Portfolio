@@ -1,4 +1,4 @@
-import ProjectShowcase from "@/components/pages/project/ProjecShowCasePage";
+import ProjectShowcase from "@/components/features/projects/ProjectShowcasePage";
 import { getProfile, getProject, getProjects } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import {

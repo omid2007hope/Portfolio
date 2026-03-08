@@ -1,6 +1,4 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
-const chatConversationService = require("../service/ChatConversationService");
+const chatConversationService = require("../services/ChatConversationService");
 
 const listConversations = async (req, res) => {
   const conversations = await chatConversationService.listConversations({
@@ -12,10 +10,6 @@ const listConversations = async (req, res) => {
 
 const sendMessage = async (req, res) => {
   const { sessionId, message } = req.body || {};
-
-  if (!message || !String(message).trim()) {
-    return res.status(400).json({ error: "message is required." });
-  }
 
   const payload = await chatConversationService.createOrAppendMessage({
     sessionId,

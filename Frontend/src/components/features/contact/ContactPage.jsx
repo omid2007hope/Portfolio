@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { createContactSubmission } from "@/lib/api";
 import { getSocialIcon } from "@/lib/social-icons";
+import { getSocialLinks } from "@/lib/site-content";
 
 function Contact({ profile }) {
   const [form, setForm] = useState({
@@ -16,25 +17,7 @@ function Contact({ profile }) {
   const [status, setStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const socialLinks = useMemo(
-    () =>
-      profile?.socialLinks?.length
-        ? profile.socialLinks
-        : [
-            {
-              name: "GitHub",
-              iconKey: "github",
-              url: "https://github.com/omid2007hope",
-            },
-            {
-              name: "LinkedIn",
-              iconKey: "linkedin",
-              url: "https://www.linkedin.com/in/omid-teimory-48233638b",
-            },
-            { name: "X", iconKey: "x", url: "https://x.com/Omid2007hope" },
-          ],
-    [profile],
-  );
+  const socialLinks = getSocialLinks(profile);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -79,8 +62,11 @@ function Contact({ profile }) {
           <form onSubmit={handleSubmit} className="space-y-6 lg:col-span-2">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label className="mb-2 block text-sm font-semibold">Name</label>
+                <label htmlFor="contact-name" className="mb-2 block text-sm font-semibold">
+                  Name
+                </label>
                 <input
+                  id="contact-name"
                   type="text"
                   name="name"
                   value={form.name}
@@ -93,8 +79,11 @@ function Contact({ profile }) {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold">Email</label>
+                <label htmlFor="contact-email" className="mb-2 block text-sm font-semibold">
+                  Email
+                </label>
                 <input
+                  id="contact-email"
                   type="email"
                   name="email"
                   value={form.email}
@@ -108,8 +97,11 @@ function Contact({ profile }) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold">Subject</label>
+              <label htmlFor="contact-subject" className="mb-2 block text-sm font-semibold">
+                Subject
+              </label>
               <input
+                id="contact-subject"
                 type="text"
                 name="subject"
                 value={form.subject}
@@ -122,8 +114,11 @@ function Contact({ profile }) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold">Message</label>
+              <label htmlFor="contact-message" className="mb-2 block text-sm font-semibold">
+                Message
+              </label>
               <textarea
+                id="contact-message"
                 name="message"
                 value={form.message}
                 onChange={handleChange}

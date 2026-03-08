@@ -1,4 +1,4 @@
-import HomePage from "@/components/pages/HomePage";
+import HomePage from "@/components/features/home/HomePage";
 import { getProfile } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";

@@ -1,6 +1,4 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
-const contactSubmissionService = require("../service/ContactSubmissionService");
+const contactSubmissionService = require("../services/ContactSubmissionService");
 
 const listContacts = async (req, res) => {
   const submissions = await contactSubmissionService.listSubmissions({
@@ -22,12 +20,6 @@ const getContactById = async (req, res) => {
 
 const createContactSubmission = async (req, res) => {
   const { name, email, subject, message, source } = req.body || {};
-
-  if (!name || !email || !subject || !message) {
-    return res.status(400).json({
-      error: "name, email, subject, and message are required.",
-    });
-  }
 
   const submission = await contactSubmissionService.createFromRequest(
     { name, email, subject, message, source },

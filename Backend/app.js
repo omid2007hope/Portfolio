@@ -1,10 +1,7 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const express = require("express");
-const router = require("./router");
+const router = require("./routes");
 const dotenv = require("dotenv");
 
-// Load environment variables in development and staging.
 dotenv.config({ path: ".env.local" });
 
 const app = express();
@@ -26,7 +23,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
@@ -45,8 +42,16 @@ app.use((_req, res) => {
 
 app.use((err, _req, res, _next) => {
   console.error(err);
+
   if (res.headersSent) {
     return;
+  }
+
+  if (err.status) {
+    return res.status(err.status).json({
+      error: err.message,
+      ...(err.details !== undefined ? { details: err.details } : {}),
+    });
   }
 
   if (err.name === "ValidationError") {

@@ -1,40 +1,26 @@
 import Link from "next/link";
 import SiteFooter from "@/components/layout/SiteFooter";
+import {
+  getAboutCards,
+  getAboutParagraphs,
+  getDisplayName,
+} from "@/lib/site-content";
 
 function About({ profile }) {
-  const aboutParagraphs = profile?.aboutParagraphs?.length
-    ? profile.aboutParagraphs
-    : [
-        {
-          content:
-            "As a passionate web developer, I specialize in building intuitive, responsive, and accessible web applications.",
-        },
-        {
-          content:
-            "I focus on building products that are both visually sharp and technically solid.",
-        },
-        {
-          content:
-            "Let us build something exceptional together. I am open to work, collaborations, and freelance engagements.",
-        },
-      ];
-
-  const aboutCards = profile?.aboutCards?.length
-    ? profile.aboutCards
-    : [
-        { label: "Primary stack", value: profile?.primaryStack || "React, Next.js, Tailwind" },
-        { label: "Current focus", value: profile?.currentFocus || "Frontend + backend growth" },
-      ];
+  const aboutParagraphs = getAboutParagraphs(profile);
+  const aboutCards = getAboutCards(profile);
+  const displayName = getDisplayName(profile);
 
   return (
     <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
       <div className="flex w-full max-w-6xl flex-col justify-center">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold">
-            About {profile?.fullName || "Omid Teimory"}
+            About {displayName}
           </h1>
           <p className="mt-2 text-lg text-white/70">
-            Learn more about {profile?.fullName || "me"}, the work behind this portfolio, and how we can collaborate.
+            Learn more about {displayName}, the work behind this portfolio, and
+            how we can collaborate.
           </p>
         </div>
 

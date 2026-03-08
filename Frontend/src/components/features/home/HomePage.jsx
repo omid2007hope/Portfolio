@@ -1,6 +1,7 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,64 +11,23 @@ import {
   BriefcaseBusiness,
   Sparkles,
 } from "lucide-react";
-import Me from "../../app/assets/image/Me.jpg";
+import Me from "../../../app/assets/image/Me.jpg";
 import { getSocialIcon } from "@/lib/social-icons";
+import { getHeroSkills, getHighlights, getSocialLinks } from "@/lib/site-content";
 
-const ChatBox = dynamic(() => import("./AiChatBox"), { ssr: false });
+const ChatBox = dynamic(() => import("@/components/features/chat/ChatBox"), {
+  ssr: false,
+});
 
 function Home({ profile }) {
   const [open, setOpen] = useState(false);
-
-  const skills = profile?.heroSkills?.length
-    ? profile.heroSkills
-    : [
-        "HTML",
-        "CSS",
-        "Tailwind CSS",
-        "JavaScript",
-        "React",
-        "Next.js",
-        "Node.js",
-        "MongoDB",
-      ];
-
-  const social = useMemo(
-    () =>
-      profile?.socialLinks?.length
-        ? profile.socialLinks
-        : [
-            {
-              name: "GitHub",
-              iconKey: "github",
-              url: "https://github.com/omid2007hope",
-            },
-            {
-              name: "LinkedIn",
-              iconKey: "linkedin",
-              url: "https://www.linkedin.com/in/omid-teimory-48233638b/",
-            },
-            { name: "X", iconKey: "x", url: "https://x.com/Omid2007hope" },
-          ],
-    [profile],
-  );
-
-  const highlights =
-    profile?.highlights?.length
-      ? profile.highlights
-      : [
-          { label: "Based in", value: profile?.location || "Vienna, Austria" },
-          {
-            label: "Primary stack",
-            value: profile?.primaryStack || "React, Next.js, Tailwind",
-          },
-          {
-            label: "Current focus",
-            value: profile?.currentFocus || "Frontend + backend growth",
-          },
-        ];
+  const skills = getHeroSkills(profile);
+  const social = getSocialLinks(profile);
+  const highlights = getHighlights(profile);
 
   const primaryCtaLabel = profile?.homePrimaryCtaLabel || "View Portfolio";
-  const primaryCtaUrl = profile?.homePrimaryCtaUrl || profile?.portfolioUrl || "/projects";
+  const primaryCtaUrl =
+    profile?.homePrimaryCtaUrl || profile?.portfolioUrl || "/projects";
   const secondaryCtaLabel = profile?.homeSecondaryCtaLabel || "Explore Projects";
   const secondaryCtaUrl = profile?.homeSecondaryCtaUrl || "/projects";
 
@@ -121,15 +81,25 @@ function Home({ profile }) {
           </div>
 
           <div className="flex flex-wrap gap-4 pt-2">
-            <a
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200"
-              href={primaryCtaUrl}
-              rel="noopener noreferrer"
-              target={primaryCtaUrl.startsWith("http") ? "_blank" : undefined}
-            >
-              {primaryCtaLabel}
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            {primaryCtaUrl.startsWith("http") ? (
+              <a
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200"
+                href={primaryCtaUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {primaryCtaLabel}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            ) : (
+              <Link
+                href={primaryCtaUrl}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200"
+              >
+                {primaryCtaLabel}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
 
             <Link
               href={secondaryCtaUrl}

@@ -1,7 +1,5 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const BaseService = require("./BaseService");
-const { ContactSubmission } = require("../model/version_1");
+const { ContactSubmission } = require("../models");
 
 class ContactSubmissionService extends BaseService {
   constructor() {

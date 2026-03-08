@@ -1,6 +1,4 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
-const portfolioProfileService = require("../service/PortfolioProfileService");
+const portfolioProfileService = require("../services/PortfolioProfileService");
 
 const listProfiles = async (_req, res) => {
   const profiles = await portfolioProfileService.listProfiles();

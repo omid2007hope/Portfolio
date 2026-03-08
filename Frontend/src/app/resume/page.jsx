@@ -1,4 +1,4 @@
-import ResumePage from "@/components/pages/ResumePage";
+import ResumePage from "@/components/features/resume/ResumePage";
 import { getProfile, getResume } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import {

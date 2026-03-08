@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import {
   Award,
@@ -7,8 +8,9 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import Me from "../../app/assets/image/Me.jpg";
+import Me from "../../../app/assets/image/Me.jpg";
 import SiteFooter from "@/components/layout/SiteFooter";
+import { getDisplayName, getJobTitle } from "@/lib/site-content";
 
 function Resume({ resume, profile }) {
   const importantLinks = resume?.importantLinks || [];
@@ -39,8 +41,12 @@ function Resume({ resume, profile }) {
               />
             )}
             <div>
-              <h2 className="text-lg font-bold">{resume?.profileName || profile?.fullName || "Omid Teimory"}</h2>
-              <p className="text-sm text-white/60">{resume?.headline || profile?.jobTitle || "Frontend Developer"}</p>
+              <h2 className="text-lg font-bold">
+                {resume?.profileName || getDisplayName(profile)}
+              </h2>
+              <p className="text-sm text-white/60">
+                {resume?.headline || getJobTitle(profile)}
+              </p>
             </div>
           </div>
 
@@ -129,7 +135,7 @@ function Resume({ resume, profile }) {
             ) : (
               <Image
                 src={Me}
-                alt="Omid Teimory"
+                alt={getDisplayName(profile)}
                 width={160}
                 height={160}
                 priority
@@ -138,9 +144,11 @@ function Resume({ resume, profile }) {
             )}
 
             <div>
-              <h1 className="text-4xl font-extrabold">{resume?.profileName || profile?.fullName || "Omid Teimory"}</h1>
+              <h1 className="text-4xl font-extrabold">
+                {resume?.profileName || getDisplayName(profile)}
+              </h1>
               <p className="mt-2 text-lg text-white/60">
-                {resume?.headline || profile?.jobTitle || "Frontend Developer & UI/UX Designer"}
+                {resume?.headline || getJobTitle(profile)}
               </p>
 
               <p className="mt-4 max-w-2xl leading-relaxed text-white/70">

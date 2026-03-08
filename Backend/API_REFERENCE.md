@@ -1,6 +1,14 @@
 # Portfolio Prime API Reference
 
-Base URL: `http://localhost:4000/api`
+Default local base URL: `http://127.0.0.1:4000/api`
+
+## Environment
+
+- `MONGO_URL`: MongoDB connection string
+- `PORT`: API port, defaults to `4000`
+- `CORS_ORIGIN`: allowed origin for browser requests, defaults to `*`
+
+All write routes expect a JSON object body. Public `contact` and `chat` routes now validate and trim incoming input before the controller/service layer runs.
 
 ## Health
 

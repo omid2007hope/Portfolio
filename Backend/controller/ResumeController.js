@@ -1,6 +1,4 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
-const resumeService = require("../service/ResumeService");
+const resumeService = require("../services/ResumeService");
 
 const listResumes = async (_req, res) => {
   const resumes = await resumeService.listResumes();

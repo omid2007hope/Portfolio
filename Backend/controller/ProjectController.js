@@ -1,6 +1,4 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
-const projectService = require("../service/ProjectService");
+const projectService = require("../services/ProjectService");
 
 const getProjects = async (req, res) => {
   const featured = req.query.featured === "true" ? true : undefined;

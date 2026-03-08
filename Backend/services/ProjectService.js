@@ -1,8 +1,6 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const BaseService = require("./BaseService");
-const { Project } = require("../model/version_1");
-const { mongoose } = require("../model/version_1/shared");
+const { Project } = require("../models");
+const { mongoose } = require("../models/shared");
 
 class ProjectService extends BaseService {
   constructor() {

@@ -1,7 +1,5 @@
-// © 2026 Omid Teimory. All rights reserved.
-// Signature: OmidTeimory-2026
 const BaseService = require("./BaseService");
-const { Resume } = require("../model/version_1");
+const { Resume } = require("../models");
 
 class ResumeService extends BaseService {
   constructor() {

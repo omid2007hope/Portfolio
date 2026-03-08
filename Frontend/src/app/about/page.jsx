@@ -1,4 +1,4 @@
-import AboutPage from "@/components/pages/AboutPage";
+import AboutPage from "@/components/features/about/AboutPage";
 import { getProfile } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import {
