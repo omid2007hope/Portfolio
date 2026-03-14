@@ -324,6 +324,20 @@ export const buildPersonJsonLd = (profile, resume) => {
   };
 };
 
+const buildPersonReferenceJsonLd = (profile, resume) => {
+  const seo = getSeoProfile(profile, resume);
+
+  return {
+    "@type": "Person",
+    name: seo.personName,
+    url: seo.siteUrl,
+    image: seo.image,
+    jobTitle: seo.jobTitle,
+    description: seo.longDescription,
+    sameAs: seo.sameAs,
+  };
+};
+
 export const buildWebsiteJsonLd = (profile, resume) => {
   const seo = getSeoProfile(profile, resume);
 
@@ -349,8 +363,11 @@ export const buildWebPageJsonLd = ({
   title,
   description,
   type = "WebPage",
+  mainEntity,
 }) => {
   const seo = getSeoProfile(profile, resume);
+  const resolvedMainEntity =
+    mainEntity ?? (type === "ProfilePage" ? buildPersonReferenceJsonLd(profile, resume) : undefined);
 
   return {
     "@context": "https://schema.org",
@@ -369,6 +386,7 @@ export const buildWebPageJsonLd = ({
       name: seo.personName,
       url: seo.siteUrl,
     },
+    ...(resolvedMainEntity ? { mainEntity: resolvedMainEntity } : {}),
   };
 };
 
