@@ -37,19 +37,19 @@ function Home({ profile }) {
         <div className="order-2 space-y-8 lg:order-1">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
             <BriefcaseBusiness className="h-4 w-4" />
-            {profile?.availabilityText || "Open to freelance and full-time frontend roles"}
+            {profile?.availabilityText || "Open to freelance and full-time full-stack roles"}
           </div>
 
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-200/75">
-              {profile?.jobTitle || "Frontend Engineer"}
+              {profile?.jobTitle || "Full-Stack Developer"}
             </p>
             <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-              {profile?.headline || "Interfaces with structure, motion, and clarity."}
+              {profile?.headline || "Full-stack developer specialized in frontend experiences."}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
               {profile?.shortBio ||
-                "I build polished web products with React, modern CSS, and strong layout discipline. The goal is simple: clear UX, sharp visuals, and frontend code that scales cleanly."}
+                "I build full-stack web products with a frontend-first mindset, combining React, Next.js, modern CSS, and scalable architecture for fast, polished user experiences."}
             </p>
           </div>
 
@@ -150,7 +150,7 @@ function Home({ profile }) {
                     {profile?.heroBadge || "Currently building"}
                   </p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    {profile?.currentFocus || "Clean portfolio and product interfaces"}
+                    {profile?.currentFocus || "Frontend-led product work with backend architecture support"}
                   </p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 p-3 text-emerald-200">
@@ -183,7 +183,7 @@ function Home({ profile }) {
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-200">
                     {profile?.primaryStack ||
-                      "Responsive layout systems, component design, interaction polish, and frontend implementation quality."}
+                      "React, Next.js, Tailwind CSS, Node.js, MongoDB, and product-focused UI systems."}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-sky-400/10 p-4">
@@ -192,7 +192,7 @@ function Home({ profile }) {
                   </p>
                   <p className="mt-2 text-sm leading-6 text-sky-50">
                     {profile?.longBio ||
-                      "Expanding into Node.js and backend architecture without losing frontend precision."}
+                      "I lead with frontend quality, then support it with backend architecture, APIs, and data flows that keep the product fast, reliable, and maintainable."}
                   </p>
                 </div>
               </div>

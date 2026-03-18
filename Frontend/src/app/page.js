@@ -8,14 +8,14 @@ export async function generateMetadata() {
 
   return buildPageMetadata({
     profile,
-    title: "Omid Teimory | Next.js Developer in Vienna, Austria",
+    title: "Omid Teimory | Full-Stack Developer Specialized in Frontend",
     description:
       profile?.shortBio ||
-      "Frontend developer in Vienna, Austria building fast, accessible, and polished web products with Next.js and React.",
+      "Full-stack developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.",
     path: "/",
     keywords: [
-      "Next.js developer Vienna",
-      "frontend portfolio Austria",
+      "full-stack developer Vienna",
+      "frontend specialist Vienna",
       "React portfolio Vienna",
     ],
   });
@@ -33,7 +33,7 @@ export default async function Page() {
           title: "Omid Teimory | Portfolio Prime",
           description:
             profile?.shortBio ||
-            "Frontend developer in Vienna, Austria building modern Next.js and React experiences.",
+            "Full-stack developer in Vienna, Austria specializing in frontend engineering and polished React experiences.",
         })}
       />
       <HomePage profile={profile} />

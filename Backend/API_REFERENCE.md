@@ -29,19 +29,19 @@ Create/update example:
 ```json
 {
   "fullName": "Omid Teimory",
-  "jobTitle": "Frontend Developer",
-  "headline": "Interfaces with structure, motion, and clarity.",
-  "shortBio": "Frontend developer focused on polished interfaces, clean UX, and scalable product UI.",
-  "longBio": "I build modern web products with React, Next.js, Node.js, and MongoDB while keeping frontend precision high.",
+  "jobTitle": "Full-Stack Developer",
+  "headline": "Full-Stack Developer specialized in Frontend experiences.",
+  "shortBio": "Full-Stack Developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.",
+  "longBio": "I build full-stack web products with a frontend-first mindset, pairing polished interfaces with backend architecture, APIs, and scalable data flows.",
   "heroBadge": "Currently building",
-  "availabilityText": "Open to freelance and full-time roles",
-  "currentFocus": "Full-stack portfolio and product work",
+  "availabilityText": "Open to freelance and full-time full-stack roles",
+  "currentFocus": "Frontend-led product work with backend architecture support",
   "location": "Vienna, Austria",
   "address": "Vienna 1120, Austria",
   "email": "omidhope2007@gmail.com",
   "phoneNumber": "+43 681-81580180",
   "portfolioUrl": "https://omidteimory.com",
-  "primaryStack": "React, Next.js, Node.js, MongoDB",
+  "primaryStack": "React, Next.js, Tailwind CSS, Node.js, MongoDB",
   "openToWork": true,
   "portraitImage": "https://images.example.com/me.jpg",
   "logoImage": "https://images.example.com/logo.png",
@@ -61,19 +61,19 @@ Create/update example:
   ],
   "highlights": [
     { "label": "Based in", "value": "Vienna, Austria" },
-    { "label": "Primary stack", "value": "React, Next.js, Node.js" },
-    { "label": "Current focus", "value": "Backend + frontend integration" }
+    { "label": "Primary stack", "value": "React, Next.js, Tailwind CSS, Node.js, MongoDB" },
+    { "label": "Current focus", "value": "Frontend-led product work with backend architecture support" }
   ],
   "aboutCards": [
-    { "label": "Primary stack", "value": "React, Next.js, Node.js" },
-    { "label": "Current focus", "value": "Full-stack growth" }
+    { "label": "Primary stack", "value": "React, Next.js, Tailwind CSS, Node.js, MongoDB" },
+    { "label": "Current focus", "value": "Frontend-led product work with backend architecture support" }
   ],
   "aboutParagraphs": [
     {
-      "content": "I build responsive, accessible, and polished web applications with a strong product mindset."
+      "content": "I build full-stack web products with a frontend-first mindset, combining polished interfaces with maintainable backend architecture."
     },
     {
-      "content": "My goal is to combine frontend detail with backend structure and reliability."
+      "content": "My goal is to deliver strong product UI while supporting it with backend structure, APIs, and reliability."
     }
   ],
   "navigationLinks": [
@@ -167,8 +167,8 @@ Create/update example:
 ```json
 {
   "profileName": "Omid Teimory",
-  "headline": "Frontend Developer & UI Engineer",
-  "summary": "Frontend developer specializing in React, Next.js, Tailwind CSS, and clean product interfaces, now expanding into backend architecture.",
+  "headline": "Full-Stack Developer specialized in Frontend",
+  "summary": "Full-stack developer specializing in frontend engineering with React, Next.js, Tailwind CSS, and clean product interfaces, backed by Node.js and backend architecture work.",
   "email": "omidhope2007@gmail.com",
   "phoneNumber": "+43 681-81580180",
   "address": "Vienna 1120, Austria",
@@ -190,14 +190,14 @@ Create/update example:
   ],
   "experience": [
     {
-      "title": "Frontend Developer - Freelancer",
+      "title": "Full-Stack Developer - Freelancer",
       "subtitle": "Independent",
       "period": "2024 - Present",
       "location": "Vienna, Austria",
-      "description": "Building modern frontend interfaces and portfolio-grade product UI.",
+      "description": "Building frontend-led web products with polished UI and supporting backend architecture.",
       "bullets": [
         "Built responsive interfaces with React and Tailwind CSS.",
-        "Implemented backend-driven content using Express and MongoDB."
+        "Supported product delivery with APIs, backend workflows, and scalable architecture."
       ],
       "sortOrder": 1
     }

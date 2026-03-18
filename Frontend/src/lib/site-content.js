@@ -28,15 +28,15 @@ const DEFAULT_NAVIGATION_LINKS = [
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {
     content:
-      "As a passionate web developer, I specialize in building intuitive, responsive, and accessible web applications.",
+      "I am a full-stack developer specializing in frontend experiences that feel polished, responsive, and easy to use.",
   },
   {
     content:
-      "I focus on building products that are both visually sharp and technically solid.",
+      "My work starts with strong UI systems in React and Next.js, then extends into backend architecture when the product needs it.",
   },
   {
     content:
-      "Let us build something exceptional together. I am open to work, collaborations, and freelance engagements.",
+      "I am open to freelance, collaboration, and full-time roles where frontend quality matters just as much as full-stack delivery.",
   },
 ];
 
@@ -83,11 +83,15 @@ export const getHighlights = (profile) =>
         { label: "Based in", value: profile?.location || "Vienna, Austria" },
         {
           label: "Primary stack",
-          value: profile?.primaryStack || "React, Next.js, Tailwind",
+          value:
+            profile?.primaryStack ||
+            "React, Next.js, Tailwind CSS, Node.js, MongoDB",
         },
         {
           label: "Current focus",
-          value: profile?.currentFocus || "Frontend + backend growth",
+          value:
+            profile?.currentFocus ||
+            "Frontend-led product work with backend architecture support",
         },
       ];
 
@@ -102,11 +106,15 @@ export const getAboutCards = (profile) =>
     : [
         {
           label: "Primary stack",
-          value: profile?.primaryStack || "React, Next.js, Tailwind",
+          value:
+            profile?.primaryStack ||
+            "React, Next.js, Tailwind CSS, Node.js, MongoDB",
         },
         {
           label: "Current focus",
-          value: profile?.currentFocus || "Frontend + backend growth",
+          value:
+            profile?.currentFocus ||
+            "Frontend-led product work with backend architecture support",
         },
       ];
 
@@ -118,4 +126,4 @@ export const getDisplayName = (profile) =>
   profile?.fullName || DEFAULT_PROFILE_NAME;
 
 export const getJobTitle = (profile) =>
-  profile?.jobTitle || "Frontend Developer";
+  profile?.jobTitle || "Full-Stack Developer";

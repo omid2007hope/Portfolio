@@ -18,11 +18,11 @@ export async function generateMetadata() {
     description:
       resume?.summary ||
       profile?.shortBio ||
-      "Review the resume of Omid Teimory, a frontend developer in Vienna, Austria specializing in Next.js and React.",
+      "Review the resume of Omid Teimory, a full-stack developer in Vienna, Austria specializing in frontend engineering with React and Next.js.",
     path: "/resume",
     keywords: [
-      "frontend developer resume Austria",
-      "Next.js developer CV Vienna",
+      "full-stack developer resume Austria",
+      "frontend specialist CV Vienna",
       "React developer resume",
     ],
   });

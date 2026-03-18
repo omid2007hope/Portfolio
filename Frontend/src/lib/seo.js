@@ -1,19 +1,21 @@
 const DEFAULT_SITE_URL = "https://omidteimory.com";
 const DEFAULT_SITE_NAME = "Portfolio Prime";
 const DEFAULT_PERSON_NAME = "Omid Teimory";
-const DEFAULT_JOB_TITLE = "Frontend Developer";
+const DEFAULT_JOB_TITLE = "Full-Stack Developer";
 const DEFAULT_LOCATION = "Vienna, Austria";
 const DEFAULT_DESCRIPTION =
-  "Omid Teimory is a frontend developer in Vienna, Austria building performant Next.js, React, and full-stack web experiences.";
+  "Omid Teimory is a full-stack developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.";
 const DEFAULT_KEYWORDS = [
   "Omid Teimory",
   "Portfolio Prime",
-  "frontend developer Austria",
-  "frontend developer Vienna",
+  "full-stack developer Austria",
+  "full-stack developer Vienna",
+  "frontend specialist Austria",
+  "frontend specialist Vienna",
   "Next.js developer Austria",
   "React developer Vienna",
   "web developer Austria",
-  "full-stack developer Austria",
+  "frontend-focused full-stack developer",
 ];
 
 const SOCIAL_NAME_MAP = {

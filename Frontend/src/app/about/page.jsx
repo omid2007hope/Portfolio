@@ -16,12 +16,12 @@ export async function generateMetadata() {
     description:
       profile?.longBio ||
       profile?.shortBio ||
-      "Learn more about Omid Teimory, a frontend developer in Vienna, Austria focused on Next.js, React, and polished product UI.",
+      "Learn more about Omid Teimory, a full-stack developer in Vienna, Austria specializing in frontend engineering, React, and polished product interfaces.",
     path: "/about",
     keywords: [
       "About Omid Teimory",
-      "frontend developer Austria biography",
-      "Next.js developer Vienna profile",
+      "full-stack developer Austria biography",
+      "frontend specialist Vienna profile",
     ],
   });
 }
@@ -40,7 +40,7 @@ export default async function AboutRoute() {
             description:
               profile?.longBio ||
               profile?.shortBio ||
-              "Learn more about Omid Teimory and the experience behind Portfolio Prime.",
+              "Learn more about Omid Teimory and the full-stack experience behind Portfolio Prime.",
             type: "AboutPage",
           }),
           buildBreadcrumbJsonLd(

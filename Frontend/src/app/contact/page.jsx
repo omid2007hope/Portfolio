@@ -14,11 +14,11 @@ export async function generateMetadata() {
     profile,
     title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
     description:
-      "Contact Omid Teimory for freelance, collaboration, and frontend or Next.js project inquiries in Austria and remote.",
+      "Contact Omid Teimory for freelance, collaboration, and full-stack project inquiries with a frontend focus in Austria and remote.",
     path: "/contact",
     keywords: [
-      "hire Next.js developer Austria",
-      "contact frontend developer Vienna",
+      "hire full-stack developer Austria",
+      "contact frontend specialist Vienna",
       "freelance web developer Austria",
     ],
   });
@@ -36,7 +36,7 @@ export default async function ContactRoute() {
             path: "/contact",
             title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
             description:
-              "Contact Omid Teimory for freelance, collaboration, and frontend development opportunities.",
+              "Contact Omid Teimory for freelance, collaboration, and full-stack development opportunities with a frontend focus.",
             type: "ContactPage",
           }),
           buildBreadcrumbJsonLd(

@@ -30,7 +30,7 @@ describe("frontend UI flows", () => {
     render(<AboutPage profile={{}} />);
 
     expect(
-      screen.getByText(/I specialize in building intuitive, responsive, and accessible web applications/i),
+      screen.getByText(/I am a full-stack developer specializing in frontend experiences that feel polished, responsive, and easy to use/i),
     ).toBeInTheDocument();
   });
 

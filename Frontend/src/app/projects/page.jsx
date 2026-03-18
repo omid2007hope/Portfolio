@@ -14,12 +14,12 @@ export async function generateMetadata() {
     profile,
     title: "Projects and Case Studies | Omid Teimory",
     description:
-      "Explore selected Next.js, React, and full-stack case studies from Omid Teimory, a frontend developer based in Vienna, Austria.",
+      "Explore selected React, Next.js, and full-stack case studies from Omid Teimory, a full-stack developer in Vienna, Austria with a frontend specialization.",
     path: "/projects",
     keywords: [
       "Next.js projects",
       "React case studies",
-      "frontend portfolio projects",
+      "full-stack portfolio projects",
     ],
     type: "website",
   });
