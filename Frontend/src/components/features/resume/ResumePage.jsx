@@ -8,7 +8,6 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import Me from "../../../app/assets/image/Me.jpg";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getDisplayName, getJobTitle } from "@/lib/site-content";
 
@@ -52,14 +51,24 @@ function Resume({ resume, profile }) {
 
           <div className="space-y-4 text-sm">
             <div className="flex items-center gap-2 text-white/80">
-              <Mail size={16} /> <span>{resume?.email || profile?.email || "omidhope2007@gmail.com"}</span>
+              <Mail size={16} />{" "}
+              <span>
+                {resume?.email || profile?.email || "omidhope2007@gmail.com"}
+              </span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
-              <Phone size={16} /> <span>{resume?.phoneNumber || profile?.phoneNumber || "+43 681-81580180"}</span>
+              <Phone size={16} />{" "}
+              <span>
+                {resume?.phoneNumber ||
+                  profile?.phoneNumber ||
+                  "+43 681-81580180"}
+              </span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
               <MapPin size={16} />
-              <span>{resume?.address || profile?.address || "Vienna, Austria"}</span>
+              <span>
+                {resume?.address || profile?.address || "Vienna, Austria"}
+              </span>
             </div>
           </div>
 
@@ -70,9 +79,17 @@ function Resume({ resume, profile }) {
 
             {importantLinks.length ? (
               importantLinks.map((link) => (
-                <div key={`${link.label}-${link.url}`} className="flex items-center gap-2 text-sm text-white/80">
+                <div
+                  key={`${link.label}-${link.url}`}
+                  className="flex items-center gap-2 text-sm text-white/80"
+                >
                   <LinkIcon size={16} />
-                  <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-400"
+                  >
                     {link.label}
                   </a>
                 </div>
@@ -101,24 +118,35 @@ function Resume({ resume, profile }) {
             <div className="mt-3 space-y-3 text-sm text-white/80">
               {certificates.length ? (
                 certificates.map((certificate) => (
-                  <div key={`${certificate.title}-${certificate.credentialUrl || certificate.issuedAtLabel}`} className="flex items-start gap-2">
+                  <div
+                    key={`${certificate.title}-${certificate.credentialUrl || certificate.issuedAtLabel}`}
+                    className="flex items-start gap-2"
+                  >
                     <Award size={16} className="mt-1" />
                     <div>
                       <p className="font-semibold">{certificate.title}</p>
                       {certificate.issuer ? (
-                        <p className="text-xs opacity-70">{certificate.issuer}</p>
+                        <p className="text-xs opacity-70">
+                          {certificate.issuer}
+                        </p>
                       ) : null}
                       {certificate.issuedAtLabel ? (
-                        <p className="text-xs opacity-70">Issued: {certificate.issuedAtLabel}</p>
+                        <p className="text-xs opacity-70">
+                          Issued: {certificate.issuedAtLabel}
+                        </p>
                       ) : null}
                       {certificate.score ? (
-                        <p className="text-xs opacity-70">Score: {certificate.score}</p>
+                        <p className="text-xs opacity-70">
+                          Score: {certificate.score}
+                        </p>
                       ) : null}
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-white/60">No certificates added yet.</p>
+                <p className="text-sm text-white/60">
+                  No certificates added yet.
+                </p>
               )}
             </div>
           </div>
@@ -152,7 +180,9 @@ function Resume({ resume, profile }) {
               </p>
 
               <p className="mt-4 max-w-2xl leading-relaxed text-white/70">
-                {resume?.summary || profile?.shortBio || "Resume content is not available yet."}
+                {resume?.summary ||
+                  profile?.shortBio ||
+                  "Resume content is not available yet."}
               </p>
             </div>
           </header>
@@ -161,7 +191,10 @@ function Resume({ resume, profile }) {
             <h2 className="mb-6 text-2xl font-bold">Experience</h2>
             {experience.length ? (
               experience.map((entry) => (
-                <ResumeEntry key={`${entry.title}-${entry.period}`} entry={entry} />
+                <ResumeEntry
+                  key={`${entry.title}-${entry.period}`}
+                  entry={entry}
+                />
               ))
             ) : (
               <p className="text-white/70">No experience items added yet.</p>
@@ -172,7 +205,11 @@ function Resume({ resume, profile }) {
             <h2 className="mb-6 text-2xl font-bold">Education</h2>
             {education.length ? (
               education.map((entry) => (
-                <ResumeEntry key={`${entry.title}-${entry.period}`} entry={entry} compact />
+                <ResumeEntry
+                  key={`${entry.title}-${entry.period}`}
+                  entry={entry}
+                  compact
+                />
               ))
             ) : (
               <p className="text-white/70">No education items added yet.</p>
@@ -183,7 +220,11 @@ function Resume({ resume, profile }) {
             <h2 className="mb-6 text-2xl font-bold">Skills</h2>
             {skillGroups.length ? (
               skillGroups.map((group) => (
-                <SkillGroup key={group.title} title={group.title} items={group.items} />
+                <SkillGroup
+                  key={group.title}
+                  title={group.title}
+                  items={group.items}
+                />
               ))
             ) : (
               <p className="text-white/70">No skill groups added yet.</p>
@@ -208,7 +249,9 @@ function ResumeEntry({ entry, compact = false }) {
         <h3 className="text-lg font-bold">{entry.title}</h3>
         {(entry.period || entry.location || entry.subtitle) && (
           <p className="text-sm text-white/60">
-            {[entry.subtitle, entry.period, entry.location].filter(Boolean).join(" - ")}
+            {[entry.subtitle, entry.period, entry.location]
+              .filter(Boolean)
+              .join(" - ")}
           </p>
         )}
 
@@ -217,7 +260,9 @@ function ResumeEntry({ entry, compact = false }) {
         ) : null}
 
         {entry.bullets?.length ? (
-          <ul className={`mt-3 list-disc space-y-1 text-white/80 ${compact ? "ml-5" : "ml-6"}`}>
+          <ul
+            className={`mt-3 list-disc space-y-1 text-white/80 ${compact ? "ml-5" : "ml-6"}`}
+          >
             {entry.bullets.map((bullet) => (
               <li key={bullet}>{bullet}</li>
             ))}

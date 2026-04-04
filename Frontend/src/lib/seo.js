@@ -1,19 +1,17 @@
 const DEFAULT_SITE_URL = "https://omidteimory.com";
-const DEFAULT_SITE_NAME = "Portfolio Prime";
+const DEFAULT_SITE_NAME = "Omid Teimory's Portfolio";
 const DEFAULT_PERSON_NAME = "Omid Teimory";
 const DEFAULT_JOB_TITLE = "Full-Stack Developer";
-const DEFAULT_LOCATION = "Vienna, Austria";
+const DEFAULT_LOCATION = "Austria";
 const DEFAULT_DESCRIPTION =
-  "Omid Teimory is a full-stack developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.";
+  "Omid Teimory is a full-stack developer in Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.";
+
 const DEFAULT_KEYWORDS = [
   "Omid Teimory",
-  "Portfolio Prime",
+  "Omid Teimory's Portfolio",
   "full-stack developer Austria",
-  "full-stack developer Vienna",
   "frontend specialist Austria",
-  "frontend specialist Vienna",
-  "Next.js developer Austria",
-  "React developer Vienna",
+  "React developer Austria",
   "web developer Austria",
   "frontend-focused full-stack developer",
 ];
@@ -21,13 +19,17 @@ const DEFAULT_KEYWORDS = [
 const SOCIAL_NAME_MAP = {
   github: ["github"],
   linkedin: ["linkedin"],
-  x: ["x", "twitter"],
+  x: ["x"],
+  Credly: ["Credly"],
+  Artstation: ["Artstation"],
+  WakaTime: ["WakaTime"],
 };
 
 const trimTrailingSlash = (value) => value.replace(/\/+$/, "");
 
-const dedupe = (values = []) =>
-  [...new Set(values.filter(Boolean).map((value) => String(value).trim()))];
+const dedupe = (values = []) => [
+  ...new Set(values.filter(Boolean).map((value) => String(value).trim())),
+];
 
 const normalizePath = (path = "/") => {
   if (!path) {
@@ -116,8 +118,7 @@ export const absoluteUrl = (path = "/", profile) => {
 export const getSeoProfile = (profile, resume) => {
   const personName =
     profile?.fullName || resume?.profileName || DEFAULT_PERSON_NAME;
-  const jobTitle =
-    profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE;
+  const jobTitle = profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE;
   const headline = profile?.headline || resume?.headline || jobTitle;
   const description =
     profile?.shortBio || resume?.summary || DEFAULT_DESCRIPTION;
@@ -156,7 +157,9 @@ export const getSeoProfile = (profile, resume) => {
     phoneNumber: profile?.phoneNumber || resume?.phoneNumber,
     address: profile?.address || resume?.address,
     image:
-      profile?.portraitImage || resume?.avatarImage || absoluteUrl("/favicon.ico", profile),
+      profile?.portraitImage ||
+      resume?.avatarImage ||
+      absoluteUrl("/favicon.ico", profile),
     twitterHandle: getTwitterHandle(profile),
     keywords: dedupe([
       ...DEFAULT_KEYWORDS,
@@ -369,7 +372,10 @@ export const buildWebPageJsonLd = ({
 }) => {
   const seo = getSeoProfile(profile, resume);
   const resolvedMainEntity =
-    mainEntity ?? (type === "ProfilePage" ? buildPersonReferenceJsonLd(profile, resume) : undefined);
+    mainEntity ??
+    (type === "ProfilePage"
+      ? buildPersonReferenceJsonLd(profile, resume)
+      : undefined);
 
   return {
     "@context": "https://schema.org",
@@ -420,7 +426,10 @@ export const buildProjectsPageJsonLd = (projects, profile, resume) => {
       itemListElement: projects.map((project, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: absoluteUrl(`/project/${project.slug || project.projectId}`, profile),
+        url: absoluteUrl(
+          `/project/${project.slug || project.projectId}`,
+          profile,
+        ),
         name: project.title,
       })),
     },

@@ -39,6 +39,14 @@ class ChatConversationService extends BaseService {
       }.`;
     }
 
+    if (normalized.includes("about") || normalized.includes("abouts")) {
+      if (!profile) {
+        return "No data";
+      }
+
+      return `${profile.fullName} is a ${profile.longBio?.replace(/^I am\s+/i, "")}`;
+    }
+
     if (normalized.includes("project") || normalized.includes("work")) {
       if (!projects.length) {
         return "Projects have not been added to the portfolio database yet.";
@@ -143,12 +151,16 @@ class ChatConversationService extends BaseService {
       payload,
     );
 
-    return conversation ? this._serializeConversation(conversation.toObject()) : null;
+    return conversation
+      ? this._serializeConversation(conversation.toObject())
+      : null;
   };
 
   deleteConversation = async (sessionId) => {
     const conversation = await this.softDelete({ sessionId }, "system");
-    return conversation ? this._serializeConversation(conversation.toObject()) : null;
+    return conversation
+      ? this._serializeConversation(conversation.toObject())
+      : null;
   };
 }
 

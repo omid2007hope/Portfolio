@@ -16,6 +16,21 @@ const DEFAULT_SOCIAL_LINKS = [
     iconKey: "x",
     url: "https://x.com/Omid2007hope",
   },
+  {
+    name: "Credly",
+    iconKey: "",
+    url: "https://www.credly.com/users/omid-teimory/edit#credly",
+  },
+  {
+    name: "Artstation",
+    iconKey: "",
+    url: "https://www.artstation.com/omid2007hope",
+  },
+  {
+    name: "Wakatime",
+    iconKey: "",
+    url: "https://wakatime.com/@17b65dc4-7043-4e9d-9f96-6b98d65254a2",
+  },
 ];
 
 const DEFAULT_NAVIGATION_LINKS = [

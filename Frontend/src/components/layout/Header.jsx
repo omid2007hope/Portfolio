@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import Logo from "../../app/assets/image/Logo.svg";
 import {
   getDisplayName,
   getJobTitle,
@@ -16,7 +15,8 @@ import {
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
-  const progressMessage = "In progress: I am constantly updating this portfolio.";
+  const progressMessage =
+    "In progress: I am constantly updating this portfolio.";
   const navItems = getNavigationLinks(profile);
 
   const isActive = (route) => pathname === route;

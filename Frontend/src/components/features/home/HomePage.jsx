@@ -5,15 +5,13 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Atom,
-  BriefcaseBusiness,
-  Sparkles,
-} from "lucide-react";
-import Me from "../../../app/assets/image/Me.jpg";
+import { ArrowRight, Atom, BriefcaseBusiness, Sparkles } from "lucide-react";
 import { getSocialIcon } from "@/lib/social-icons";
-import { getHeroSkills, getHighlights, getSocialLinks } from "@/lib/site-content";
+import {
+  getHeroSkills,
+  getHighlights,
+  getSocialLinks,
+} from "@/lib/site-content";
 
 const ChatBox = dynamic(() => import("@/components/features/chat/ChatBox"), {
   ssr: false,
@@ -28,7 +26,8 @@ function Home({ profile }) {
   const primaryCtaLabel = profile?.homePrimaryCtaLabel || "View Portfolio";
   const primaryCtaUrl =
     profile?.homePrimaryCtaUrl || profile?.portfolioUrl || "/projects";
-  const secondaryCtaLabel = profile?.homeSecondaryCtaLabel || "Explore Projects";
+  const secondaryCtaLabel =
+    profile?.homeSecondaryCtaLabel || "Explore Projects";
   const secondaryCtaUrl = profile?.homeSecondaryCtaUrl || "/projects";
 
   return (
@@ -37,7 +36,8 @@ function Home({ profile }) {
         <div className="order-2 space-y-8 lg:order-1">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
             <BriefcaseBusiness className="h-4 w-4" />
-            {profile?.availabilityText || "Open to freelance and full-time full-stack roles"}
+            {profile?.availabilityText ||
+              "Open to freelance and full-time full-stack roles"}
           </div>
 
           <div className="space-y-5">
@@ -45,7 +45,8 @@ function Home({ profile }) {
               {profile?.jobTitle || "Full-Stack Developer"}
             </p>
             <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-              {profile?.headline || "Full-stack developer specialized in frontend experiences."}
+              {profile?.headline ||
+                "Full-stack developer specialized in frontend experiences."}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
               {profile?.shortBio ||
@@ -121,7 +122,10 @@ function Home({ profile }) {
             {social.map((item) => {
               const Icon = getSocialIcon(item.iconKey);
               return (
-                <div key={`${item.name}-${item.url}`} className="flex flex-col items-center space-y-2">
+                <div
+                  key={`${item.name}-${item.url}`}
+                  className="flex flex-col items-center space-y-2"
+                >
                   <a
                     href={item.url}
                     target="_blank"
@@ -150,7 +154,8 @@ function Home({ profile }) {
                     {profile?.heroBadge || "Currently building"}
                   </p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    {profile?.currentFocus || "Frontend-led product work with backend architecture support"}
+                    {profile?.currentFocus ||
+                      "Frontend-led product work with backend architecture support"}
                   </p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 p-3 text-emerald-200">
