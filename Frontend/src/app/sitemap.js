@@ -1,5 +1,5 @@
 import { getProfile, getProjects } from "@/lib/api";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, getProjectPath } from "@/lib/seo";
 
 export default async function sitemap() {
   const [profile, projects] = await Promise.all([getProfile(), getProjects()]);
@@ -20,7 +20,7 @@ export default async function sitemap() {
       priority: route.priority,
     })),
     ...projects.map((project) => ({
-      url: absoluteUrl(`/project/${project.slug || project.projectId}`, profile),
+      url: absoluteUrl(getProjectPath(project), profile),
       lastModified: project.updatedAt || project.createdAt || now,
       changeFrequency: "monthly",
       priority: project.featured ? 0.85 : 0.75,

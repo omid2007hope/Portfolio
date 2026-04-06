@@ -11,15 +11,17 @@ import { notFound } from "next/navigation";
 export async function generateStaticParams() {
   const projects = await getProjects();
 
-  return projects.map((project) => ({
-    id: String(project.slug || project.projectId),
-  }));
+  return projects
+    .map((project) => ({
+      slug: String(project.slug || project.projectId),
+    }))
+    .filter((params) => Boolean(params.slug));
 }
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getProject(resolvedParams.id),
+    getProject(resolvedParams.slug),
     getProfile(),
   ]);
 
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }) {
       profile,
       title: "Project Not Found | Portfolio Prime",
       description: "The requested project case study could not be found.",
-      path: `/project/${resolvedParams.id}`,
+      path: `/projects/${resolvedParams.slug}`,
       noIndex: true,
     });
   }
@@ -42,7 +44,7 @@ export async function generateMetadata({ params }) {
       `Explore the ${project.title} case study by ${
         profile?.fullName || "Omid Teimory"
       }.`,
-    path: `/project/${project.slug || project.projectId}`,
+    path: `/projects/${project.slug || project.projectId}`,
     keywords: project.techStack || [],
     image: project.coverImage?.url,
     imageAlt: project.coverImage?.alt || `${project.title} cover image`,
@@ -52,7 +54,7 @@ export async function generateMetadata({ params }) {
 export default async function ProjectDetailRoute({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getProject(resolvedParams.id),
+    getProject(resolvedParams.slug),
     getProfile(),
   ]);
 
@@ -71,7 +73,7 @@ export default async function ProjectDetailRoute({ params }) {
               { name: "Projects", path: "/projects" },
               {
                 name: project.title,
-                path: `/project/${project.slug || project.projectId}`,
+                path: `/projects/${project.slug || project.projectId}`,
               },
             ],
             profile,

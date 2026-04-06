@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import SiteFooter from "@/components/layout/SiteFooter";
+import { getProjectPath } from "@/lib/seo";
 
 function Project({ projects, profile }) {
   return (
@@ -28,7 +29,7 @@ function Project({ projects, profile }) {
                 key={project.id}
                 className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:bg-white/10"
               >
-                <Link href={`/project/${project.slug || project.projectId}`}>
+                <Link href={getProjectPath(project)}>
                   <div className="mb-5 h-48 w-full overflow-hidden rounded-xl">
                     {project.coverImage?.url ? (
                       <img

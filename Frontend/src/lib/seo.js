@@ -43,6 +43,20 @@ const normalizePath = (path = "/") => {
   return path.startsWith("/") ? path : `/${path}`;
 };
 
+export const getProjectPath = (project) => {
+  const slug = project?.slug?.trim();
+
+  if (slug) {
+    return `/projects/${slug}`;
+  }
+
+  if (project?.projectId !== undefined && project?.projectId !== null) {
+    return `/projects/${project.projectId}`;
+  }
+
+  return "/projects";
+};
+
 const pickFirstValidUrl = (...values) => {
   for (const value of values) {
     const candidate = value?.trim();
@@ -426,10 +440,7 @@ export const buildProjectsPageJsonLd = (projects, profile, resume) => {
       itemListElement: projects.map((project, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: absoluteUrl(
-          `/project/${project.slug || project.projectId}`,
-          profile,
-        ),
+        url: absoluteUrl(getProjectPath(project), profile),
         name: project.title,
       })),
     },
@@ -446,7 +457,7 @@ export const buildProjectJsonLd = (project, profile, resume) => {
     headline: project.title,
     description: project.overview || project.shortDescription,
     abstract: project.shortDescription,
-    url: absoluteUrl(`/project/${project.slug || project.projectId}`, profile),
+    url: absoluteUrl(getProjectPath(project), profile),
     image: project.coverImage?.url,
     creator: {
       "@type": "Person",

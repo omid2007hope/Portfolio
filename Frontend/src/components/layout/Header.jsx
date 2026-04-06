@@ -38,14 +38,9 @@ function Header({ profile }) {
               className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2 object-cover"
             />
           ) : (
-            <Image
-              src={Logo}
-              alt="Omid Teimory logo"
-              width={56}
-              height={56}
-              className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2"
-              priority
-            />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-lg font-semibold text-white">
+              {getDisplayName(profile).slice(0, 1)}
+            </div>
           )}
 
           <div className="flex flex-col leading-none">
