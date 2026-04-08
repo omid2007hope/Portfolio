@@ -38,10 +38,13 @@ describe("ProjectService", () => {
       id: "507f1f77bcf86cd799439011",
       projectId: 7,
       slug: "portfolio-prime",
-      desc: "Full-stack portfolio",
-      tech: ["Next.js"],
-      src: "https://github.com/example/repo",
+      shortDescription: "Full-stack portfolio",
+      techStack: ["Next.js"],
+      repositoryUrl: "https://github.com/example/repo",
     });
+    expect(result).not.toHaveProperty("desc");
+    expect(result).not.toHaveProperty("tech");
+    expect(result).not.toHaveProperty("src");
   });
 
   test("uses numeric identifiers as projectId queries", async () => {

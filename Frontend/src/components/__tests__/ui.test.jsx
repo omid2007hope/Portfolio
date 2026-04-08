@@ -27,6 +27,22 @@ describe("frontend UI flows", () => {
     expect(screen.getByRole("link", { name: "Resume" })).toBeInTheDocument();
   });
 
+  test("header renders backend-driven banner and CTA copy", () => {
+    render(
+      <Header
+        profile={{
+          headerBannerText: "Open for product engineering roles",
+          headerAvailabilityText: "Interviewing now",
+          headerContactCtaLabel: "Start a project",
+        }}
+      />,
+    );
+
+    expect(screen.getByText("Open for product engineering roles")).toBeInTheDocument();
+    expect(screen.getByText("Interviewing now")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Start a project" })).toBeInTheDocument();
+  });
+
   test("about page renders fallback content", () => {
     render(<AboutPage profile={{}} />);
 
@@ -51,6 +67,29 @@ describe("frontend UI flows", () => {
     expect(
       screen.getByText(/complete web applications from idea to launch/i),
     ).toBeInTheDocument();
+  });
+
+  test("about page renders backend-driven content", () => {
+    render(
+      <AboutPage
+        profile={{
+          aboutIntroDescription: "About page intro from MongoDB.",
+          aboutParagraphs: [{ content: "Custom about paragraph." }],
+          aboutProcessTitle: "Structured delivery with room to scale",
+          aboutProcessDescription: "Custom process description.",
+        }}
+      />,
+    );
+
+    expect(screen.getByText("About page intro from MongoDB.")).toBeInTheDocument();
+    expect(screen.getByText("Custom about paragraph.")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /Structured delivery with room to scale/i,
+        level: 2,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Custom process description.")).toBeInTheDocument();
   });
 
   test("projects page exposes descriptive headings", () => {
@@ -111,5 +150,26 @@ describe("frontend UI flows", () => {
     });
 
     expect(screen.getByText(/message sent successfully/i)).toBeInTheDocument();
+  });
+
+  test("contact page renders backend-driven intro and panel copy", () => {
+    render(
+      <ContactPage
+        profile={{
+          contactIntroTitle: "Share the product you want to launch",
+          contactPanelTitle: "Direct contact",
+          contactPanelDescription: "Email or call if you want a faster intro.",
+        }}
+      />,
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        name: /Share the product you want to launch/i,
+        level: 2,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Direct contact")).toBeInTheDocument();
+    expect(screen.getByText("Email or call if you want a faster intro.")).toBeInTheDocument();
   });
 });

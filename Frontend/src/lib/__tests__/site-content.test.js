@@ -1,6 +1,10 @@
 import {
   ensureResumeLink,
+  getContactIntroTitle,
   getAboutParagraphs,
+  getHeaderBannerText,
+  getHomeInfoCards,
+  getHomeTitle,
   getHeroDescription,
   getHeroSkills,
   getSocialLinks,
@@ -29,5 +33,21 @@ describe("site-content helpers", () => {
   test("returns a longer fallback hero description", () => {
     expect(getHeroDescription({})).toMatch(/fast, modern web applications/i);
     expect(getHeroDescription({}).length).toBeGreaterThan(40);
+  });
+
+  test("uses profile-driven copy when available", () => {
+    const profile = {
+      headerBannerText: "Open for senior frontend roles",
+      homeTitle: "Backend-powered hero title",
+      contactIntroTitle: "Let us talk about your build",
+      homeInfoCards: [{ title: "Custom", text: "From the API" }],
+    };
+
+    expect(getHeaderBannerText(profile)).toBe("Open for senior frontend roles");
+    expect(getHomeTitle(profile)).toBe("Backend-powered hero title");
+    expect(getContactIntroTitle(profile)).toBe("Let us talk about your build");
+    expect(getHomeInfoCards(profile)).toEqual([
+      { title: "Custom", text: "From the API" },
+    ]);
   });
 });

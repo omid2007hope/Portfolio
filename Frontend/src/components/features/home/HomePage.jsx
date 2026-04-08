@@ -9,7 +9,33 @@ import { ArrowRight, Atom, BriefcaseBusiness, Sparkles } from "lucide-react";
 import Me from "@/app/assets/image/Home Page.webp";
 import { getSocialIcon } from "@/lib/social-icons";
 import {
+  getHighlights,
+  getHeaderAvailabilityText,
+  getHomeAvailabilityNote,
+  getHomeDescription,
+  getHomeEyebrow,
+  getHomeFeaturedDescription,
+  getHomeFeaturedTitle,
+  getHomeInfoCards,
+  getHomeNextStepText,
+  getHomeNextStepTitle,
+  getHomeSectionDescription,
+  getHomeSectionEyebrow,
+  getHomeSectionItems,
+  getHomeSectionTitle,
+  getHomeStatusDescription,
+  getHomeStatusTitle,
+  getHomeStrengthsText,
+  getHomeStrengthsTitle,
+  getHomeSupportText,
+  getHomeTitle,
+  getHomeWorkflowDescription,
+  getHomeWorkflowTitle,
   getHeroSkills,
+  getPrimaryCtaLabel,
+  getPrimaryCtaUrl,
+  getSecondaryCtaLabel,
+  getSecondaryCtaUrl,
   getSocialLinks,
 } from "@/lib/site-content";
 
@@ -21,23 +47,12 @@ function Home({ profile }) {
   const [open, setOpen] = useState(false);
   const skills = getHeroSkills(profile);
   const social = getSocialLinks(profile);
-  const highlights = [
-    { label: "Based in", value: profile?.location || "Vienna, Austria" },
-    {
-      label: "Primary stack",
-      value:
-        profile?.primaryStack || "React, Next.js, Tailwind CSS, Node.js, MongoDB",
-    },
-    {
-      label: "Current focus",
-      value: "Building production-ready web apps with clear UI and reliable backend support",
-    },
-  ];
-
-  const primaryCtaLabel = "View Projects";
-  const primaryCtaUrl = profile?.portfolioUrl || "/projects";
-  const secondaryCtaLabel = "Hire Me";
-  const secondaryCtaUrl = "/contact";
+  const highlights = getHighlights(profile);
+  const primaryCtaLabel = getPrimaryCtaLabel(profile);
+  const primaryCtaUrl = getPrimaryCtaUrl(profile);
+  const secondaryCtaLabel = getSecondaryCtaLabel(profile);
+  const secondaryCtaUrl = getSecondaryCtaUrl(profile);
+  const homeInfoCards = getHomeInfoCards(profile);
 
   return (
     <>
@@ -46,26 +61,22 @@ function Home({ profile }) {
         <div className="order-2 space-y-8 lg:order-1">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
             <BriefcaseBusiness className="h-4 w-4" />
-            {profile?.availabilityText ||
-              "Available for full-time roles immediately"}
+            {profile?.availabilityText || getHeaderAvailabilityText(profile)}
           </div>
 
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-200/75">
-              Frontend / Full-Stack Developer
+              {getHomeEyebrow(profile)}
             </p>
             <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-              I build fast, modern web applications that help businesses grow.
+              {getHomeTitle(profile)}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Frontend / Full-Stack Developer (React, Next.js, Node.js)
+              {getHomeDescription(profile)}
             </p>
             <div className="space-y-2 text-sm font-medium uppercase tracking-[0.2em] text-cyan-100/75">
-              <p>
-                {profile?.location || "Based in Austria"} - Available for
-                full-time roles immediately
-              </p>
-              <p>Open to freelance & contract work in the coming months</p>
+              <p>{getHomeAvailabilityNote(profile)}</p>
+              <p>{getHomeSupportText(profile)}</p>
             </div>
           </div>
 
@@ -157,12 +168,11 @@ function Home({ profile }) {
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(145deg,rgba(15,23,42,0.92),rgba(10,35,64,0.86))] p-5 shadow-[0_30px_120px_rgba(2,8,23,0.55)]">
               <div className="mb-5 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/65">
-                    Currently building
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/65">
+                    {getHomeFeaturedDescription(profile)}
                   </p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    Building production-ready web apps with clear UI and
-                    reliable backend support
+                    {getHomeFeaturedTitle(profile)}
                   </p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 p-3 text-emerald-200">
@@ -191,21 +201,18 @@ function Home({ profile }) {
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                    Core strengths
+                    {getHomeStrengthsTitle(profile)}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-200">
-                    {profile?.primaryStack ||
-                      "React, Next.js, Tailwind CSS, Node.js, MongoDB, and production-ready UI systems."}
+                    {getHomeStrengthsText(profile)}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-sky-400/10 p-4">
                   <p className="text-xs uppercase tracking-[0.2em] text-sky-200/70">
-                    Next step
+                    {getHomeNextStepTitle(profile)}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-sky-50">
-                    I build with frontend quality first, then support it with
-                    backend structure, APIs, and data flows that keep the
-                    product fast, reliable, and maintainable.
+                    {getHomeNextStepText(profile)}
                   </p>
                 </div>
               </div>
@@ -220,60 +227,43 @@ function Home({ profile }) {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-5">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200/75">
-                What I Do
+                {getHomeSectionEyebrow(profile)}
               </p>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                I build complete web applications from frontend to backend.
+                {getHomeSectionTitle(profile)}
               </h2>
               <p className="max-w-3xl text-lg leading-8 text-slate-300">
-                I focus on speed, clarity, and real-world usability so the
-                product feels polished for users and easy to maintain for the
-                team.
+                {getHomeSectionDescription(profile)}
               </p>
               <ul className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6 text-base leading-7 text-slate-200">
-                <li>Modern frontend development with React and Next.js</li>
-                <li>Backend APIs and authentication systems with Node.js</li>
-                <li>Clean, scalable architecture for real-world applications</li>
+                {getHomeSectionItems(profile).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <InfoCard
-                title="Frontend first"
-                text="I start with the interface, because clear layout and content make the rest easier."
-              />
-              <InfoCard
-                title="Backend aware"
-                text="I connect the frontend to the systems behind it without turning the experience into an afterthought."
-              />
-              <InfoCard
-                title="Performance minded"
-                text="Fast pages, careful asset use, and lightweight interactions matter as much as visual polish."
-              />
-              <InfoCard
-                title="Maintainable"
-                text="Structure should stay understandable months later, so future changes do not require a rewrite."
-              />
+              {homeInfoCards.map((card) => (
+                <InfoCard key={card.title} title={card.title} text={card.text} />
+              ))}
             </div>
           </div>
 
           <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-[0_20px_80px_rgba(2,8,23,0.35)]">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              How I Work
+              {getHomeWorkflowTitle(profile)}
             </h2>
             <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-300">
-              I focus on building clear, fast, and maintainable applications
-              from idea to production.
+              {getHomeWorkflowDescription(profile)}
             </p>
           </div>
 
           <div className="rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 shadow-[0_20px_80px_rgba(2,8,23,0.25)]">
             <h3 className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-100/80">
-              Status
+              {getHomeStatusTitle(profile)}
             </h3>
             <p className="mt-4 max-w-4xl text-lg leading-8 text-emerald-50">
-              Currently building real-world full-stack applications and
-              actively seeking opportunities in Austria.
+              {getHomeStatusDescription(profile)}
             </p>
           </div>
         </div>

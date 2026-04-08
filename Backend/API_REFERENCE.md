@@ -8,7 +8,7 @@ Default local base URL: `http://127.0.0.1:4000/api`
 - `PORT`: API port, defaults to `4000`
 - `CORS_ORIGIN`: allowed origin for browser requests, defaults to `*`
 
-All write routes expect a JSON object body. Public `contact` and `chat` routes now validate and trim incoming input before the controller/service layer runs.
+All write routes expect a JSON object body. Public `contact` and `chat` routes validate and trim incoming input before the controller/service layer runs.
 
 ## Health
 
@@ -16,7 +16,7 @@ All write routes expect a JSON object body. Public `contact` and `chat` routes n
 
 ## Profiles
 
-- `GET /profile` - latest active profile for the website
+- `GET /profile` - latest active profile used across home, about, contact, header, and footer
 - `GET /portfolio/profile` - alias of `GET /profile`
 - `GET /profiles` - list all active profiles
 - `GET /profiles/:id` - get one profile by Mongo `_id`
@@ -24,7 +24,7 @@ All write routes expect a JSON object body. Public `contact` and `chat` routes n
 - `PATCH /profiles/:id` - update profile
 - `DELETE /profiles/:id` - soft-delete profile
 
-Create/update example:
+Full seed example:
 
 ```json
 {
@@ -32,10 +32,46 @@ Create/update example:
   "jobTitle": "Frontend / Full-Stack Developer",
   "headline": "I build fast, modern web applications that help businesses grow.",
   "shortBio": "Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.",
-  "longBio": "I build fast, modern web applications that help businesses grow.",
+  "longBio": "I build fast, modern web applications that help businesses grow by combining polished frontend work with reliable backend structure.",
   "heroBadge": "Currently building",
+  "headerBannerText": "Available for full-time roles immediately",
+  "headerAvailabilityText": "Interviewing for frontend and full-stack roles",
+  "headerContactCtaLabel": "Hire Me",
   "availabilityText": "Available for full-time roles immediately",
   "currentFocus": "Building production-ready web apps with clear UI and reliable backend support",
+  "homeEyebrow": "Frontend / Full-Stack Developer",
+  "homeTitle": "I build fast, modern web applications that help businesses grow.",
+  "homeDescription": "Frontend / Full-Stack Developer (React, Next.js, Node.js)",
+  "homeAvailabilityNote": "Vienna, Austria - Available for full-time roles immediately",
+  "homeSupportText": "Open to freelance and contract work in the coming months",
+  "homeFeaturedTitle": "Building production-ready web apps with clear UI and reliable backend support",
+  "homeFeaturedDescription": "Currently building",
+  "homeStrengthsTitle": "Core strengths",
+  "homeStrengthsText": "React, Next.js, Tailwind CSS, Node.js, MongoDB, and production-ready UI systems.",
+  "homeNextStepTitle": "Next step",
+  "homeNextStepText": "I build with frontend quality first, then support it with backend structure, APIs, and data flows that keep the product fast, reliable, and maintainable.",
+  "homeSectionEyebrow": "What I Do",
+  "homeSectionTitle": "I build complete web applications from frontend to backend.",
+  "homeSectionDescription": "I focus on speed, clarity, and real-world usability so the product feels polished for users and easy to maintain for the team.",
+  "homeSectionItems": [
+    "Modern frontend development with React and Next.js",
+    "Backend APIs and authentication systems with Node.js",
+    "Clean, scalable architecture for real-world applications"
+  ],
+  "homeInfoCards": [
+    {
+      "title": "Frontend first",
+      "text": "I start with the interface, because clear layout and content make the rest easier."
+    },
+    {
+      "title": "Backend aware",
+      "text": "I connect the frontend to the systems behind it without turning the experience into an afterthought."
+    }
+  ],
+  "homeWorkflowTitle": "How I Work",
+  "homeWorkflowDescription": "I focus on building clear, fast, and maintainable applications from idea to production.",
+  "homeStatusTitle": "Status",
+  "homeStatusDescription": "Currently building real-world full-stack applications and actively seeking opportunities in Austria.",
   "location": "Vienna, Austria",
   "address": "Vienna 1120, Austria",
   "email": "omidhope2007@gmail.com",
@@ -62,20 +98,26 @@ Create/update example:
   "highlights": [
     { "label": "Based in", "value": "Vienna, Austria" },
     { "label": "Primary stack", "value": "React, Next.js, Tailwind CSS, Node.js, MongoDB" },
-    { "label": "Current focus", "value": "Frontend-led product work with backend architecture support" }
+    { "label": "Current focus", "value": "Building production-ready web apps with clear UI and reliable backend support" }
   ],
   "aboutCards": [
     { "label": "Primary stack", "value": "React, Next.js, Tailwind CSS, Node.js, MongoDB" },
-    { "label": "Current focus", "value": "Frontend-led product work with backend architecture support" }
+    { "label": "Working style", "value": "Fast, practical, and production-focused" }
   ],
   "aboutParagraphs": [
     {
-      "content": "I build full-stack web products with a frontend-first mindset, combining polished interfaces with maintainable backend architecture."
+      "content": "I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow."
     },
     {
-      "content": "My goal is to deliver strong product UI while supporting it with backend structure, APIs, and reliability."
+      "content": "When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy."
     }
   ],
+  "aboutIntroTitle": "About Omid Teimory",
+  "aboutIntroDescription": "A short look at how Omid Teimory builds fast, production-ready web applications.",
+  "aboutSectionTitle": "I build fast, modern web applications that help businesses grow.",
+  "aboutProcessEyebrow": "How I work",
+  "aboutProcessTitle": "Clear process, thoughtful implementation, and room to grow",
+  "aboutProcessDescription": "I start by clarifying the goal, then build the smallest useful version of the experience and shape the technical layer around that.",
   "navigationLinks": [
     { "label": "Home", "to": "/" },
     { "label": "About", "to": "/about" },
@@ -84,9 +126,32 @@ Create/update example:
   ],
   "footerText": "© 2026 Omid Teimory. All rights reserved.",
   "homePrimaryCtaLabel": "View Projects",
-  "homePrimaryCtaUrl": "https://omidteimory.com",
+  "homePrimaryCtaUrl": "/projects",
   "homeSecondaryCtaLabel": "Hire Me",
-  "homeSecondaryCtaUrl": "/contact"
+  "homeSecondaryCtaUrl": "/contact",
+  "contactIntroEyebrow": "Start here",
+  "contactIntroTitle": "Tell me what you want to build",
+  "contactIntroDescription": "The fastest way to get a useful reply is to include the goal of the project, the expected timeline, and any constraints you already know about.",
+  "contactFormTitle": "Project inquiry",
+  "contactPanelTitle": "Contact Information",
+  "contactPanelDescription": "Reach out through the form or use one of the direct channels below if you prefer a quicker intro before sharing the details."
+}
+```
+
+Patch example:
+
+```json
+{
+  "headerBannerText": "Open for selected full-stack roles",
+  "homeTitle": "I build products that look sharp and ship cleanly.",
+  "homeInfoCards": [
+    {
+      "title": "Shipping mindset",
+      "text": "I aim for the smallest useful version first, then refine."
+    }
+  ],
+  "aboutProcessDescription": "I move from clarified product goals into fast implementation and keep the code easy to maintain.",
+  "contactPanelDescription": "Email or call if you want a faster intro before sending a full brief."
 }
 ```
 
@@ -101,7 +166,9 @@ Create/update example:
 - `PATCH /projects/:id` - update project by Mongo `_id`
 - `DELETE /projects/:id` - soft-delete project
 
-Create/update example:
+Canonical response fields are `shortDescription`, `techStack`, `coverImage`, `showcaseImages`, `repositoryUrl`, and `liveDemoUrl`.
+
+Create example:
 
 ```json
 {
@@ -128,11 +195,6 @@ Create/update example:
       "url": "https://images.example.com/portfolio-screen-1.png",
       "alt": "Home page showcase",
       "kind": "showcase"
-    },
-    {
-      "url": "https://images.example.com/portfolio-screen-2.png",
-      "alt": "Projects page showcase",
-      "kind": "showcase"
     }
   ],
   "actions": [
@@ -153,6 +215,17 @@ Create/update example:
 }
 ```
 
+Patch example:
+
+```json
+{
+  "featured": true,
+  "sortOrder": 1,
+  "status": "published",
+  "highlightQuote": "Structured content made the frontend much easier to maintain."
+}
+```
+
 ## Resume
 
 - `GET /resume` - latest active resume for the website
@@ -162,7 +235,7 @@ Create/update example:
 - `PATCH /resumes/:id` - update resume
 - `DELETE /resumes/:id` - soft-delete resume
 
-Create/update example:
+Create example:
 
 ```json
 {
@@ -228,6 +301,22 @@ Create/update example:
 }
 ```
 
+Patch example:
+
+```json
+{
+  "headline": "Frontend / Full-Stack Developer",
+  "summary": "Updated summary text for a frontend-first full-stack positioning.",
+  "skillGroups": [
+    {
+      "title": "Frontend",
+      "items": ["React", "Next.js", "Tailwind CSS", "JavaScript", "Accessibility"],
+      "sortOrder": 1
+    }
+  ]
+}
+```
+
 ## Contact Submissions
 
 - `POST /contact` - public contact form submit
@@ -249,7 +338,7 @@ Public submit example:
 }
 ```
 
-Update contact example:
+Patch example:
 
 ```json
 {
@@ -275,7 +364,7 @@ Send message example:
 }
 ```
 
-Update chat example:
+Patch example:
 
 ```json
 {
@@ -290,3 +379,4 @@ Update chat example:
 - `DELETE` routes do not require a body
 - For update/delete routes, use the Mongo `_id` returned from create/list responses
 - For chat lookup/update/delete, use the `sessionId` value
+- For project detail routes, `:identifier` accepts the numeric `projectId`, the `slug`, or the Mongo `_id`

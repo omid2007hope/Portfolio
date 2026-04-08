@@ -1,35 +1,20 @@
 import Link from "next/link";
 import SiteFooter from "@/components/layout/SiteFooter";
-import { getDisplayName } from "@/lib/site-content";
+import {
+  getAboutCards,
+  getAboutIntroDescription,
+  getAboutParagraphs,
+  getAboutProcessDescription,
+  getAboutProcessEyebrow,
+  getAboutProcessTitle,
+  getAboutSectionTitle,
+  getDisplayName,
+} from "@/lib/site-content";
 
 function About({ profile }) {
   const displayName = getDisplayName(profile);
-  const aboutParagraphs = [
-    {
-      content:
-        "I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.",
-    },
-    {
-      content:
-        "When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.",
-    },
-    {
-      content:
-        "The goal is always the same: fast pages, clean structure, and code that is easy to maintain after launch.",
-    },
-  ];
-  const aboutCards = [
-    {
-      label: "Primary stack",
-      value:
-        profile?.primaryStack ||
-        "React, Next.js, Tailwind CSS, Node.js, MongoDB",
-    },
-    {
-      label: "Working style",
-      value: "Fast, practical, and production-focused",
-    },
-  ];
+  const aboutParagraphs = getAboutParagraphs(profile);
+  const aboutCards = getAboutCards(profile);
 
   return (
     <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
@@ -37,8 +22,7 @@ function About({ profile }) {
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold">About {displayName}</h1>
           <p className="mt-2 text-lg text-white/70">
-            A short look at how {displayName} builds fast, production-ready web
-            applications.
+            {getAboutIntroDescription(profile)}
           </p>
         </div>
 
@@ -100,7 +84,7 @@ function About({ profile }) {
           <div className="space-y-10 rounded-2xl border border-white/10 bg-white/5 p-8 lg:col-span-2">
             <section>
               <h2 className="text-2xl font-extrabold leading-snug">
-                I build fast, modern web applications that help businesses grow.
+                {getAboutSectionTitle(profile)}
               </h2>
 
               {aboutParagraphs.map((paragraph, index) => (
@@ -115,16 +99,13 @@ function About({ profile }) {
 
             <section className="border-t border-white/10 pt-10">
               <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
-                How I work
+                {getAboutProcessEyebrow(profile)}
               </p>
               <h2 className="mt-2 text-2xl font-extrabold leading-snug">
-                Clear process, thoughtful implementation, and room to grow
+                {getAboutProcessTitle(profile)}
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                I start by clarifying the goal, then build the smallest useful
-                version of the experience and shape the technical layer around
-                that. The result is work that is easy to understand, quick to
-                use, and straightforward to maintain after launch.
+                {getAboutProcessDescription(profile)}
               </p>
             </section>
           </div>

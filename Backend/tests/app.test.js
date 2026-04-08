@@ -76,6 +76,34 @@ describe("API app", () => {
     expect(response.body.fullName).toBe("Omid Teimory");
   });
 
+  test("creates profiles with backend-driven content fields", async () => {
+    profileService.createProfile.mockResolvedValue({
+      id: "profile-1",
+      fullName: "Omid Teimory",
+      homeTitle: "Backend driven title",
+    });
+
+    const payload = {
+      fullName: "Omid Teimory",
+      jobTitle: "Frontend / Full-Stack Developer",
+      headline: "I build fast, modern web applications that help businesses grow.",
+      shortBio: "Frontend / Full-Stack Developer in Vienna building fast, production-ready web apps.",
+      location: "Vienna, Austria",
+      email: "omidhope2007@gmail.com",
+      homeTitle: "Backend driven title",
+      homeSectionItems: ["React", "Node.js"],
+      homeInfoCards: [{ title: "Frontend first", text: "Start from the UI." }],
+      aboutIntroDescription: "About intro from the API.",
+      contactIntroTitle: "Tell me what you want to build",
+    };
+
+    const response = await request(app).post("/api/profiles").send(payload);
+
+    expect(response.status).toBe(201);
+    expect(profileService.createProfile).toHaveBeenCalledWith(payload);
+    expect(response.body.homeTitle).toBe("Backend driven title");
+  });
+
   test("rejects invalid contact payloads before service execution", async () => {
     const response = await request(app).post("/api/contact").send({
       name: "Omid",

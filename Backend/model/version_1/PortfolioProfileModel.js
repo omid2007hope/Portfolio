@@ -41,6 +41,14 @@ const aboutParagraphSchema = new Schema(
   { _id: false },
 );
 
+const textCardSchema = new Schema(
+  {
+    title: requiredTrimmedString("Card title", 120),
+    text: requiredTrimmedString("Card text", 600),
+  },
+  { _id: false },
+);
+
 const navigationLinkSchema = new Schema(
   {
     label: requiredTrimmedString("Navigation label", 60),
@@ -65,6 +73,21 @@ const portfolioProfileSchema = new Schema(
       maxlength: [160, "Hero badge cannot exceed 160 characters."],
       default: "",
     },
+    headerBannerText: {
+      ...trimString,
+      maxlength: [200, "Header banner text cannot exceed 200 characters."],
+      default: "",
+    },
+    headerAvailabilityText: {
+      ...trimString,
+      maxlength: [200, "Header availability text cannot exceed 200 characters."],
+      default: "",
+    },
+    headerContactCtaLabel: {
+      ...trimString,
+      maxlength: [80, "Header CTA label cannot exceed 80 characters."],
+      default: "",
+    },
     availabilityText: {
       ...trimString,
       maxlength: [200, "Availability text cannot exceed 200 characters."],
@@ -73,6 +96,104 @@ const portfolioProfileSchema = new Schema(
     currentFocus: {
       ...trimString,
       maxlength: [240, "Current focus cannot exceed 240 characters."],
+      default: "",
+    },
+    homeEyebrow: {
+      ...trimString,
+      maxlength: [120, "Home eyebrow cannot exceed 120 characters."],
+      default: "",
+    },
+    homeTitle: {
+      ...trimString,
+      maxlength: [220, "Home title cannot exceed 220 characters."],
+      default: "",
+    },
+    homeDescription: {
+      ...trimString,
+      maxlength: [300, "Home description cannot exceed 300 characters."],
+      default: "",
+    },
+    homeAvailabilityNote: {
+      ...trimString,
+      maxlength: [200, "Home availability note cannot exceed 200 characters."],
+      default: "",
+    },
+    homeSupportText: {
+      ...trimString,
+      maxlength: [200, "Home support text cannot exceed 200 characters."],
+      default: "",
+    },
+    homeFeaturedTitle: {
+      ...trimString,
+      maxlength: [220, "Home featured title cannot exceed 220 characters."],
+      default: "",
+    },
+    homeFeaturedDescription: {
+      ...trimString,
+      maxlength: [400, "Home featured description cannot exceed 400 characters."],
+      default: "",
+    },
+    homeStrengthsTitle: {
+      ...trimString,
+      maxlength: [120, "Home strengths title cannot exceed 120 characters."],
+      default: "",
+    },
+    homeStrengthsText: {
+      ...trimString,
+      maxlength: [400, "Home strengths text cannot exceed 400 characters."],
+      default: "",
+    },
+    homeNextStepTitle: {
+      ...trimString,
+      maxlength: [120, "Home next-step title cannot exceed 120 characters."],
+      default: "",
+    },
+    homeNextStepText: {
+      ...trimString,
+      maxlength: [400, "Home next-step text cannot exceed 400 characters."],
+      default: "",
+    },
+    homeSectionEyebrow: {
+      ...trimString,
+      maxlength: [120, "Home section eyebrow cannot exceed 120 characters."],
+      default: "",
+    },
+    homeSectionTitle: {
+      ...trimString,
+      maxlength: [220, "Home section title cannot exceed 220 characters."],
+      default: "",
+    },
+    homeSectionDescription: {
+      ...trimString,
+      maxlength: [500, "Home section description cannot exceed 500 characters."],
+      default: "",
+    },
+    homeSectionItems: {
+      type: [requiredTrimmedString("Home section item", 220)],
+      default: [],
+    },
+    homeInfoCards: {
+      type: [textCardSchema],
+      default: [],
+    },
+    homeWorkflowTitle: {
+      ...trimString,
+      maxlength: [220, "Home workflow title cannot exceed 220 characters."],
+      default: "",
+    },
+    homeWorkflowDescription: {
+      ...trimString,
+      maxlength: [500, "Home workflow description cannot exceed 500 characters."],
+      default: "",
+    },
+    homeStatusTitle: {
+      ...trimString,
+      maxlength: [120, "Home status title cannot exceed 120 characters."],
+      default: "",
+    },
+    homeStatusDescription: {
+      ...trimString,
+      maxlength: [400, "Home status description cannot exceed 400 characters."],
       default: "",
     },
     location: requiredTrimmedString("Location", 160),
@@ -128,6 +249,36 @@ const portfolioProfileSchema = new Schema(
       type: [aboutParagraphSchema],
       default: [],
     },
+    aboutIntroTitle: {
+      ...trimString,
+      maxlength: [220, "About intro title cannot exceed 220 characters."],
+      default: "",
+    },
+    aboutIntroDescription: {
+      ...trimString,
+      maxlength: [500, "About intro description cannot exceed 500 characters."],
+      default: "",
+    },
+    aboutSectionTitle: {
+      ...trimString,
+      maxlength: [220, "About section title cannot exceed 220 characters."],
+      default: "",
+    },
+    aboutProcessEyebrow: {
+      ...trimString,
+      maxlength: [120, "About process eyebrow cannot exceed 120 characters."],
+      default: "",
+    },
+    aboutProcessTitle: {
+      ...trimString,
+      maxlength: [220, "About process title cannot exceed 220 characters."],
+      default: "",
+    },
+    aboutProcessDescription: {
+      ...trimString,
+      maxlength: [1000, "About process description cannot exceed 1000 characters."],
+      default: "",
+    },
     navigationLinks: {
       type: [navigationLinkSchema],
       default: [],
@@ -149,6 +300,36 @@ const portfolioProfileSchema = new Schema(
       default: "",
     },
     homeSecondaryCtaUrl: optionalUrl,
+    contactIntroEyebrow: {
+      ...trimString,
+      maxlength: [120, "Contact intro eyebrow cannot exceed 120 characters."],
+      default: "",
+    },
+    contactIntroTitle: {
+      ...trimString,
+      maxlength: [220, "Contact intro title cannot exceed 220 characters."],
+      default: "",
+    },
+    contactIntroDescription: {
+      ...trimString,
+      maxlength: [1000, "Contact intro description cannot exceed 1000 characters."],
+      default: "",
+    },
+    contactFormTitle: {
+      ...trimString,
+      maxlength: [160, "Contact form title cannot exceed 160 characters."],
+      default: "",
+    },
+    contactPanelTitle: {
+      ...trimString,
+      maxlength: [160, "Contact panel title cannot exceed 160 characters."],
+      default: "",
+    },
+    contactPanelDescription: {
+      ...trimString,
+      maxlength: [600, "Contact panel description cannot exceed 600 characters."],
+      default: "",
+    },
     ...softDeleteFields,
   },
   schemaOptions,

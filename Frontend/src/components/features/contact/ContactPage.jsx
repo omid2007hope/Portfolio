@@ -5,7 +5,15 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { createContactSubmission } from "@/lib/api";
 import { getSocialIcon } from "@/lib/social-icons";
-import { getSocialLinks } from "@/lib/site-content";
+import {
+  getContactFormTitle,
+  getContactIntroDescription,
+  getContactIntroEyebrow,
+  getContactIntroTitle,
+  getContactPanelDescription,
+  getContactPanelTitle,
+  getSocialLinks,
+} from "@/lib/site-content";
 
 function Contact({ profile }) {
   const [form, setForm] = useState({
@@ -60,24 +68,20 @@ function Contact({ profile }) {
 
         <section className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-6">
           <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
-            Start here
+            {getContactIntroEyebrow(profile)}
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight">
-            Tell me what you want to build
+            {getContactIntroTitle(profile)}
           </h2>
           <p className="mt-4 max-w-4xl text-lg leading-relaxed text-white/75">
-            The fastest way to get a useful reply is to include the goal of the
-            project, the expected timeline, and any constraints you already
-            know about. If you have a stack in mind, a reference site, or a
-            rough scope, that is helpful too. The more context you share, the
-            easier it is to suggest a practical path forward.
+            {getContactIntroDescription(profile)}
           </p>
         </section>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
           <form onSubmit={handleSubmit} className="space-y-6 lg:col-span-2">
             <h2 className="text-2xl font-bold tracking-tight">
-              Project inquiry
+              {getContactFormTitle(profile)}
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
@@ -167,10 +171,9 @@ function Contact({ profile }) {
           </form>
 
           <div className="h-fit w-full space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h2 className="text-xl font-bold">Contact Information</h2>
+            <h2 className="text-xl font-bold">{getContactPanelTitle(profile)}</h2>
             <p className="text-sm leading-relaxed text-white/70">
-              Reach out through the form or use one of the direct channels
-              below if you prefer a quicker intro before sharing the details.
+              {getContactPanelDescription(profile)}
             </p>
 
             <div className="flex items-start gap-4">

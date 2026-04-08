@@ -8,6 +8,9 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import {
   getDisplayName,
+  getHeaderAvailabilityText,
+  getHeaderBannerText,
+  getHeaderContactCtaLabel,
   getJobTitle,
   getNavigationLinks,
 } from "@/lib/site-content";
@@ -15,12 +18,12 @@ import {
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
-  const progressMessage = "Available for full-time roles immediately";
+  const progressMessage = getHeaderBannerText(profile);
   const navItems = getNavigationLinks(profile);
 
   const isActive = (route) => pathname === route;
-  const availabilityText = "Available for full-time roles immediately";
-  const contactCtaLabel = "Hire Me";
+  const availabilityText = getHeaderAvailabilityText(profile);
+  const contactCtaLabel = getHeaderContactCtaLabel(profile);
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-slate-950/65 backdrop-blur-xl">
