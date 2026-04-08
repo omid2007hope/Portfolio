@@ -103,15 +103,15 @@ function ProjectShowcase({ project, profile }) {
 
           <div className="space-y-14 lg:col-span-2">
             <section>
-              <h2 className="mb-4 text-2xl font-bold">Project Overview</h2>
+              <h2 className="mb-4 text-2xl font-bold">Overview</h2>
               <p className="leading-relaxed text-white/80">
                 {project.overview ||
-                  "This project was built with performance, modern UI, and responsive design as top priorities."}
+                  "This project was built to feel clear, fast, and ready for real users."}
               </p>
             </section>
 
             <section>
-              <h2 className="mb-4 text-2xl font-bold">Challenges & Solutions</h2>
+              <h2 className="mb-4 text-2xl font-bold">Problem, Approach, Outcome</h2>
               <p className="leading-relaxed text-white/80">
                 {project.challengesAndSolutions ||
                   "Challenge and solution notes have not been added yet."}

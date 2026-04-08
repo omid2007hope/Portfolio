@@ -27,7 +27,7 @@ describe("seo helpers", () => {
     expect(seo.description.length).toBeLessThanOrEqual(160);
     expect(seo.description).toMatch(/React/i);
     expect(seo.description).not.toMatch(/modern JavaScript technologies/i);
-    expect(seo.longDescription).toMatch(/modern JavaScript technologies/i);
+    expect(seo.longDescription).toMatch(/production-ready web apps/i);
   });
 
   test("root metadata uses the concise description", () => {

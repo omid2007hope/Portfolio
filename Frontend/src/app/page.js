@@ -12,7 +12,7 @@ export async function generateMetadata() {
 
   return buildPageMetadata({
     profile,
-    title: "Omid Teimory | Full-Stack Developer Specialized in Frontend",
+    title: "Omid Teimory | Frontend / Full-Stack Developer",
     path: "/",
     keywords: [
       "full-stack developer Vienna",

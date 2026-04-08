@@ -29,13 +29,13 @@ Create/update example:
 ```json
 {
   "fullName": "Omid Teimory",
-  "jobTitle": "Full-Stack Developer",
-  "headline": "Full-Stack Developer specialized in Frontend experiences.",
-  "shortBio": "Full-Stack Developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.",
-  "longBio": "I build full-stack web products with a frontend-first mindset, pairing polished interfaces with backend architecture, APIs, and scalable data flows.",
+  "jobTitle": "Frontend / Full-Stack Developer",
+  "headline": "I build fast, modern web applications that help businesses grow.",
+  "shortBio": "Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.",
+  "longBio": "I build fast, modern web applications that help businesses grow.",
   "heroBadge": "Currently building",
-  "availabilityText": "Open to freelance and full-time full-stack roles",
-  "currentFocus": "Frontend-led product work with backend architecture support",
+  "availabilityText": "Available for full-time roles immediately",
+  "currentFocus": "Building production-ready web apps with clear UI and reliable backend support",
   "location": "Vienna, Austria",
   "address": "Vienna 1120, Austria",
   "email": "omidhope2007@gmail.com",
@@ -83,10 +83,10 @@ Create/update example:
     { "label": "Contact", "to": "/contact" }
   ],
   "footerText": "© 2026 Omid Teimory. All rights reserved.",
-  "homePrimaryCtaLabel": "View Portfolio",
+  "homePrimaryCtaLabel": "View Projects",
   "homePrimaryCtaUrl": "https://omidteimory.com",
-  "homeSecondaryCtaLabel": "Explore Projects",
-  "homeSecondaryCtaUrl": "/projects"
+  "homeSecondaryCtaLabel": "Hire Me",
+  "homeSecondaryCtaUrl": "/contact"
 }
 ```
 

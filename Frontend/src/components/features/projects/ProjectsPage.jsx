@@ -12,24 +12,24 @@ function Project({ projects, profile }) {
             Selected Projects
           </h1>
           <p className="mt-2 text-lg text-white/70">
-            A collection of recent work pulled directly from the backend portfolio API.
+            A collection of case studies pulled directly from the backend portfolio API.
           </p>
         </div>
 
         <div className="mx-auto mb-12 grid max-w-5xl gap-8 rounded-2xl border border-white/10 bg-white/5 p-6 lg:grid-cols-2">
           <section className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
-              What these case studies show
+              What these projects show
             </p>
             <h2 className="text-2xl font-bold tracking-tight">
-              Practical work, not just screenshots
+              Real products, not just screenshots
             </h2>
             <p className="text-lg leading-relaxed text-white/75">
               Each project is selected to show how I think about structure,
               visual polish, and the technical choices behind the experience.
-              The focus is on real delivery: making interfaces feel clear,
-              keeping the stack maintainable, and connecting design decisions to
-              the way users actually move through the site.
+              The focus is on shipping something useful, keeping the stack
+              maintainable, and connecting design decisions to how people
+              actually use the product.
             </p>
           </section>
 
@@ -38,14 +38,14 @@ function Project({ projects, profile }) {
               Selection criteria
             </p>
             <h2 className="text-2xl font-bold tracking-tight">
-              Fast, responsive, and built to scale
+              Fast, responsive, and production-ready
             </h2>
             <p className="text-lg leading-relaxed text-white/75">
               The strongest entries balance frontend quality with enough backend
               depth to demonstrate product thinking. That usually means a clean
               React or Next.js interface, sensible data flow, and enough
               context for someone reviewing the work to understand the problem,
-              the solution, and the technical tradeoffs.
+              the solution, and the tradeoffs that shaped it.
             </p>
           </section>
         </div>
@@ -128,7 +128,7 @@ function Project({ projects, profile }) {
             What to expect from future case studies
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight">
-            More context, more structure, and more technical detail
+            More context, more structure, and more product detail
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-white/75">
             As more work is added to the portfolio, the project pages will keep

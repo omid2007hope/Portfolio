@@ -9,9 +9,7 @@ import { ArrowRight, Atom, BriefcaseBusiness, Sparkles } from "lucide-react";
 import Me from "@/app/assets/image/Home Page.webp";
 import { getSocialIcon } from "@/lib/social-icons";
 import {
-  getHeroDescription,
   getHeroSkills,
-  getHighlights,
   getSocialLinks,
 } from "@/lib/site-content";
 
@@ -23,15 +21,23 @@ function Home({ profile }) {
   const [open, setOpen] = useState(false);
   const skills = getHeroSkills(profile);
   const social = getSocialLinks(profile);
-  const highlights = getHighlights(profile);
-  const heroDescription = getHeroDescription(profile);
+  const highlights = [
+    { label: "Based in", value: profile?.location || "Vienna, Austria" },
+    {
+      label: "Primary stack",
+      value:
+        profile?.primaryStack || "React, Next.js, Tailwind CSS, Node.js, MongoDB",
+    },
+    {
+      label: "Current focus",
+      value: "Building production-ready web apps with clear UI and reliable backend support",
+    },
+  ];
 
-  const primaryCtaLabel = profile?.homePrimaryCtaLabel || "View Portfolio";
-  const primaryCtaUrl =
-    profile?.homePrimaryCtaUrl || profile?.portfolioUrl || "/projects";
-  const secondaryCtaLabel =
-    profile?.homeSecondaryCtaLabel || "Explore Projects";
-  const secondaryCtaUrl = profile?.homeSecondaryCtaUrl || "/projects";
+  const primaryCtaLabel = "View Projects";
+  const primaryCtaUrl = profile?.portfolioUrl || "/projects";
+  const secondaryCtaLabel = "Hire Me";
+  const secondaryCtaUrl = "/contact";
 
   return (
     <>
@@ -41,20 +47,26 @@ function Home({ profile }) {
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-[0_10px_40px_rgba(34,211,238,0.18)]">
             <BriefcaseBusiness className="h-4 w-4" />
             {profile?.availabilityText ||
-              "Open to freelance and full-time full-stack roles"}
+              "Available for full-time roles immediately"}
           </div>
 
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-200/75">
-              {profile?.jobTitle || "Full-Stack Developer"}
+              Frontend / Full-Stack Developer
             </p>
             <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-              {profile?.headline ||
-                "Full-stack developer specialized in frontend experiences."}
+              I build fast, modern web applications that help businesses grow.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              {heroDescription}
+              Frontend / Full-Stack Developer (React, Next.js, Node.js)
             </p>
+            <div className="space-y-2 text-sm font-medium uppercase tracking-[0.2em] text-cyan-100/75">
+              <p>
+                {profile?.location || "Based in Austria"} - Available for
+                full-time roles immediately
+              </p>
+              <p>Open to freelance & contract work in the coming months</p>
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
@@ -112,13 +124,6 @@ function Home({ profile }) {
               {secondaryCtaLabel}
               <Sparkles className="h-4 w-4" />
             </Link>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-6 py-3 font-semibold text-cyan-100 transition hover:bg-cyan-400/20"
-            >
-              Get In Touch
-            </Link>
           </div>
 
           <div className="flex flex-wrap gap-8 pt-4">
@@ -151,13 +156,13 @@ function Home({ profile }) {
             <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.34),transparent_25%),radial-gradient(circle_at_70%_80%,rgba(37,99,235,0.34),transparent_30%)] blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(145deg,rgba(15,23,42,0.92),rgba(10,35,64,0.86))] p-5 shadow-[0_30px_120px_rgba(2,8,23,0.55)]">
               <div className="mb-5 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/65">
-                    {profile?.heroBadge || "Currently building"}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/65">
+                    Currently building
                   </p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    {profile?.currentFocus ||
-                      "Frontend-led product work with backend architecture, APIs, and data flows that keep the experience fast and maintainable"}
+                    Building production-ready web apps with clear UI and
+                    reliable backend support
                   </p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 p-3 text-emerald-200">
@@ -190,7 +195,7 @@ function Home({ profile }) {
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-200">
                     {profile?.primaryStack ||
-                      "React, Next.js, Tailwind CSS, Node.js, MongoDB, and product-focused UI systems."}
+                      "React, Next.js, Tailwind CSS, Node.js, MongoDB, and production-ready UI systems."}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-sky-400/10 p-4">
@@ -198,8 +203,9 @@ function Home({ profile }) {
                     Next step
                   </p>
                   <p className="mt-2 text-sm leading-6 text-sky-50">
-                    {profile?.longBio ||
-                      "I lead with frontend quality, then support it with backend architecture, APIs, and data flows that keep the product fast, reliable, and maintainable."}
+                    I build with frontend quality first, then support it with
+                    backend structure, APIs, and data flows that keep the
+                    product fast, reliable, and maintainable.
                   </p>
                 </div>
               </div>
@@ -214,39 +220,35 @@ function Home({ profile }) {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-5">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200/75">
-                Why this portfolio exists
+                What I Do
               </p>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                A frontend-first portfolio with full-stack depth
+                I build complete web applications from frontend to backend.
               </h2>
               <p className="max-w-3xl text-lg leading-8 text-slate-300">
-                I use this site to show how a product can feel calm, clear, and
-                quick without sacrificing technical depth. The work starts with
-                interface design, accessibility, and content hierarchy, then
-                extends into APIs, data flow, and deployment details when the
-                experience needs more than static pages.
+                I focus on speed, clarity, and real-world usability so the
+                product feels polished for users and easy to maintain for the
+                team.
               </p>
-              <p className="max-w-3xl text-lg leading-8 text-slate-300">
-                If you are reviewing the portfolio as a client, recruiter, or
-                collaborator, the main message is simple: I pay attention to
-                the whole path from first impression to shipped work. That
-                means the copy should be specific, the layout should be
-                readable, and the implementation should be easy to extend.
-              </p>
+              <ul className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6 text-base leading-7 text-slate-200">
+                <li>Modern frontend development with React and Next.js</li>
+                <li>Backend APIs and authentication systems with Node.js</li>
+                <li>Clean, scalable architecture for real-world applications</li>
+              </ul>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <InfoCard
                 title="Frontend first"
-                text="I start with the interface, because clarity in layout and content usually makes every other decision easier."
+                text="I start with the interface, because clear layout and content make the rest easier."
               />
               <InfoCard
                 title="Backend aware"
-                text="I can connect the frontend to the systems behind it without turning the user experience into an afterthought."
+                text="I connect the frontend to the systems behind it without turning the experience into an afterthought."
               />
               <InfoCard
                 title="Performance minded"
-                text="Fast pages, careful asset use, and lightweight interactions matter just as much as visual polish."
+                text="Fast pages, careful asset use, and lightweight interactions matter as much as visual polish."
               />
               <InfoCard
                 title="Maintainable"
@@ -255,42 +257,23 @@ function Home({ profile }) {
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <NarrativeCard
-              eyebrow="Design systems"
-              title="Reusable components that stay consistent"
-              text="I prefer building with patterns that scale: shared spacing, predictable typography, and components that make the next feature easier to add."
-            />
-            <NarrativeCard
-              eyebrow="Implementation"
-              title="Practical engineering instead of decoration"
-              text="The goal is to ship products that are fast on the first visit, easy to navigate, and straightforward to maintain after launch."
-            />
-            <NarrativeCard
-              eyebrow="Delivery"
-              title="Content and code working together"
-              text="Good SEO is not only metadata. It comes from real copy, real structure, and a page that gives search engines and humans the same story."
-            />
-          </div>
-
           <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-[0_20px_80px_rgba(2,8,23,0.35)]">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              How I turn ideas into shipped work
+              How I Work
             </h2>
             <p className="mt-5 max-w-4xl text-lg leading-8 text-slate-300">
-              I usually begin by clarifying the goal, the audience, and the
-              content hierarchy. From there I design the experience around the
-              smallest useful set of interactions, then layer in the technical
-              pieces that support speed, accessibility, and clarity. That
-              approach works for portfolio sites, marketing pages, dashboards,
-              and product features because it keeps the work grounded in
-              outcomes instead of trends.
+              I focus on building clear, fast, and maintainable applications
+              from idea to production.
             </p>
-            <p className="mt-4 max-w-4xl text-lg leading-8 text-slate-300">
-              The result is a portfolio that is not just visually polished, but
-              also easy to understand, easy to navigate, and convincing enough
-              to demonstrate that the work behind it is ready for real-world
-              use.
+          </div>
+
+          <div className="rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 shadow-[0_20px_80px_rgba(2,8,23,0.25)]">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-100/80">
+              Status
+            </h3>
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-emerald-50">
+              Currently building real-world full-stack applications and
+              actively seeking opportunities in Austria.
             </p>
           </div>
         </div>
@@ -318,20 +301,6 @@ function InfoCard({ title, text }) {
       <h3 className="text-base font-semibold text-white">{title}</h3>
       <p className="mt-2 text-sm leading-6 text-slate-300">{text}</p>
     </div>
-  );
-}
-
-function NarrativeCard({ eyebrow, title, text }) {
-  return (
-    <article className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/70">
-        {eyebrow}
-      </p>
-      <h3 className="mt-3 text-xl font-bold tracking-tight text-white">
-        {title}
-      </h3>
-      <p className="mt-3 text-sm leading-7 text-slate-300">{text}</p>
-    </article>
   );
 }
 

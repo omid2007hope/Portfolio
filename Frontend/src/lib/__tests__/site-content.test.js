@@ -21,11 +21,13 @@ describe("site-content helpers", () => {
 
   test("returns fallback about paragraphs when profile data is missing", () => {
     expect(getAboutParagraphs({})).toHaveLength(3);
-    expect(getAboutParagraphs({})[0].content).toMatch(/frontend-first mindset/i);
+    expect(getAboutParagraphs({})[0].content).toMatch(
+      /complete web applications from idea to launch/i,
+    );
   });
 
   test("returns a longer fallback hero description", () => {
-    expect(getHeroDescription({})).toMatch(/React and Next\.js/i);
-    expect(getHeroDescription({}).length).toBeGreaterThan(130);
+    expect(getHeroDescription({})).toMatch(/fast, modern web applications/i);
+    expect(getHeroDescription({}).length).toBeGreaterThan(40);
   });
 });

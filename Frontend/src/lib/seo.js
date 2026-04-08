@@ -1,10 +1,10 @@
 const DEFAULT_SITE_URL = "https://omidteimory.com";
 const DEFAULT_SITE_NAME = "Omid Teimory's Portfolio";
 const DEFAULT_PERSON_NAME = "Omid Teimory";
-const DEFAULT_JOB_TITLE = "Full-Stack Developer";
+const DEFAULT_JOB_TITLE = "Frontend / Full-Stack Developer";
 const DEFAULT_LOCATION = "Austria";
 const DEFAULT_DESCRIPTION =
-  "Frontend-focused full-stack developer in Vienna, Austria building fast React and Next.js products with scalable APIs and polished user experiences.";
+  "Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.";
 
 const DEFAULT_KEYWORDS = [
   "Omid Teimory",
@@ -114,29 +114,18 @@ const getResumeSkills = (resume) =>
   (resume?.skillGroups || []).flatMap((group) => group?.items || []);
 
 const getMetaDescription = (profile, resume) => {
-  const shortBio = profile?.shortBio?.trim();
   const concise = `${profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE} in ${
     profile?.location || resume?.address || DEFAULT_LOCATION
-  } building fast React and Next.js products with scalable APIs, clean UI, and reliable user experiences.`;
+  } building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.`;
 
-  const candidates = [profile?.metaDescription, shortBio]
-    .map((value) => value?.trim())
-    .filter(Boolean);
+  const metaDescription = profile?.metaDescription?.trim();
 
-  const tunedCandidate = candidates.find(
-    (value) => value.length >= 130 && value.length <= 160,
-  );
-
-  if (tunedCandidate) {
-    return tunedCandidate;
+  if (metaDescription?.length >= 130 && metaDescription.length <= 160) {
+    return metaDescription;
   }
 
   if (concise.length >= 130 && concise.length <= 160) {
     return concise;
-  }
-
-  if (shortBio) {
-    return shortBio.length > 160 ? shortBio.slice(0, 157).trimEnd() + "..." : shortBio;
   }
 
   return DEFAULT_DESCRIPTION;
@@ -161,11 +150,14 @@ export const absoluteUrl = (path = "/", profile) => {
 export const getSeoProfile = (profile, resume) => {
   const personName =
     profile?.fullName || resume?.profileName || DEFAULT_PERSON_NAME;
-  const jobTitle = profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE;
-  const headline = profile?.headline || resume?.headline || jobTitle;
+  const jobTitle =
+    profile?.jobTitle && /frontend/i.test(profile.jobTitle)
+      ? profile.jobTitle
+      : DEFAULT_JOB_TITLE;
+  const headline = jobTitle;
   const description = getMetaDescription(profile, resume);
   const longDescription =
-    profile?.longBio?.trim() || resume?.summary?.trim() || description;
+    profile?.metaDescription?.trim() || description;
   const location = profile?.location || resume?.address || DEFAULT_LOCATION;
   const siteUrl = getSiteUrl(profile);
   const sameAs = dedupe([

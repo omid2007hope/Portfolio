@@ -1,15 +1,35 @@
 import Link from "next/link";
 import SiteFooter from "@/components/layout/SiteFooter";
-import {
-  getAboutCards,
-  getAboutParagraphs,
-  getDisplayName,
-} from "@/lib/site-content";
+import { getDisplayName } from "@/lib/site-content";
 
 function About({ profile }) {
-  const aboutParagraphs = getAboutParagraphs(profile);
-  const aboutCards = getAboutCards(profile);
   const displayName = getDisplayName(profile);
+  const aboutParagraphs = [
+    {
+      content:
+        "I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.",
+    },
+    {
+      content:
+        "When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.",
+    },
+    {
+      content:
+        "The goal is always the same: fast pages, clean structure, and code that is easy to maintain after launch.",
+    },
+  ];
+  const aboutCards = [
+    {
+      label: "Primary stack",
+      value:
+        profile?.primaryStack ||
+        "React, Next.js, Tailwind CSS, Node.js, MongoDB",
+    },
+    {
+      label: "Working style",
+      value: "Fast, practical, and production-focused",
+    },
+  ];
 
   return (
     <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
@@ -17,8 +37,8 @@ function About({ profile }) {
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold">About {displayName}</h1>
           <p className="mt-2 text-lg text-white/70">
-            Learn more about {displayName}, the work behind this portfolio, and
-            how we can collaborate.
+            A short look at how {displayName} builds fast, production-ready web
+            applications.
           </p>
         </div>
 
@@ -80,8 +100,7 @@ function About({ profile }) {
           <div className="space-y-10 rounded-2xl border border-white/10 bg-white/5 p-8 lg:col-span-2">
             <section>
               <h2 className="text-2xl font-extrabold leading-snug">
-                {profile?.headline ||
-                  "Crafting user-focused digital experiences."}
+                I build fast, modern web applications that help businesses grow.
               </h2>
 
               {aboutParagraphs.map((paragraph, index) => (
@@ -102,17 +121,10 @@ function About({ profile }) {
                 Clear process, thoughtful implementation, and room to grow
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                I prefer projects where the goal is practical progress: define
-                the audience, shape the content, build the interface, and make
-                sure the technical foundation can support future changes. That
-                approach keeps the work focused and makes it easier to move from
-                concept to launch without losing the details that matter.
-              </p>
-              <p className="mt-4 text-lg leading-relaxed text-white/80">
-                Whether the project is a personal site, a marketing page, or a
-                product feature, I aim for the same outcome: a clean experience
-                that is easy to understand, easy to maintain, and ready for real
-                users.
+                I start by clarifying the goal, then build the smallest useful
+                version of the experience and shape the technical layer around
+                that. The result is work that is easy to understand, quick to
+                use, and straightforward to maintain after launch.
               </p>
             </section>
           </div>

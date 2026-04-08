@@ -1,6 +1,6 @@
 const DEFAULT_PROFILE_NAME = "Omid Teimory";
 const DEFAULT_HERO_DESCRIPTION =
-  "Frontend-focused full-stack developer in Vienna, Austria building fast React and Next.js products with scalable APIs and polished user experiences.";
+  "I build fast, modern web applications that help businesses grow.";
 
 const DEFAULT_SOCIAL_LINKS = [
   {
@@ -45,15 +45,15 @@ const DEFAULT_NAVIGATION_LINKS = [
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {
     content:
-      "I build full-stack products with a frontend-first mindset, shaping the user experience in React and Next.js before expanding into the backend pieces that keep the product reliable.",
+      "I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.",
   },
   {
     content:
-      "My process favors clear information architecture, reusable UI systems, and careful performance work so every page stays fast, readable, and easy to maintain as the product grows.",
+      "When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.",
   },
   {
     content:
-      "I enjoy working on projects where design, implementation, and delivery all matter, whether that means a polished portfolio, a content-driven marketing site, or a production application.",
+      "The goal is always the same: fast pages, clean structure, and code that is easy to maintain after launch.",
   },
 ];
 
@@ -113,7 +113,7 @@ export const getHighlights = (profile) =>
           label: "Current focus",
           value:
             profile?.currentFocus ||
-            "Frontend-led product work with backend architecture, APIs, and data flows that keep the experience fast and maintainable",
+            "Building production-ready web apps with clear UI and reliable backend support",
         },
       ];
 
@@ -133,10 +133,8 @@ export const getAboutCards = (profile) =>
             "React, Next.js, Tailwind CSS, Node.js, MongoDB",
         },
         {
-          label: "Current focus",
-          value:
-            profile?.currentFocus ||
-            "Frontend-led product work with backend architecture support",
+          label: "Working style",
+          value: "Fast, practical, and production-focused",
         },
       ];
 
@@ -148,4 +146,4 @@ export const getDisplayName = (profile) =>
   profile?.fullName || DEFAULT_PROFILE_NAME;
 
 export const getJobTitle = (profile) =>
-  profile?.jobTitle || "Full-Stack Developer";
+  profile?.jobTitle || "Frontend / Full-Stack Developer";

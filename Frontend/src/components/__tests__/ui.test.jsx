@@ -38,7 +38,7 @@ describe("frontend UI flows", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /Crafting user-focused digital experiences/i,
+        name: /I build fast, modern web applications that help businesses grow/i,
         level: 2,
       }),
     ).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe("frontend UI flows", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/frontend-first mindset/i),
+      screen.getByText(/complete web applications from idea to launch/i),
     ).toBeInTheDocument();
   });
 
@@ -64,13 +64,13 @@ describe("frontend UI flows", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /Practical work, not just screenshots/i,
+        name: /Real products, not just screenshots/i,
         level: 2,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /Fast, responsive, and built to scale/i,
+        name: /Fast, responsive, and production-ready/i,
         level: 2,
       }),
     ).toBeInTheDocument();

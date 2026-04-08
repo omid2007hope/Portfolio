@@ -15,13 +15,12 @@ import {
 function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
-  const progressMessage =
-    "In progress: I am constantly updating this portfolio.";
+  const progressMessage = "Available for full-time roles immediately";
   const navItems = getNavigationLinks(profile);
 
   const isActive = (route) => pathname === route;
-  const availabilityText = profile?.availabilityText || "Open to work";
-  const contactCtaLabel = profile?.homeSecondaryCtaLabel || "Get In Touch";
+  const availabilityText = "Available for full-time roles immediately";
+  const contactCtaLabel = "Hire Me";
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-slate-950/65 backdrop-blur-xl">
