@@ -79,8 +79,8 @@ Full seed example:
   "portfolioUrl": "https://omidteimory.com",
   "primaryStack": "React, Next.js, Tailwind CSS, Node.js, MongoDB",
   "openToWork": true,
-  "portraitImage": "https://images.example.com/me.jpg",
-  "logoImage": "https://images.example.com/logo.png",
+  "portraitImage": "https://avatars.githubusercontent.com/u/218600127?v=4",
+  "logoImage": "https://avatars.githubusercontent.com/u/218600127?v=4",
   "heroSkills": ["React", "Next.js", "Tailwind CSS", "Node.js"],
   "spokenLanguages": ["English", "German", "Persian"],
   "socialLinks": [
@@ -245,7 +245,7 @@ Create example:
   "email": "omidhope2007@gmail.com",
   "phoneNumber": "+43 681-81580180",
   "address": "Vienna 1120, Austria",
-  "avatarImage": "https://images.example.com/me-avatar.jpg",
+  "avatarImage": "https://avatars.githubusercontent.com/u/218600127?v=4",
   "importantLinks": [
     { "label": "Portfolio", "url": "https://omidteimory.com" },
     { "label": "GitHub", "url": "https://github.com/omid2007hope" },

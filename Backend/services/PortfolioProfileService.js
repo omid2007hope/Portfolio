@@ -1,6 +1,9 @@
 const BaseService = require("./BaseService");
 const { PortfolioProfile } = require("../models");
 
+const DEFAULT_PROFILE_IMAGE =
+  "https://avatars.githubusercontent.com/u/218600127?v=4";
+
 class PortfolioProfileService extends BaseService {
   constructor() {
     super(PortfolioProfile);
@@ -46,8 +49,8 @@ class PortfolioProfileService extends BaseService {
     portfolioUrl: profile.portfolioUrl,
     primaryStack: profile.primaryStack,
     openToWork: profile.openToWork,
-    portraitImage: profile.portraitImage,
-    logoImage: profile.logoImage,
+    portraitImage: DEFAULT_PROFILE_IMAGE,
+    logoImage: DEFAULT_PROFILE_IMAGE,
     heroSkills: profile.heroSkills || [],
     spokenLanguages: profile.spokenLanguages || [],
     socialLinks: profile.socialLinks || [],
