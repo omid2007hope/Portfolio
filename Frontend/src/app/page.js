@@ -1,7 +1,11 @@
 import HomePage from "@/components/features/home/HomePage";
 import { getProfile } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
-import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
+import {
+  buildPageMetadata,
+  buildWebPageJsonLd,
+  getSeoProfile,
+} from "@/lib/seo";
 
 export async function generateMetadata() {
   const profile = await getProfile();
@@ -9,9 +13,6 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: "Omid Teimory | Full-Stack Developer Specialized in Frontend",
-    description:
-      profile?.shortBio ||
-      "Full-stack developer in Vienna, Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.",
     path: "/",
     keywords: [
       "full-stack developer Vienna",
@@ -23,6 +24,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const profile = await getProfile();
+  const seo = getSeoProfile(profile);
 
   return (
     <>
@@ -31,9 +33,7 @@ export default async function Page() {
           profile,
           path: "/",
           title: "Omid Teimory | Portfolio Prime",
-          description:
-            profile?.shortBio ||
-            "Full-stack developer in Vienna, Austria specializing in frontend engineering and polished React experiences.",
+          description: seo.description,
         })}
       />
       <HomePage profile={profile} />

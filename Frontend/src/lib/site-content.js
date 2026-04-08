@@ -1,4 +1,6 @@
 const DEFAULT_PROFILE_NAME = "Omid Teimory";
+const DEFAULT_HERO_DESCRIPTION =
+  "Frontend-focused full-stack developer in Vienna, Austria building fast React and Next.js products with scalable APIs and polished user experiences.";
 
 const DEFAULT_SOCIAL_LINKS = [
   {
@@ -43,15 +45,15 @@ const DEFAULT_NAVIGATION_LINKS = [
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {
     content:
-      "I am a full-stack developer specializing in frontend experiences that feel polished, responsive, and easy to use.",
+      "I build full-stack products with a frontend-first mindset, shaping the user experience in React and Next.js before expanding into the backend pieces that keep the product reliable.",
   },
   {
     content:
-      "My work starts with strong UI systems in React and Next.js, then extends into backend architecture when the product needs it.",
+      "My process favors clear information architecture, reusable UI systems, and careful performance work so every page stays fast, readable, and easy to maintain as the product grows.",
   },
   {
     content:
-      "I am open to freelance, collaboration, and full-time roles where frontend quality matters just as much as full-stack delivery.",
+      "I enjoy working on projects where design, implementation, and delivery all matter, whether that means a polished portfolio, a content-driven marketing site, or a production application.",
   },
 ];
 
@@ -91,6 +93,11 @@ export const getHeroSkills = (profile) =>
         "MongoDB",
       ];
 
+export const getHeroDescription = (profile) =>
+  profile?.longBio?.trim() ||
+  (profile?.shortBio?.trim().length >= 130 ? profile.shortBio.trim() : "") ||
+  DEFAULT_HERO_DESCRIPTION;
+
 export const getHighlights = (profile) =>
   profile?.highlights?.length
     ? profile.highlights
@@ -106,7 +113,7 @@ export const getHighlights = (profile) =>
           label: "Current focus",
           value:
             profile?.currentFocus ||
-            "Frontend-led product work with backend architecture support",
+            "Frontend-led product work with backend architecture, APIs, and data flows that keep the experience fast and maintainable",
         },
       ];
 

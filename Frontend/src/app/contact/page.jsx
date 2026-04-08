@@ -5,6 +5,7 @@ import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildWebPageJsonLd,
+  getSeoProfile,
 } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -13,8 +14,6 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-    description:
-      "Contact Omid Teimory for freelance, collaboration, and full-stack project inquiries with a frontend focus in Austria and remote.",
     path: "/contact",
     keywords: [
       "hire full-stack developer Austria",
@@ -26,6 +25,7 @@ export async function generateMetadata() {
 
 export default async function ContactRoute() {
   const profile = await getProfile();
+  const seo = getSeoProfile(profile);
 
   return (
     <>
@@ -35,8 +35,7 @@ export default async function ContactRoute() {
             profile,
             path: "/contact",
             title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-            description:
-              "Contact Omid Teimory for freelance, collaboration, and full-stack development opportunities with a frontend focus.",
+            description: seo.description,
             type: "ContactPage",
           }),
           buildBreadcrumbJsonLd(

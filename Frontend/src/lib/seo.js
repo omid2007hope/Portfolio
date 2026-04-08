@@ -4,7 +4,7 @@ const DEFAULT_PERSON_NAME = "Omid Teimory";
 const DEFAULT_JOB_TITLE = "Full-Stack Developer";
 const DEFAULT_LOCATION = "Austria";
 const DEFAULT_DESCRIPTION =
-  "Omid Teimory is a full-stack developer in Austria specializing in frontend engineering with React, Next.js, Tailwind CSS, and modern web applications.";
+  "Frontend-focused full-stack developer in Vienna, Austria building fast React and Next.js products with scalable APIs and polished user experiences.";
 
 const DEFAULT_KEYWORDS = [
   "Omid Teimory",
@@ -113,6 +113,20 @@ const getTwitterHandle = (profile) => {
 const getResumeSkills = (resume) =>
   (resume?.skillGroups || []).flatMap((group) => group?.items || []);
 
+const getMetaDescription = (profile, resume) => {
+  const candidates = [
+    profile?.longBio,
+    resume?.summary,
+    profile?.shortBio,
+  ]
+    .map((value) => value?.trim())
+    .filter(Boolean);
+
+  const longCandidate = candidates.find((value) => value.length >= 130);
+
+  return longCandidate || DEFAULT_DESCRIPTION;
+};
+
 export const getSiteUrl = (profile) =>
   pickFirstValidUrl(
     process.env.NEXT_PUBLIC_SITE_URL,
@@ -134,9 +148,9 @@ export const getSeoProfile = (profile, resume) => {
     profile?.fullName || resume?.profileName || DEFAULT_PERSON_NAME;
   const jobTitle = profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE;
   const headline = profile?.headline || resume?.headline || jobTitle;
-  const description =
-    profile?.shortBio || resume?.summary || DEFAULT_DESCRIPTION;
-  const longDescription = profile?.longBio || description;
+  const description = getMetaDescription(profile, resume);
+  const longDescription =
+    profile?.longBio?.trim() || resume?.summary?.trim() || description;
   const location = profile?.location || resume?.address || DEFAULT_LOCATION;
   const siteUrl = getSiteUrl(profile);
   const sameAs = dedupe([

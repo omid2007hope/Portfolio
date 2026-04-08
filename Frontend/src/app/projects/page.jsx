@@ -13,8 +13,6 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: "Projects and Case Studies | Omid Teimory",
-    description:
-      "Explore selected React, Next.js, and full-stack case studies from Omid Teimory, a full-stack developer in Vienna, Austria with a frontend specialization.",
     path: "/projects",
     keywords: [
       "Next.js projects",

@@ -8,6 +8,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
+import Me from "@/app/assets/image/Home Page.webp";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getDisplayName, getJobTitle } from "@/lib/site-content";
 

@@ -15,9 +15,7 @@ function About({ profile }) {
     <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
       <div className="flex w-full max-w-6xl flex-col justify-center">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold">
-            About {displayName}
-          </h1>
+          <h1 className="text-4xl font-extrabold">About {displayName}</h1>
           <p className="mt-2 text-lg text-white/70">
             Learn more about {displayName}, the work behind this portfolio, and
             how we can collaborate.
@@ -30,36 +28,36 @@ function About({ profile }) {
               <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
                 Location
               </p>
-              <h1 className="mt-2 text-xl font-semibold">
+              <p className="mt-2 text-xl font-semibold">
                 {profile?.location || "Vienna, Austria"}
-              </h1>
+              </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
                 Languages
               </p>
-              <h1 className="mt-2 text-xl font-semibold">
+              <p className="mt-2 text-xl font-semibold">
                 {profile?.spokenLanguages?.join(", ") || "English (Fluent)"}
-              </h1>
+              </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
                 Email
               </p>
-              <h1 className="mt-2 break-all text-xl font-semibold">
+              <p className="mt-2 break-all text-xl font-semibold">
                 {profile?.email || "omidhope2007@gmail.com"}
-              </h1>
+              </p>
             </div>
 
             <div className="rounded-2xl border border-green-600/30 bg-green-700/10 p-6">
               <p className="text-sm font-semibold uppercase tracking-wide text-green-200">
                 Availability
               </p>
-              <h1 className="mt-2 text-xl font-semibold text-green-100">
+              <p className="mt-2 text-xl font-semibold text-green-100">
                 {profile?.availabilityText || "Open to work and new projects"}
-              </h1>
+              </p>
             </div>
 
             {aboutCards.map((card) => (
@@ -67,7 +65,7 @@ function About({ profile }) {
                 <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
                   {card.label}
                 </p>
-                <h1 className="mt-2 text-xl font-semibold">{card.value}</h1>
+                <h3 className="mt-2 text-xl font-semibold">{card.value}</h3>
               </div>
             ))}
 
@@ -79,16 +77,44 @@ function About({ profile }) {
             </Link>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 lg:col-span-2">
-            <h2 className="text-2xl font-extrabold leading-snug">
-              {profile?.headline || "Crafting user-focused digital experiences."}
-            </h2>
+          <div className="space-y-10 rounded-2xl border border-white/10 bg-white/5 p-8 lg:col-span-2">
+            <section>
+              <h2 className="text-2xl font-extrabold leading-snug">
+                {profile?.headline ||
+                  "Crafting user-focused digital experiences."}
+              </h2>
 
-            {aboutParagraphs.map((paragraph, index) => (
-              <p key={`${paragraph.content}-${index}`} className="mt-5 text-lg leading-relaxed text-white/80">
-                {paragraph.content}
+              {aboutParagraphs.map((paragraph, index) => (
+                <p
+                  key={`${paragraph.content}-${index}`}
+                  className="mt-5 text-lg leading-relaxed text-white/80"
+                >
+                  {paragraph.content}
+                </p>
+              ))}
+            </section>
+
+            <section className="border-t border-white/10 pt-10">
+              <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
+                How I work
               </p>
-            ))}
+              <h2 className="mt-2 text-2xl font-extrabold leading-snug">
+                Clear process, thoughtful implementation, and room to grow
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-white/80">
+                I prefer projects where the goal is practical progress: define
+                the audience, shape the content, build the interface, and make
+                sure the technical foundation can support future changes. That
+                approach keeps the work focused and makes it easier to move from
+                concept to launch without losing the details that matter.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-white/80">
+                Whether the project is a personal site, a marketing page, or a
+                product feature, I aim for the same outcome: a clean experience
+                that is easy to understand, easy to maintain, and ready for real
+                users.
+              </p>
+            </section>
           </div>
         </div>
 

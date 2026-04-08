@@ -5,6 +5,7 @@ import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildWebPageJsonLd,
+  getSeoProfile,
 } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -13,10 +14,6 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: `About ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-    description:
-      profile?.longBio ||
-      profile?.shortBio ||
-      "Learn more about Omid Teimory, a full-stack developer in Vienna, Austria specializing in frontend engineering, React, and polished product interfaces.",
     path: "/about",
     keywords: [
       "About Omid Teimory",
@@ -28,6 +25,7 @@ export async function generateMetadata() {
 
 export default async function AboutRoute() {
   const profile = await getProfile();
+  const seo = getSeoProfile(profile);
 
   return (
     <>
@@ -37,10 +35,7 @@ export default async function AboutRoute() {
             profile,
             path: "/about",
             title: `About ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-            description:
-              profile?.longBio ||
-              profile?.shortBio ||
-              "Learn more about Omid Teimory and the full-stack experience behind Portfolio Prime.",
+            description: seo.description,
             type: "AboutPage",
           }),
           buildBreadcrumbJsonLd(

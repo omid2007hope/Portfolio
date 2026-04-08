@@ -16,10 +16,38 @@ function Project({ projects, profile }) {
           </p>
         </div>
 
-        <div className="mb-10 flex justify-center gap-4">
-          <button className="rounded-lg border border-white/10 bg-white/5 px-5 py-2 font-medium transition hover:bg-white/10">
-            All
-          </button>
+        <div className="mx-auto mb-12 grid max-w-5xl gap-8 rounded-2xl border border-white/10 bg-white/5 p-6 lg:grid-cols-2">
+          <section className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
+              What these case studies show
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Practical work, not just screenshots
+            </h2>
+            <p className="text-lg leading-relaxed text-white/75">
+              Each project is selected to show how I think about structure,
+              visual polish, and the technical choices behind the experience.
+              The focus is on real delivery: making interfaces feel clear,
+              keeping the stack maintainable, and connecting design decisions to
+              the way users actually move through the site.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
+              Selection criteria
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Fast, responsive, and built to scale
+            </h2>
+            <p className="text-lg leading-relaxed text-white/75">
+              The strongest entries balance frontend quality with enough backend
+              depth to demonstrate product thinking. That usually means a clean
+              React or Next.js interface, sensible data flow, and enough
+              context for someone reviewing the work to understand the problem,
+              the solution, and the technical tradeoffs.
+            </p>
+          </section>
         </div>
 
         {projects?.length ? (
@@ -94,6 +122,22 @@ function Project({ projects, profile }) {
             No projects have been added to the backend yet.
           </div>
         )}
+
+        <section className="mt-14 rounded-2xl border border-white/10 bg-white/5 p-8">
+          <p className="text-sm font-semibold uppercase tracking-wide text-white/60">
+            What to expect from future case studies
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">
+            More context, more structure, and more technical detail
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-white/75">
+            As more work is added to the portfolio, the project pages will keep
+            showing the same pattern: a clear overview, the problem being
+            solved, the implementation choices that mattered, and the outcome
+            those choices created. That keeps the portfolio useful for search
+            engines and, more importantly, useful for the people reading it.
+          </p>
+        </section>
 
         <SiteFooter profile={profile} />
       </div>
