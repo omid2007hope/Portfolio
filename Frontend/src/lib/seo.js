@@ -194,7 +194,7 @@ export const getSeoProfile = (profile, resume) => {
     image:
       profile?.portraitImage ||
       resume?.avatarImage ||
-      absoluteUrl("/favicon.ico", profile),
+      absoluteUrl("/icon.png", profile),
     twitterHandle: getTwitterHandle(profile),
     keywords: dedupe([
       ...DEFAULT_KEYWORDS,

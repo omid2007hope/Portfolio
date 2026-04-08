@@ -2,45 +2,41 @@
   "info": {
     "name": "Portfolio Prime API",
     "_postman_id": "c8d6d2ce-3f55-4a2d-9cb4-portfolio-prime-api",
-    "description": "Routes and sample payloads for the Portfolio Prime backend.",
+    "description": "Smart Postman collection for the Portfolio Prime backend with seed payloads and auto-saved IDs.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:4000/api"
-    },
-    {
-      "key": "profileId",
-      "value": "replace-with-profile-id"
-    },
-    {
-      "key": "projectId",
-      "value": "replace-with-project-id"
-    },
-    {
-      "key": "resumeId",
-      "value": "replace-with-resume-id"
-    },
-    {
-      "key": "contactId",
-      "value": "replace-with-contact-id"
-    },
-    {
-      "key": "chatSessionId",
-      "value": "portfolio-test-session-1"
-    }
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "profileId", "value": "replace-with-profile-id" },
+    { "key": "projectId", "value": "replace-with-project-id" },
+    { "key": "projectIdentifier", "value": "portfolio-prime" },
+    { "key": "resumeId", "value": "replace-with-resume-id" },
+    { "key": "contactId", "value": "replace-with-contact-id" },
+    { "key": "chatSessionId", "value": "portfolio-test-session-1" }
   ],
   "item": [
     {
       "name": "Health",
       "item": [
         {
-          "name": "GET /server",
+          "name": "Health Check",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/server"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Health route works\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -48,45 +44,97 @@
       "name": "Profiles",
       "item": [
         {
-          "name": "GET /profile",
+          "name": "Get Public Profile",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/profile"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Profile request succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) {",
+                  "  pm.collectionVariables.set(\"profileId\", json.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "GET /profiles",
+          "name": "List Profiles",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/profiles"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Profiles list succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length && json[0].id) {",
+                  "  pm.collectionVariables.set(\"profileId\", json[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Profile By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/profiles/{{profileId}}"
           }
         },
         {
-          "name": "POST /profiles",
+          "name": "Create Profile Seed",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"fullName\": \"Omid Teimory\",\n  \"jobTitle\": \"Frontend / Full-Stack Developer\",\n  \"headline\": \"I build fast, modern web applications that help businesses grow.\",\n  \"shortBio\": \"Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.\",\n  \"longBio\": \"I build fast, modern web applications that help businesses grow by combining polished frontend work with reliable backend structure.\",\n  \"heroBadge\": \"Currently building\",\n  \"headerBannerText\": \"Available for full-time roles immediately\",\n  \"headerAvailabilityText\": \"Interviewing for frontend and full-stack roles\",\n  \"headerContactCtaLabel\": \"Hire Me\",\n  \"availabilityText\": \"Available for full-time roles immediately\",\n  \"currentFocus\": \"Building production-ready web apps with clear UI and reliable backend support\",\n  \"homeEyebrow\": \"Frontend / Full-Stack Developer\",\n  \"homeTitle\": \"I build fast, modern web applications that help businesses grow.\",\n  \"homeDescription\": \"Frontend / Full-Stack Developer (React, Next.js, Node.js)\",\n  \"homeAvailabilityNote\": \"Vienna, Austria - Available for full-time roles immediately\",\n  \"homeSupportText\": \"Open to freelance and contract work in the coming months\",\n  \"homeFeaturedTitle\": \"Building production-ready web apps with clear UI and reliable backend support\",\n  \"homeFeaturedDescription\": \"Currently building\",\n  \"homeStrengthsTitle\": \"Core strengths\",\n  \"homeStrengthsText\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB, and production-ready UI systems.\",\n  \"homeNextStepTitle\": \"Next step\",\n  \"homeNextStepText\": \"I build with frontend quality first, then support it with backend structure, APIs, and data flows that keep the product fast, reliable, and maintainable.\",\n  \"homeSectionEyebrow\": \"What I Do\",\n  \"homeSectionTitle\": \"I build complete web applications from frontend to backend.\",\n  \"homeSectionDescription\": \"I focus on speed, clarity, and real-world usability so the product feels polished for users and easy to maintain for the team.\",\n  \"homeSectionItems\": [\"Modern frontend development with React and Next.js\", \"Backend APIs and authentication systems with Node.js\", \"Clean, scalable architecture for real-world applications\"],\n  \"homeInfoCards\": [{\"title\": \"Frontend first\", \"text\": \"I start with the interface, because clear layout and content make the rest easier.\"}, {\"title\": \"Backend aware\", \"text\": \"I connect the frontend to the systems behind it without turning the experience into an afterthought.\"}],\n  \"homeWorkflowTitle\": \"How I Work\",\n  \"homeWorkflowDescription\": \"I focus on building clear, fast, and maintainable applications from idea to production.\",\n  \"homeStatusTitle\": \"Status\",\n  \"homeStatusDescription\": \"Currently building real-world full-stack applications and actively seeking opportunities in Austria.\",\n  \"location\": \"Vienna, Austria\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"portfolioUrl\": \"https://omidteimory.com\",\n  \"primaryStack\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\",\n  \"openToWork\": true,\n  \"portraitImage\": \"https://images.example.com/me.jpg\",\n  \"logoImage\": \"https://images.example.com/logo.png\",\n  \"heroSkills\": [\"React\", \"Next.js\", \"Tailwind CSS\", \"Node.js\"],\n  \"spokenLanguages\": [\"English\", \"German\", \"Persian\"],\n  \"socialLinks\": [{\"name\": \"GitHub\", \"iconKey\": \"github\", \"url\": \"https://github.com/omid2007hope\"}],\n  \"highlights\": [{\"label\": \"Based in\", \"value\": \"Vienna, Austria\"}, {\"label\": \"Primary stack\", \"value\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\"}, {\"label\": \"Current focus\", \"value\": \"Building production-ready web apps with clear UI and reliable backend support\"}],\n  \"aboutCards\": [{\"label\": \"Primary stack\", \"value\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\"}, {\"label\": \"Working style\", \"value\": \"Fast, practical, and production-focused\"}],\n  \"aboutParagraphs\": [{\"content\": \"I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.\"}, {\"content\": \"When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.\"}],\n  \"aboutIntroTitle\": \"About Omid Teimory\",\n  \"aboutIntroDescription\": \"A short look at how Omid Teimory builds fast, production-ready web applications.\",\n  \"aboutSectionTitle\": \"I build fast, modern web applications that help businesses grow.\",\n  \"aboutProcessEyebrow\": \"How I work\",\n  \"aboutProcessTitle\": \"Clear process, thoughtful implementation, and room to grow\",\n  \"aboutProcessDescription\": \"I start by clarifying the goal, then build the smallest useful version of the experience and shape the technical layer around that.\",\n  \"navigationLinks\": [{\"label\": \"Home\", \"to\": \"/\"}, {\"label\": \"About\", \"to\": \"/about\"}, {\"label\": \"Projects\", \"to\": \"/projects\"}, {\"label\": \"Contact\", \"to\": \"/contact\"}],\n  \"footerText\": \"© 2026 Omid Teimory. All rights reserved.\",\n  \"homePrimaryCtaLabel\": \"View Projects\",\n  \"homePrimaryCtaUrl\": \"/projects\",\n  \"homeSecondaryCtaLabel\": \"Hire Me\",\n  \"homeSecondaryCtaUrl\": \"/contact\",\n  \"contactIntroEyebrow\": \"Start here\",\n  \"contactIntroTitle\": \"Tell me what you want to build\",\n  \"contactIntroDescription\": \"The fastest way to get a useful reply is to include the goal of the project, the expected timeline, and any constraints you already know about.\",\n  \"contactFormTitle\": \"Project inquiry\",\n  \"contactPanelTitle\": \"Contact Information\",\n  \"contactPanelDescription\": \"Reach out through the form or use one of the direct channels below if you prefer a quicker intro before sharing the details.\"\n}"
+              "raw": "{\n  \"fullName\": \"Omid Teimory\",\n  \"jobTitle\": \"Frontend / Full-Stack Developer\",\n  \"headline\": \"I build fast, modern web applications that help businesses grow.\",\n  \"shortBio\": \"Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.\",\n  \"longBio\": \"I build fast, modern web applications that help businesses grow by combining polished frontend work with reliable backend structure.\",\n  \"heroBadge\": \"Currently building\",\n  \"headerBannerText\": \"Available for full-time roles immediately\",\n  \"headerAvailabilityText\": \"Interviewing for frontend and full-stack roles\",\n  \"headerContactCtaLabel\": \"Hire Me\",\n  \"availabilityText\": \"Available for full-time roles immediately\",\n  \"currentFocus\": \"Building production-ready web apps with clear UI and reliable backend support\",\n  \"homeEyebrow\": \"Frontend / Full-Stack Developer\",\n  \"homeTitle\": \"I build fast, modern web applications that help businesses grow.\",\n  \"homeDescription\": \"Frontend / Full-Stack Developer (React, Next.js, Node.js)\",\n  \"homeAvailabilityNote\": \"Vienna, Austria - Available for full-time roles immediately\",\n  \"homeSupportText\": \"Open to freelance and contract work in the coming months\",\n  \"homeFeaturedTitle\": \"Building production-ready web apps with clear UI and reliable backend support\",\n  \"homeFeaturedDescription\": \"Currently building\",\n  \"homeStrengthsTitle\": \"Core strengths\",\n  \"homeStrengthsText\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB, and production-ready UI systems.\",\n  \"homeNextStepTitle\": \"Next step\",\n  \"homeNextStepText\": \"I build with frontend quality first, then support it with backend structure, APIs, and data flows that keep the product fast, reliable, and maintainable.\",\n  \"homeSectionEyebrow\": \"What I Do\",\n  \"homeSectionTitle\": \"I build complete web applications from frontend to backend.\",\n  \"homeSectionDescription\": \"I focus on speed, clarity, and real-world usability so the product feels polished for users and easy to maintain for the team.\",\n  \"homeSectionItems\": [\"Modern frontend development with React and Next.js\", \"Backend APIs and authentication systems with Node.js\", \"Clean, scalable architecture for real-world applications\"],\n  \"homeInfoCards\": [{\"title\": \"Frontend first\", \"text\": \"I start with the interface, because clear layout and content make the rest easier.\"}, {\"title\": \"Backend aware\", \"text\": \"I connect the frontend to the systems behind it without turning the experience into an afterthought.\"}],\n  \"homeWorkflowTitle\": \"How I Work\",\n  \"homeWorkflowDescription\": \"I focus on building clear, fast, and maintainable applications from idea to production.\",\n  \"homeStatusTitle\": \"Status\",\n  \"homeStatusDescription\": \"Currently building real-world full-stack applications and actively seeking opportunities in Austria.\",\n  \"location\": \"Vienna, Austria\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"portfolioUrl\": \"https://omidteimory.com\",\n  \"primaryStack\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\",\n  \"openToWork\": true,\n  \"portraitImage\": \"https://images.example.com/me.jpg\",\n  \"logoImage\": \"https://images.example.com/logo.png\",\n  \"heroSkills\": [\"React\", \"Next.js\", \"Tailwind CSS\", \"Node.js\"],\n  \"spokenLanguages\": [\"English\", \"German\", \"Persian\"],\n  \"socialLinks\": [{\"name\": \"GitHub\", \"iconKey\": \"github\", \"url\": \"https://github.com/omid2007hope\"}, {\"name\": \"LinkedIn\", \"iconKey\": \"linkedin\", \"url\": \"https://www.linkedin.com/in/omid-teimory-48233638b/\"}],\n  \"highlights\": [{\"label\": \"Based in\", \"value\": \"Vienna, Austria\"}, {\"label\": \"Primary stack\", \"value\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\"}, {\"label\": \"Current focus\", \"value\": \"Building production-ready web apps with clear UI and reliable backend support\"}],\n  \"aboutCards\": [{\"label\": \"Primary stack\", \"value\": \"React, Next.js, Tailwind CSS, Node.js, MongoDB\"}, {\"label\": \"Working style\", \"value\": \"Fast, practical, and production-focused\"}],\n  \"aboutParagraphs\": [{\"content\": \"I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.\"}, {\"content\": \"When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.\"}, {\"content\": \"The goal is always the same: fast pages, clean structure, and code that is easy to maintain after launch.\"}],\n  \"aboutIntroTitle\": \"About Omid Teimory\",\n  \"aboutIntroDescription\": \"A short look at how Omid Teimory builds fast, production-ready web applications.\",\n  \"aboutSectionTitle\": \"I build fast, modern web applications that help businesses grow.\",\n  \"aboutProcessEyebrow\": \"How I work\",\n  \"aboutProcessTitle\": \"Clear process, thoughtful implementation, and room to grow\",\n  \"aboutProcessDescription\": \"I start by clarifying the goal, then build the smallest useful version of the experience and shape the technical layer around that.\",\n  \"navigationLinks\": [{\"label\": \"Home\", \"to\": \"/\"}, {\"label\": \"About\", \"to\": \"/about\"}, {\"label\": \"Projects\", \"to\": \"/projects\"}, {\"label\": \"Contact\", \"to\": \"/contact\"}],\n  \"footerText\": \"© 2026 Omid Teimory. All rights reserved.\",\n  \"homePrimaryCtaLabel\": \"View Projects\",\n  \"homePrimaryCtaUrl\": \"/projects\",\n  \"homeSecondaryCtaLabel\": \"Hire Me\",\n  \"homeSecondaryCtaUrl\": \"/contact\",\n  \"contactIntroEyebrow\": \"Start here\",\n  \"contactIntroTitle\": \"Tell me what you want to build\",\n  \"contactIntroDescription\": \"The fastest way to get a useful reply is to include the goal of the project, the expected timeline, and any constraints you already know about.\",\n  \"contactFormTitle\": \"Project inquiry\",\n  \"contactPanelTitle\": \"Contact Information\",\n  \"contactPanelDescription\": \"Reach out through the form or use one of the direct channels below if you prefer a quicker intro before sharing the details.\"\n}"
             },
             "url": "{{baseUrl}}/profiles"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Profile created\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) {",
+                  "  pm.collectionVariables.set(\"profileId\", json.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "PATCH /profiles/:id",
+          "name": "Update Profile",
           "request": {
             "method": "PATCH",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -96,7 +144,7 @@
           }
         },
         {
-          "name": "DELETE /profiles/:id",
+          "name": "Delete Profile",
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/profiles/{{profileId}}"
@@ -108,62 +156,124 @@
       "name": "Projects",
       "item": [
         {
-          "name": "GET /projects",
+          "name": "List Published Projects",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/projects"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Projects list succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length) {",
+                  "  if (json[0].id) pm.collectionVariables.set(\"projectId\", json[0].id);",
+                  "  if (json[0].slug) pm.collectionVariables.set(\"projectIdentifier\", json[0].slug);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Featured Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?featured=true"
           }
         },
         {
-          "name": "GET /projects?includeAll=true",
+          "name": "List All Projects",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/projects?includeAll=true"
           }
         },
         {
-          "name": "GET /projects/:identifier",
+          "name": "List Draft Projects",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/projects/portfolio-prime"
+            "url": "{{baseUrl}}/projects?status=draft&includeAll=true"
           }
         },
         {
-          "name": "POST /projects",
+          "name": "Get Project By Identifier",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/{{projectIdentifier}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Project request succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) pm.collectionVariables.set(\"projectId\", json.id);",
+                  "if (json && (json.slug || json.projectId)) {",
+                  "  pm.collectionVariables.set(\"projectIdentifier\", json.slug || String(json.projectId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Project Seed",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"projectId\": 1,\n  \"slug\": \"portfolio-prime\",\n  \"title\": \"Portfolio Prime\",\n  \"shortDescription\": \"Personal portfolio with case studies, resume, contact workflows, and AI chat.\",\n  \"overview\": \"Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.\",\n  \"challengesAndSolutions\": \"Replacing hardcoded UI content with structured backend data while keeping the design polished.\",\n  \"improvements\": \"Add authentication, uploads, and a dashboard CMS.\",\n  \"highlightQuote\": \"Backend-driven content keeps the portfolio flexible and maintainable.\",\n  \"role\": \"Full-Stack Developer\",\n  \"duration\": \"3 Weeks\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"techStack\": [\"Next.js\", \"React\", \"Express\", \"MongoDB\", \"Tailwind CSS\"],\n  \"coverImage\": {\"url\": \"https://images.example.com/portfolio-cover.png\", \"alt\": \"Portfolio Prime cover\", \"kind\": \"cover\"},\n  \"showcaseImages\": [{\"url\": \"https://images.example.com/portfolio-screen-1.png\", \"alt\": \"Home page\", \"kind\": \"showcase\"}],\n  \"actions\": [{\"label\": \"Live Demo\", \"url\": \"https://omidteimory.com\", \"kind\": \"liveDemo\"}],\n  \"repositoryUrl\": \"https://github.com/omid2007hope/Omid-Teimory\",\n  \"liveDemoUrl\": \"https://omidteimory.com\",\n  \"sortOrder\": 1\n}"
+              "raw": "{\n  \"projectId\": 1,\n  \"slug\": \"portfolio-prime\",\n  \"title\": \"Portfolio Prime\",\n  \"shortDescription\": \"Personal portfolio with case studies, resume, contact workflows, and AI chat.\",\n  \"overview\": \"Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.\",\n  \"challengesAndSolutions\": \"The main challenge was replacing hardcoded UI content with structured backend data while keeping the experience polished.\",\n  \"improvements\": \"Add authentication, image uploads, and a dashboard CMS for content management.\",\n  \"highlightQuote\": \"Backend-driven content keeps the portfolio flexible and maintainable.\",\n  \"role\": \"Full-Stack Developer\",\n  \"duration\": \"3 Weeks\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"techStack\": [\"Next.js\", \"React\", \"Express\", \"MongoDB\", \"Tailwind CSS\"],\n  \"coverImage\": {\"url\": \"https://images.example.com/portfolio-cover.png\", \"alt\": \"Portfolio Prime cover image\", \"kind\": \"cover\"},\n  \"showcaseImages\": [{\"url\": \"https://images.example.com/portfolio-screen-1.png\", \"alt\": \"Home page showcase\", \"kind\": \"showcase\"}, {\"url\": \"https://images.example.com/portfolio-screen-2.png\", \"alt\": \"Projects page showcase\", \"kind\": \"showcase\"}],\n  \"actions\": [{\"label\": \"Live Demo\", \"url\": \"https://omidteimory.com\", \"kind\": \"liveDemo\"}, {\"label\": \"Source Code\", \"url\": \"https://github.com/omid2007hope/Omid-Teimory\", \"kind\": \"source\"}],\n  \"repositoryUrl\": \"https://github.com/omid2007hope/Omid-Teimory\",\n  \"liveDemoUrl\": \"https://omidteimory.com\",\n  \"sortOrder\": 1\n}"
             },
             "url": "{{baseUrl}}/projects"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Project created\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) pm.collectionVariables.set(\"projectId\", json.id);",
+                  "if (json && (json.slug || json.projectId)) {",
+                  "  pm.collectionVariables.set(\"projectIdentifier\", json.slug || String(json.projectId));",
+                  "}"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "PATCH /projects/:id",
+          "name": "Update Project",
           "request": {
             "method": "PATCH",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"featured\": true,\n  \"sortOrder\": 1,\n  \"status\": \"published\"\n}"
+              "raw": "{\n  \"featured\": true,\n  \"sortOrder\": 1,\n  \"status\": \"published\",\n  \"highlightQuote\": \"Structured content made the frontend much easier to maintain.\"\n}"
             },
             "url": "{{baseUrl}}/projects/{{projectId}}"
           }
         },
         {
-          "name": "DELETE /projects/:id",
+          "name": "Delete Project",
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/projects/{{projectId}}"
@@ -175,55 +285,103 @@
       "name": "Resume",
       "item": [
         {
-          "name": "GET /resume",
+          "name": "Get Latest Resume",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/resume"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Resume request succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) pm.collectionVariables.set(\"resumeId\", json.id);"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "GET /resumes",
+          "name": "List Resumes",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/resumes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Resume list succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length && json[0].id) {",
+                  "  pm.collectionVariables.set(\"resumeId\", json[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Resume By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/resumes/{{resumeId}}"
           }
         },
         {
-          "name": "POST /resumes",
+          "name": "Create Resume Seed",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"profileName\": \"Omid Teimory\",\n  \"headline\": \"Full-Stack Developer specialized in Frontend\",\n  \"summary\": \"Full-stack developer specializing in frontend engineering with React, Next.js, Tailwind CSS, and clean product interfaces, backed by Node.js and backend architecture work.\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"avatarImage\": \"https://images.example.com/me-avatar.jpg\",\n  \"importantLinks\": [{\"label\": \"Portfolio\", \"url\": \"https://omidteimory.com\"}],\n  \"languages\": [\"English - Fluent\", \"German - Basic\"],\n  \"certificates\": [{\"title\": \"IBM Web Development Fundamentals\", \"issuer\": \"IBM\", \"issuedAtLabel\": \"Oct 26, 2025\", \"score\": \"Passed\", \"credentialUrl\": \"https://credentials.example.com/ibm\"}],\n  \"experience\": [{\"title\": \"Full-Stack Developer - Freelancer\", \"subtitle\": \"Independent\", \"period\": \"2024 - Present\", \"location\": \"Vienna, Austria\", \"description\": \"Building frontend-led web products with polished UI and supporting backend architecture.\", \"bullets\": [\"Built responsive interfaces with React and Tailwind CSS.\", \"Supported product delivery with APIs, backend workflows, and scalable architecture.\"], \"sortOrder\": 1}],\n  \"education\": [{\"title\": \"Full-Stack Web Development\", \"subtitle\": \"Self-Taught\", \"period\": \"2023 - Present\", \"location\": \"Online\", \"description\": \"Studying frontend and backend through projects.\", \"bullets\": [\"React\", \"Node.js\", \"MongoDB\"], \"sortOrder\": 1}],\n  \"skillGroups\": [{\"title\": \"Frontend\", \"items\": [\"React\", \"Next.js\", \"Tailwind CSS\"], \"sortOrder\": 1}, {\"title\": \"Backend\", \"items\": [\"Node.js\", \"Express\", \"MongoDB\"], \"sortOrder\": 2}]\n}"
+              "raw": "{\n  \"profileName\": \"Omid Teimory\",\n  \"headline\": \"Full-Stack Developer specialized in Frontend\",\n  \"summary\": \"Full-stack developer specializing in frontend engineering with React, Next.js, Tailwind CSS, and clean product interfaces, backed by Node.js and backend architecture work.\",\n  \"email\": \"omidhope2007@gmail.com\",\n  \"phoneNumber\": \"+43 681-81580180\",\n  \"address\": \"Vienna 1120, Austria\",\n  \"avatarImage\": \"https://images.example.com/me-avatar.jpg\",\n  \"importantLinks\": [{\"label\": \"Portfolio\", \"url\": \"https://omidteimory.com\"}, {\"label\": \"GitHub\", \"url\": \"https://github.com/omid2007hope\"}, {\"label\": \"LinkedIn\", \"url\": \"https://www.linkedin.com/in/omid-teimory-48233638b/\"}],\n  \"languages\": [\"English - Fluent\", \"German - Basic\", \"Persian - Native\"],\n  \"certificates\": [{\"title\": \"IBM Web Development Fundamentals\", \"issuer\": \"IBM\", \"issuedAtLabel\": \"Oct 26, 2025\", \"score\": \"Passed\", \"credentialUrl\": \"https://credentials.example.com/ibm-web-dev\"}],\n  \"experience\": [{\"title\": \"Full-Stack Developer - Freelancer\", \"subtitle\": \"Independent\", \"period\": \"2024 - Present\", \"location\": \"Vienna, Austria\", \"description\": \"Building frontend-led web products with polished UI and supporting backend architecture.\", \"bullets\": [\"Built responsive interfaces with React and Tailwind CSS.\", \"Supported product delivery with APIs, backend workflows, and scalable architecture.\"], \"sortOrder\": 1}],\n  \"education\": [{\"title\": \"Full-Stack Web Development\", \"subtitle\": \"Self-Taught\", \"period\": \"2023 - Present\", \"location\": \"Online\", \"description\": \"Studying frontend and backend technologies through real-world projects.\", \"bullets\": [\"React\", \"Node.js\", \"MongoDB\", \"REST APIs\"], \"sortOrder\": 1}],\n  \"skillGroups\": [{\"title\": \"Frontend\", \"items\": [\"React\", \"Next.js\", \"Tailwind CSS\", \"JavaScript\"], \"sortOrder\": 1}, {\"title\": \"Backend\", \"items\": [\"Node.js\", \"Express\", \"MongoDB\"], \"sortOrder\": 2}]\n}"
             },
             "url": "{{baseUrl}}/resumes"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Resume created\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) pm.collectionVariables.set(\"resumeId\", json.id);"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "PATCH /resumes/:id",
+          "name": "Update Resume",
           "request": {
             "method": "PATCH",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"headline\": \"Full-Stack Developer specialized in Frontend\",\n  \"summary\": \"Updated summary text for full-stack positioning with a frontend specialization.\"\n}"
+              "raw": "{\n  \"headline\": \"Frontend / Full-Stack Developer\",\n  \"summary\": \"Updated summary text for a frontend-first full-stack positioning.\",\n  \"skillGroups\": [{\"title\": \"Frontend\", \"items\": [\"React\", \"Next.js\", \"Tailwind CSS\", \"JavaScript\", \"Accessibility\"], \"sortOrder\": 1}]\n}"
             },
             "url": "{{baseUrl}}/resumes/{{resumeId}}"
           }
         },
         {
-          "name": "DELETE /resumes/:id",
+          "name": "Delete Resume",
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/resumes/{{resumeId}}"
@@ -235,38 +393,78 @@
       "name": "Contacts",
       "item": [
         {
-          "name": "POST /contact",
+          "name": "Create Contact Submission",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"subject\": \"Portfolio project inquiry\",\n  \"message\": \"Hi Omid, I would like to discuss a frontend project with you.\",\n  \"source\": \"portfolio-contact-form\"\n}"
             },
             "url": "{{baseUrl}}/contact"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Contact submission created\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.id) pm.collectionVariables.set(\"contactId\", json.id);"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "GET /contacts",
+          "name": "List Contacts",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/contacts"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Contacts list succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length && json[0].id) {",
+                  "  pm.collectionVariables.set(\"contactId\", json[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List New Contacts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts?status=new"
           }
         },
         {
-          "name": "PATCH /contacts/:id",
+          "name": "Get Contact By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/{{contactId}}"
+          }
+        },
+        {
+          "name": "Update Contact Status",
           "request": {
             "method": "PATCH",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -276,7 +474,7 @@
           }
         },
         {
-          "name": "DELETE /contacts/:id",
+          "name": "Delete Contact",
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/contacts/{{contactId}}"
@@ -288,45 +486,80 @@
       "name": "Chat",
       "item": [
         {
-          "name": "POST /chat",
+          "name": "Send Chat Message",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"sessionId\": \"{{chatSessionId}}\",\n  \"message\": \"Tell me about your latest projects\"\n}"
             },
             "url": "{{baseUrl}}/chat"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Chat message succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (json && json.sessionId) {",
+                  "  pm.collectionVariables.set(\"chatSessionId\", json.sessionId);",
+                  "}"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "GET /chats",
+          "name": "List Chats",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/chats"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Chats list succeeded\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length && json[0].sessionId) {",
+                  "  pm.collectionVariables.set(\"chatSessionId\", json[0].sessionId);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Active Chats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chats?status=active"
           }
         },
         {
-          "name": "GET /chat/:sessionId",
+          "name": "Get Chat By Session Id",
           "request": {
             "method": "GET",
             "url": "{{baseUrl}}/chat/{{chatSessionId}}"
           }
         },
         {
-          "name": "PATCH /chat/:sessionId",
+          "name": "Update Chat",
           "request": {
             "method": "PATCH",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -336,7 +569,7 @@
           }
         },
         {
-          "name": "DELETE /chat/:sessionId",
+          "name": "Delete Chat",
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/chat/{{chatSessionId}}"

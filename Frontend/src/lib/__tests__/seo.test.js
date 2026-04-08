@@ -30,6 +30,16 @@ describe("seo helpers", () => {
     expect(seo.longDescription).toMatch(/production-ready web apps/i);
   });
 
+  test("seo profile falls back to the app icon image", () => {
+    const seo = getSeoProfile({
+      fullName: "Omid Teimory",
+      jobTitle: "Full-Stack Developer",
+      portfolioUrl: "https://omidteimory.com",
+    });
+
+    expect(seo.image).toBe("https://omidteimory.com/icon.png");
+  });
+
   test("root metadata uses the concise description", () => {
     const metadata = buildRootMetadata({
       fullName: "Omid Teimory",

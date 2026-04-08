@@ -17,9 +17,9 @@ export default async function manifest() {
     categories: ["portfolio", "technology", "developer"],
     icons: [
       {
-        src: "/favicon.ico",
-        sizes: "48x48",
-        type: "image/x-icon",
+        src: "/icon.png",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
   };
