@@ -114,17 +114,32 @@ const getResumeSkills = (resume) =>
   (resume?.skillGroups || []).flatMap((group) => group?.items || []);
 
 const getMetaDescription = (profile, resume) => {
-  const candidates = [
-    profile?.longBio,
-    resume?.summary,
-    profile?.shortBio,
-  ]
+  const shortBio = profile?.shortBio?.trim();
+  const concise = `${profile?.jobTitle || resume?.headline || DEFAULT_JOB_TITLE} in ${
+    profile?.location || resume?.address || DEFAULT_LOCATION
+  } building fast React and Next.js products with scalable APIs, clean UI, and reliable user experiences.`;
+
+  const candidates = [profile?.metaDescription, shortBio]
     .map((value) => value?.trim())
     .filter(Boolean);
 
-  const longCandidate = candidates.find((value) => value.length >= 130);
+  const tunedCandidate = candidates.find(
+    (value) => value.length >= 130 && value.length <= 160,
+  );
 
-  return longCandidate || DEFAULT_DESCRIPTION;
+  if (tunedCandidate) {
+    return tunedCandidate;
+  }
+
+  if (concise.length >= 130 && concise.length <= 160) {
+    return concise;
+  }
+
+  if (shortBio) {
+    return shortBio.length > 160 ? shortBio.slice(0, 157).trimEnd() + "..." : shortBio;
+  }
+
+  return DEFAULT_DESCRIPTION;
 };
 
 export const getSiteUrl = (profile) =>

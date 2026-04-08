@@ -11,21 +11,26 @@ describe("seo helpers", () => {
     expect(getProjectPath({ projectId: 42 })).toBe("/projects/42");
   });
 
-  test("seo profile falls back to a longer meta description", () => {
+  test("seo profile falls back to a concise meta description", () => {
     const seo = getSeoProfile({
       fullName: "Omid Teimory",
       jobTitle: "Full-Stack Developer",
       shortBio: "Frontend-focused developer.",
+      longBio:
+        "I am a full-stack developer specializing in modern JavaScript technologies including React, Next.js, Node.js, Express, and MongoDB.",
       location: "Vienna, Austria",
       primaryStack: "React, Next.js, Node.js, MongoDB",
       heroSkills: ["React", "Next.js"],
     });
 
     expect(seo.description.length).toBeGreaterThanOrEqual(130);
+    expect(seo.description.length).toBeLessThanOrEqual(160);
     expect(seo.description).toMatch(/React/i);
+    expect(seo.description).not.toMatch(/modern JavaScript technologies/i);
+    expect(seo.longDescription).toMatch(/modern JavaScript technologies/i);
   });
 
-  test("root metadata uses the longer description", () => {
+  test("root metadata uses the concise description", () => {
     const metadata = buildRootMetadata({
       fullName: "Omid Teimory",
       jobTitle: "Full-Stack Developer",
@@ -36,5 +41,6 @@ describe("seo helpers", () => {
     });
 
     expect(metadata.description.length).toBeGreaterThanOrEqual(130);
+    expect(metadata.description.length).toBeLessThanOrEqual(160);
   });
 });
