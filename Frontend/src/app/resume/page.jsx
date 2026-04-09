@@ -7,14 +7,14 @@ import {
   getSeoProfile,
 } from "@/lib/seo";
 import {
-  getPortfolioProfile,
-  getPortfolioResume,
-} from "@/services/portfolioService";
+  getProfile,
+  getResume,
+} from "@/lib/api";
 
 export async function generateMetadata() {
   const [resume, profile] = await Promise.all([
-    getPortfolioResume(),
-    getPortfolioProfile(),
+    getResume(),
+    getProfile(),
   ]);
   const name = resume?.profileName || profile?.fullName || "Omid Teimory";
 
@@ -33,8 +33,8 @@ export async function generateMetadata() {
 
 export default async function ResumeRoute() {
   const [resume, profile] = await Promise.all([
-    getPortfolioResume(),
-    getPortfolioProfile(),
+    getResume(),
+    getProfile(),
   ]);
   const seo = getSeoProfile(profile, resume);
 

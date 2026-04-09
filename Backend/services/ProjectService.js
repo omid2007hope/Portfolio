@@ -1,6 +1,6 @@
 const BaseService = require("./BaseService");
-const { Project } = require("../models");
-const { mongoose } = require("../models/shared");
+const { Project } = require("../model/version_1");
+const { mongoose } = require("../model/version_1/shared");
 
 class ProjectService extends BaseService {
   constructor() {

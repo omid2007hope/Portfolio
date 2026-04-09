@@ -1,5 +1,5 @@
 const BaseService = require("./BaseService");
-const { Resume } = require("../models");
+const { Resume } = require("../model/version_1");
 
 class ResumeService extends BaseService {
   constructor() {

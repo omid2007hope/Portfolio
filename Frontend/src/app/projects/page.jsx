@@ -6,12 +6,12 @@ import {
   buildProjectsPageJsonLd,
 } from "@/lib/seo";
 import {
-  getPortfolioProfile,
-  getPortfolioProjects,
-} from "@/services/portfolioService";
+  getProfile,
+  getProjects,
+} from "@/lib/api";
 
 export async function generateMetadata() {
-  const profile = await getPortfolioProfile();
+  const profile = await getProfile();
 
   return buildPageMetadata({
     profile,
@@ -28,8 +28,8 @@ export async function generateMetadata() {
 
 export default async function ProjectsRoute() {
   const [projects, profile] = await Promise.all([
-    getPortfolioProjects(),
-    getPortfolioProfile(),
+    getProjects(),
+    getProfile(),
   ]);
 
   return (

@@ -4,7 +4,9 @@ const router = express.Router();
 
 const profileController = require("../../../controller/ProfileController");
 const asyncHandler = require("../../../utils/asyncHandler");
-const { ensureBodyObject } = require("../../../middleware/validation");
+const {
+  ensureBodyObject,
+} = require("../../../middleware/validation/requestValidators");
 
 router.patch(
   "/profiles/:id",

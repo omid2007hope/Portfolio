@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  fetchChatConversation,
-  submitChatMessage,
-} from "@/features/chat/services/chatService";
+  getChatConversation,
+  sendChatMessage,
+} from "@/lib/api";
 
 const STORAGE_KEY = "portfolio-chat-session-id";
 
@@ -64,7 +64,7 @@ export function usePortfolioChat(open) {
     let cancelled = false;
 
     const loadConversation = async () => {
-      const conversation = await fetchChatConversation(sessionId);
+      const conversation = await getChatConversation(sessionId);
 
       if (cancelled || !conversation?.messages?.length) {
         return;
@@ -129,7 +129,7 @@ export function usePortfolioChat(open) {
     ]);
 
     try {
-      const data = await submitChatMessage({
+      const data = await sendChatMessage({
         sessionId,
         message: userMessage.text,
       });

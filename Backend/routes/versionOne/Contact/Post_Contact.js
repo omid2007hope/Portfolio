@@ -7,7 +7,7 @@ const asyncHandler = require("../../../utils/asyncHandler");
 const {
   ensureBodyObject,
   validateContactSubmission,
-} = require("../../../middleware/validation");
+} = require("../../../middleware/validation/requestValidators");
 
 router.post(
   "/contact",

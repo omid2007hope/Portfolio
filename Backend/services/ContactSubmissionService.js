@@ -1,5 +1,5 @@
 const BaseService = require("./BaseService");
-const { ContactSubmission } = require("../models");
+const { ContactSubmission } = require("../model/version_1");
 
 class ContactSubmissionService extends BaseService {
   constructor() {

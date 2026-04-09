@@ -7,7 +7,7 @@ import {
   buildWebsiteJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
-import { getPortfolioProfile } from "@/services/portfolioService";
+import { getProfile } from "@/lib/api";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,12 +27,12 @@ export const viewport = {
 };
 
 export async function generateMetadata() {
-  const profile = await getPortfolioProfile();
+  const profile = await getProfile();
   return buildRootMetadata(profile);
 }
 
 export default async function RootLayout({ children }) {
-  const profile = await getPortfolioProfile();
+  const profile = await getProfile();
   const seo = getSeoProfile(profile);
 
   return (

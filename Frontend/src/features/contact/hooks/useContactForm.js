@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CONTACT_FORM_DEFAULTS } from "@/features/contact/constants/contactFormDefaults";
-import { submitContactForm } from "@/features/contact/services/contactService";
+import { createContactSubmission } from "@/lib/api";
 
 export function useContactForm() {
   const [form, setForm] = useState(CONTACT_FORM_DEFAULTS);
@@ -26,7 +26,7 @@ export function useContactForm() {
     setStatus(null);
 
     try {
-      await submitContactForm(form);
+      await createContactSubmission(form);
       setStatus({ type: "success", message: "Message sent successfully." });
       setForm(CONTACT_FORM_DEFAULTS);
       return true;

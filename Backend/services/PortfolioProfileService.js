@@ -1,5 +1,5 @@
 const BaseService = require("./BaseService");
-const { PortfolioProfile } = require("../models");
+const { PortfolioProfile } = require("../model/version_1");
 
 const DEFAULT_PROFILE_IMAGE =
   "https://avatars.githubusercontent.com/u/218600127?v=4";

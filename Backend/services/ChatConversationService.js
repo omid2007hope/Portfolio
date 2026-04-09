@@ -1,6 +1,6 @@
 const { randomUUID } = require("crypto");
 const BaseService = require("./BaseService");
-const { ChatConversation } = require("../models");
+const { ChatConversation } = require("../model/version_1");
 const portfolioProfileService = require("./PortfolioProfileService");
 const projectService = require("./ProjectService");
 const resumeService = require("./ResumeService");

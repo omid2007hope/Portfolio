@@ -7,13 +7,13 @@ import {
 } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import {
-  getPortfolioProfile,
-  getPortfolioProject,
-  getPortfolioProjects,
-} from "@/services/portfolioService";
+  getProfile,
+  getProject,
+  getProjects,
+} from "@/lib/api";
 
 export async function generateStaticParams() {
-  const projects = await getPortfolioProjects();
+  const projects = await getProjects();
 
   return projects
     .map((project) => ({
@@ -25,8 +25,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getPortfolioProject(resolvedParams.slug),
-    getPortfolioProfile(),
+    getProject(resolvedParams.slug),
+    getProfile(),
   ]);
 
   if (!project) {
@@ -58,8 +58,8 @@ export async function generateMetadata({ params }) {
 export default async function ProjectDetailRoute({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getPortfolioProject(resolvedParams.slug),
-    getPortfolioProfile(),
+    getProject(resolvedParams.slug),
+    getProfile(),
   ]);
 
   if (!project) {

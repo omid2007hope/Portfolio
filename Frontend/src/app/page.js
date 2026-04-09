@@ -5,10 +5,10 @@ import {
   buildWebPageJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
-import { getPortfolioProfile } from "@/services/portfolioService";
+import { getProfile } from "@/lib/api";
 
 export async function generateMetadata() {
-  const profile = await getPortfolioProfile();
+  const profile = await getProfile();
 
   return buildPageMetadata({
     profile,
@@ -23,7 +23,7 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const profile = await getPortfolioProfile();
+  const profile = await getProfile();
   const seo = getSeoProfile(profile);
 
   return (
