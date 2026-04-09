@@ -7,7 +7,7 @@ const asyncHandler = require("../../../utils/asyncHandler");
 const {
   ensureBodyObject,
   validateChatMessage,
-} = require("../../../middleware/validation/requestValidators");
+} = require("../../../middleware/validation");
 
 router.post(
   "/chat",

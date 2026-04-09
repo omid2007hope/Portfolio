@@ -8,10 +8,14 @@ const chatRoutes = require("./Chat");
 
 const router = express.Router();
 
-router.use(profileRoutes);
-router.use(projectRoutes);
-router.use(resumeRoutes);
-router.use(contactRoutes);
-router.use(chatRoutes);
+[
+  profileRoutes,
+  projectRoutes,
+  resumeRoutes,
+  contactRoutes,
+  chatRoutes,
+].forEach((featureRouter) => {
+  router.use(featureRouter);
+});
 
 module.exports = router;

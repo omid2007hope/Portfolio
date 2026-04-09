@@ -76,6 +76,18 @@ describe("API app", () => {
     expect(response.body.fullName).toBe("Omid Teimory");
   });
 
+  test("preserves versioned profile route support", async () => {
+    profileService.getPublicProfile.mockResolvedValue({
+      id: "profile-1",
+      fullName: "Omid Teimory",
+    });
+
+    const response = await request(app).get("/api/v1/profile");
+
+    expect(response.status).toBe(200);
+    expect(response.body.fullName).toBe("Omid Teimory");
+  });
+
   test("creates profiles with backend-driven content fields", async () => {
     profileService.createProfile.mockResolvedValue({
       id: "profile-1",
@@ -137,6 +149,20 @@ describe("API app", () => {
       },
       expect.any(Object),
     );
+  });
+
+  test("supports versioned contact creation routes", async () => {
+    contactService.createFromRequest.mockResolvedValue({ id: "contact-1" });
+
+    const response = await request(app).post("/api/v1/contact").send({
+      name: " Omid ",
+      email: " OMID@example.com ",
+      subject: " Portfolio ",
+      message: " Hello there ",
+    });
+
+    expect(response.status).toBe(201);
+    expect(contactService.createFromRequest).toHaveBeenCalled();
   });
 
   test("rejects empty chat messages", async () => {

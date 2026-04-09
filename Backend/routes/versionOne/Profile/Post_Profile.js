@@ -4,9 +4,7 @@ const router = express.Router();
 
 const profileController = require("../../../controller/ProfileController");
 const asyncHandler = require("../../../utils/asyncHandler");
-const {
-  ensureBodyObject,
-} = require("../../../middleware/validation/requestValidators");
+const { ensureBodyObject } = require("../../../middleware/validation");
 
 router.post(
   "/profiles",
