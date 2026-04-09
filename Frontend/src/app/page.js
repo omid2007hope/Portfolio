@@ -1,14 +1,14 @@
-import HomePage from "@/components/features/home/HomePage";
-import { getProfile } from "@/lib/api";
+import HomePage from "@/features/home/HomePage";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildPageMetadata,
   buildWebPageJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
+import { getPortfolioProfile } from "@/services/portfolioService";
 
 export async function generateMetadata() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
 
   return buildPageMetadata({
     profile,
@@ -23,7 +23,7 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
   const seo = getSeoProfile(profile);
 
   return (

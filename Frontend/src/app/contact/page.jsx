@@ -1,5 +1,4 @@
-import ContactPage from "@/components/features/contact/ContactPage";
-import { getProfile } from "@/lib/api";
+import ContactPage from "@/features/contact/ContactPage";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildBreadcrumbJsonLd,
@@ -7,9 +6,10 @@ import {
   buildWebPageJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
+import { getPortfolioProfile } from "@/services/portfolioService";
 
 export async function generateMetadata() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
 
   return buildPageMetadata({
     profile,
@@ -24,7 +24,7 @@ export async function generateMetadata() {
 }
 
 export default async function ContactRoute() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
   const seo = getSeoProfile(profile);
 
   return (

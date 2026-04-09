@@ -3,9 +3,9 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Header from "@/components/layout/Header";
-import AboutPage from "@/components/features/about/AboutPage";
-import ContactPage from "@/components/features/contact/ContactPage";
-import ProjectsPage from "@/components/features/projects/ProjectsPage";
+import AboutPage from "@/features/about/AboutPage";
+import ContactPage from "@/features/contact/ContactPage";
+import ProjectsPage from "@/features/projects/ProjectsPage";
 import { createContactSubmission } from "@/lib/api";
 
 jest.mock("next/navigation", () => ({

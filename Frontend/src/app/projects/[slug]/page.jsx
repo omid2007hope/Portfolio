@@ -1,5 +1,4 @@
-import ProjectShowcase from "@/components/features/projects/ProjectShowcasePage";
-import { getProfile, getProject, getProjects } from "@/lib/api";
+import ProjectShowcasePage from "@/features/projects/ProjectShowcasePage";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildBreadcrumbJsonLd,
@@ -7,9 +6,14 @@ import {
   buildProjectJsonLd,
 } from "@/lib/seo";
 import { notFound } from "next/navigation";
+import {
+  getPortfolioProfile,
+  getPortfolioProject,
+  getPortfolioProjects,
+} from "@/services/portfolioService";
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
+  const projects = await getPortfolioProjects();
 
   return projects
     .map((project) => ({
@@ -21,8 +25,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getProject(resolvedParams.slug),
-    getProfile(),
+    getPortfolioProject(resolvedParams.slug),
+    getPortfolioProfile(),
   ]);
 
   if (!project) {
@@ -54,8 +58,8 @@ export async function generateMetadata({ params }) {
 export default async function ProjectDetailRoute({ params }) {
   const resolvedParams = await params;
   const [project, profile] = await Promise.all([
-    getProject(resolvedParams.slug),
-    getProfile(),
+    getPortfolioProject(resolvedParams.slug),
+    getPortfolioProfile(),
   ]);
 
   if (!project) {
@@ -80,7 +84,7 @@ export default async function ProjectDetailRoute({ params }) {
           ),
         ]}
       />
-      <ProjectShowcase project={project} profile={profile} />
+      <ProjectShowcasePage project={project} profile={profile} />
     </>
   );
 }

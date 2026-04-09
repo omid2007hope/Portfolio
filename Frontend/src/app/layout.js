@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
-import { getProfile } from "@/lib/api";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildPersonJsonLd,
@@ -8,6 +7,7 @@ import {
   buildWebsiteJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
+import { getPortfolioProfile } from "@/services/portfolioService";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,12 +27,12 @@ export const viewport = {
 };
 
 export async function generateMetadata() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
   return buildRootMetadata(profile);
 }
 
 export default async function RootLayout({ children }) {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
   const seo = getSeoProfile(profile);
 
   return (

@@ -1,14 +1,17 @@
-import ProjectsPage from "@/components/features/projects/ProjectsPage";
-import { getProfile, getProjects } from "@/lib/api";
+import ProjectsPage from "@/features/projects/ProjectsPage";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildProjectsPageJsonLd,
 } from "@/lib/seo";
+import {
+  getPortfolioProfile,
+  getPortfolioProjects,
+} from "@/services/portfolioService";
 
 export async function generateMetadata() {
-  const profile = await getProfile();
+  const profile = await getPortfolioProfile();
 
   return buildPageMetadata({
     profile,
@@ -24,7 +27,10 @@ export async function generateMetadata() {
 }
 
 export default async function ProjectsRoute() {
-  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
+  const [projects, profile] = await Promise.all([
+    getPortfolioProjects(),
+    getPortfolioProfile(),
+  ]);
 
   return (
     <>

@@ -1,5 +1,4 @@
-import ResumePage from "@/components/features/resume/ResumePage";
-import { getProfile, getResume } from "@/lib/api";
+import ResumePage from "@/features/resume/ResumePage";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   buildBreadcrumbJsonLd,
@@ -7,9 +6,16 @@ import {
   buildWebPageJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
+import {
+  getPortfolioProfile,
+  getPortfolioResume,
+} from "@/services/portfolioService";
 
 export async function generateMetadata() {
-  const [resume, profile] = await Promise.all([getResume(), getProfile()]);
+  const [resume, profile] = await Promise.all([
+    getPortfolioResume(),
+    getPortfolioProfile(),
+  ]);
   const name = resume?.profileName || profile?.fullName || "Omid Teimory";
 
   return buildPageMetadata({
@@ -26,7 +32,10 @@ export async function generateMetadata() {
 }
 
 export default async function ResumeRoute() {
-  const [resume, profile] = await Promise.all([getResume(), getProfile()]);
+  const [resume, profile] = await Promise.all([
+    getPortfolioResume(),
+    getPortfolioProfile(),
+  ]);
   const seo = getSeoProfile(profile, resume);
 
   return (
