@@ -1,0 +1,13 @@
+const express = require("express");
+
+const router = express.Router();
+
+const profileController = require("../../../controller/ProfileController");
+
+router.patch(
+  "/profiles/:id",
+  ensureBodyObject,
+  asyncHandler(profileController.updateProfile),
+);
+
+module.exports = router;

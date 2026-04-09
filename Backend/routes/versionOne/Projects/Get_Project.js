@@ -1,0 +1,13 @@
+const express = require("express");
+
+const router = express.Router();
+
+const projectController = require("../../../controller/ProjectController");
+
+router.get("/projects", asyncHandler(projectController.getProjects));
+router.get(
+  "/projects/:identifier",
+  asyncHandler(projectController.getProjectByIdentifier),
+);
+
+module.exports = router;
