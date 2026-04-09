@@ -2,16 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-const projectController = require("../../../controller/ProjectController");
+const chatController = require("../../../controller/ChatController");
 const asyncHandler = require("../../../utils/asyncHandler");
 const {
   ensureBodyObject,
 } = require("../../../middleware/validation/requestValidators");
 
 router.patch(
-  "/projects/:id",
+  "/chat/:sessionId",
   ensureBodyObject,
-  asyncHandler(projectController.updateProject),
+  asyncHandler(chatController.updateConversation),
 );
 
 module.exports = router;

@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const resumeController = require("../../../controller/ResumeController");
+const asyncHandler = require("../../../utils/asyncHandler");
 
 router.delete("/resumes/:id", asyncHandler(resumeController.deleteResume));
 

@@ -1,26 +1,110 @@
-const app = require("./app");
+const express = require("express");
+const dotenv = require("dotenv");
+
+const router = require("./routes");
 const connectDB = require("./config/database");
 
-connectDB()
-  .then(() => {
-    const port = process.env.PORT || 4000;
-    const server = app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+dotenv.config({ path: ".env.local" });
+
+const app = express();
+
+app.use((req, res, next) => {
+  const allowedOrigin = process.env.CORS_ORIGIN || "*";
+
+  res.header("Access-Control-Allow-Origin", allowedOrigin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,PUT,DELETE,OPTIONS");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  return next();
+});
+
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", router);
+
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    message: "Portfolio Prime API",
+    uptime: process.uptime(),
+    env: process.env.NODE_ENV || "development",
+  });
+});
+
+app.use((_req, res) => {
+  res.status(404).json({ error: "Not Found" });
+});
+
+app.use((err, _req, res, _next) => {
+  console.error(err);
+
+  if (res.headersSent) {
+    return;
+  }
+
+  if (err.status) {
+    return res.status(err.status).json({
+      error: err.message,
+      ...(err.details !== undefined ? { details: err.details } : {}),
     });
+  }
 
-    server.on("error", (err) => {
-      if (err.code === "EADDRINUSE") {
-        console.error(
-          `Port ${port} is already in use. Stop the existing server or set PORT to a different value before starting this process.`,
-        );
-        process.exit(1);
-      }
+  if (err.name === "ValidationError") {
+    return res.status(400).json({
+      error: "Validation failed.",
+      details: Object.values(err.errors).map((item) => item.message),
+    });
+  }
 
-      console.error("Failed to start server:", err);
+  if (err.name === "CastError") {
+    return res.status(400).json({ error: "Invalid identifier format." });
+  }
+
+  if (err.code === 11000) {
+    return res.status(409).json({
+      error: "A record with the same unique field already exists.",
+      details: err.keyValue,
+    });
+  }
+
+  return res.status(500).json({ error: err.message || "Internal Server Error" });
+});
+
+const startServer = async () => {
+  await connectDB();
+
+  const port = process.env.PORT || 4000;
+  const server = app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
+
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(
+        `Port ${port} is already in use. Stop the existing server or set PORT to a different value before starting this process.`,
+      );
       process.exit(1);
-    });
-  })
-  .catch((err) => {
+    }
+
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  });
+
+  return server;
+};
+
+if (require.main === module) {
+  startServer().catch((err) => {
     console.error("Failed to connect to database:", err);
     process.exit(1);
   });
+}
+
+module.exports = app;

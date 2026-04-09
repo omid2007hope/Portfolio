@@ -45,7 +45,7 @@ jest.mock("../services/ChatConversationService", () => ({
 const profileService = require("../services/PortfolioProfileService");
 const contactService = require("../services/ContactSubmissionService");
 const chatService = require("../services/ChatConversationService");
-const app = require("../app");
+const app = require("../Server");
 
 describe("API app", () => {
   beforeEach(() => {
