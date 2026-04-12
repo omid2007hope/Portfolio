@@ -1,3 +1,4 @@
+import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
 import ContactDetailsPanel from "@/features/contact/components/ContactDetailsPanel";
 import ContactForm from "@/features/contact/components/ContactForm";
@@ -5,8 +6,7 @@ import ContactIntroSection from "@/features/contact/components/ContactIntroSecti
 
 function ContactPage({ profile }) {
   return (
-    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
-      <div className="flex w-full max-w-6xl flex-col justify-center">
+    <PageSection>
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-extrabold">Get in Touch</h1>
           <p className="mt-2 text-lg text-white/70">
@@ -23,8 +23,7 @@ function ContactPage({ profile }) {
         </div>
 
         <SiteFooter profile={profile} />
-      </div>
-    </section>
+    </PageSection>
   );
 }
 

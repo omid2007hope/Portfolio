@@ -1,3 +1,4 @@
+import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
 import AboutOverview from "@/features/about/components/AboutOverview";
 import AboutSidebar from "@/features/about/components/AboutSidebar";
@@ -14,8 +15,7 @@ function AboutPage({ profile }) {
   const aboutCards = getAboutCards(profile);
 
   return (
-    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
-      <div className="flex w-full max-w-6xl flex-col justify-center">
+    <PageSection>
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold">About {displayName}</h1>
           <p className="mt-2 text-lg text-white/70">
@@ -29,8 +29,7 @@ function AboutPage({ profile }) {
         </div>
 
         <SiteFooter profile={profile} />
-      </div>
-    </section>
+    </PageSection>
   );
 }
 

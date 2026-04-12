@@ -1,3 +1,4 @@
+import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
 import Panel from "@/components/ui/Panel";
 import ProjectsGrid from "@/features/projects/components/ProjectsGrid";
@@ -6,8 +7,7 @@ import { PROJECTS_FOOTER_CALLOUT } from "@/features/projects/constants/projectsC
 
 function ProjectsPage({ projects, profile }) {
   return (
-    <section className="flex min-h-[calc(100vh-5rem)] w-full justify-center px-6 py-8 text-white">
-      <div className="flex w-full max-w-6xl flex-col justify-center">
+    <PageSection>
         <ProjectsHero />
         <ProjectsGrid projects={projects} />
 
@@ -24,8 +24,7 @@ function ProjectsPage({ projects, profile }) {
         </Panel>
 
         <SiteFooter profile={profile} />
-      </div>
-    </section>
+    </PageSection>
   );
 }
 

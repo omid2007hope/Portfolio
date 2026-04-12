@@ -5,7 +5,8 @@ const { loadEnv } = require("./config/env");
 const errorHandler = require("./middleware/error/errorHandler");
 const notFoundHandler = require("./middleware/error/notFoundHandler");
 const { applyCorsHeaders } = require("./middleware/request/cors");
-const router = require("./routes");
+const healthRoutes = require("./routes/health");
+const routes = require("./routes");
 
 loadEnv();
 
@@ -15,8 +16,8 @@ app.use(applyCorsHeaders);
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", require("./routes/health"));
-app.use("/api", router);
+app.use("/", healthRoutes);
+app.use("/api", routes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

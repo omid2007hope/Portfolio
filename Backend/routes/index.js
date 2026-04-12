@@ -5,6 +5,7 @@ const versionOneRoutes = require("./versionOne");
 const router = express.Router();
 
 router.use(healthRoutes);
+router.use("/v1", healthRoutes);
 router.use("/v1", versionOneRoutes);
 router.use(versionOneRoutes);
 

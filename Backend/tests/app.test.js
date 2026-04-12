@@ -64,6 +64,16 @@ describe("API app", () => {
     expect(response.body.message).toBe("Portfolio Prime API");
   });
 
+  test("keeps health routes available under /api and /api/v1", async () => {
+    const apiResponse = await request(app).get("/api/server");
+    const versionedResponse = await request(app).get("/api/v1/server");
+
+    expect(apiResponse.status).toBe(200);
+    expect(apiResponse.text).toBe("server is running");
+    expect(versionedResponse.status).toBe(200);
+    expect(versionedResponse.text).toBe("server is running");
+  });
+
   test("returns the public profile", async () => {
     profileService.getPublicProfile.mockResolvedValue({
       id: "profile-1",
