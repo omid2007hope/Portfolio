@@ -5,7 +5,7 @@ import {
   buildWebPageJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
-import { getProfile } from "@/lib/api";
+import { getProfile } from "@/lib/server-api";
 
 export async function generateMetadata() {
   const profile = await getProfile();

@@ -1,8 +1,10 @@
-import { getProfile } from "@/lib/api";
+import { getMetadataProfile } from "@/lib/server-api";
 import { getSeoProfile } from "@/lib/seo";
 
+export const revalidate = 3600;
+
 export default async function manifest() {
-  const profile = await getProfile();
+  const profile = await getMetadataProfile();
   const seo = getSeoProfile(profile);
 
   return {

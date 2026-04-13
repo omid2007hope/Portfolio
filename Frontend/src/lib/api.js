@@ -1,5 +1,5 @@
 const DEFAULT_DEV_SERVER_API_BASE = "http://127.0.0.1:4000/api";
-const DEFAULT_PROD_SERVER_API_BASE = "http://127.0.0.1:5000/api";
+const DEFAULT_PROD_SERVER_API_BASE = "http://127.0.0.1:4000/api";
 
 const trimTrailingSlash = (value) => value.replace(/\/+$/, "");
 const DEFAULT_REVALIDATE_SECONDS = 300;

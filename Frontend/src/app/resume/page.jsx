@@ -9,7 +9,7 @@ import {
 import {
   getProfile,
   getResume,
-} from "@/lib/api";
+} from "@/lib/server-api";
 
 export async function generateMetadata() {
   const [resume, profile] = await Promise.all([

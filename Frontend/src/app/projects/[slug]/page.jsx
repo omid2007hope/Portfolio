@@ -10,7 +10,7 @@ import {
   getProfile,
   getProject,
   getProjects,
-} from "@/lib/api";
+} from "@/lib/server-api";
 
 export async function generateStaticParams() {
   const projects = await getProjects();

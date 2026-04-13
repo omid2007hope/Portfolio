@@ -1,8 +1,13 @@
-import { getProfile, getProjects } from "@/lib/api";
+import { getMetadataProfile, getMetadataProjects } from "@/lib/server-api";
 import { absoluteUrl, getProjectPath } from "@/lib/seo";
 
+export const revalidate = 3600;
+
 export default async function sitemap() {
-  const [profile, projects] = await Promise.all([getProfile(), getProjects()]);
+  const [profile, projects] = await Promise.all([
+    getMetadataProfile(),
+    getMetadataProjects(),
+  ]);
   const now = new Date();
   const staticRoutes = [
     { path: "/", priority: 1, changeFrequency: "weekly" },

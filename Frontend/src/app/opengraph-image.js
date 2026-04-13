@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
-import { getProfile } from "@/lib/api";
+import { getMetadataProfile } from "@/lib/server-api";
 import { getSeoProfile } from "@/lib/seo";
 
+export const revalidate = 3600;
 export const alt = "Portfolio Prime social preview";
 export const size = {
   width: 1200,
@@ -10,7 +11,7 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
-  const profile = await getProfile();
+  const profile = await getMetadataProfile();
   const seo = getSeoProfile(profile);
 
   return new ImageResponse(

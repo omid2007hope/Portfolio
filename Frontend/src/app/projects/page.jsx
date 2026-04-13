@@ -8,7 +8,7 @@ import {
 import {
   getProfile,
   getProjects,
-} from "@/lib/api";
+} from "@/lib/server-api";
 
 export async function generateMetadata() {
   const profile = await getProfile();

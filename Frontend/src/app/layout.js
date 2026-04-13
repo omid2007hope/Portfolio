@@ -7,7 +7,7 @@ import {
   buildWebsiteJsonLd,
   getSeoProfile,
 } from "@/lib/seo";
-import { getProfile } from "@/lib/api";
+import { getProfile } from "@/lib/server-api";
 import "./globals.css";
 
 const geistSans = Geist({
