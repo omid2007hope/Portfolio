@@ -135,17 +135,3 @@ export const createContactSubmission = async (payload) =>
     method: "POST",
     body: JSON.stringify(payload),
   });
-
-export const sendChatMessage = async (payload) =>
-  fetchJson("/chat", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-export const getChatConversation = async (sessionId) => {
-  try {
-    return await fetchJson(`/chat/${sessionId}`);
-  } catch (_error) {
-    return null;
-  }
-};

@@ -8,7 +8,7 @@ Default local base URL: `http://127.0.0.1:4000/api`
 - `PORT`: API port, defaults to `4000`
 - `CORS_ORIGIN`: allowed origin for browser requests, defaults to `*`
 
-All write routes expect a JSON object body. Public `contact` and `chat` routes validate and trim incoming input before the controller/service layer runs.
+All write routes expect a JSON object body. Public `contact` routes validate and trim incoming input before the controller/service layer runs.
 
 ## Health
 
@@ -175,7 +175,7 @@ Create example:
   "projectId": 1,
   "slug": "portfolio-prime",
   "title": "Portfolio Prime",
-  "shortDescription": "Personal portfolio with case studies, resume, contact workflows, and AI chat.",
+  "shortDescription": "Personal portfolio with case studies, resume, and contact workflows.",
   "overview": "Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.",
   "challengesAndSolutions": "The main challenge was replacing hardcoded UI content with structured backend data while keeping the experience polished.",
   "improvements": "Add authentication, image uploads, and a dashboard CMS for content management.",
@@ -346,37 +346,9 @@ Patch example:
 }
 ```
 
-## Chat
-
-- `POST /chat` - send a message and store conversation
-- `GET /chats` - list active conversations
-- `GET /chats?status=active` - filter chat conversations
-- `GET /chat/:sessionId` - get one conversation
-- `PATCH /chat/:sessionId` - update status or title
-- `DELETE /chat/:sessionId` - soft-delete a conversation
-
-Send message example:
-
-```json
-{
-  "sessionId": "portfolio-test-session-1",
-  "message": "Tell me about your latest projects"
-}
-```
-
-Patch example:
-
-```json
-{
-  "title": "Project questions",
-  "status": "closed"
-}
-```
-
 ## Notes For Postman
 
 - For `POST` and `PATCH`, set `Content-Type: application/json`
 - `DELETE` routes do not require a body
 - For update/delete routes, use the Mongo `_id` returned from create/list responses
-- For chat lookup/update/delete, use the `sessionId` value
 - For project detail routes, `:identifier` accepts the numeric `projectId`, the `slug`, or the Mongo `_id`

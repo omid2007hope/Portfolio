@@ -11,8 +11,7 @@
     { "key": "projectId", "value": "replace-with-project-id" },
     { "key": "projectIdentifier", "value": "portfolio-prime" },
     { "key": "resumeId", "value": "replace-with-resume-id" },
-    { "key": "contactId", "value": "replace-with-contact-id" },
-    { "key": "chatSessionId", "value": "portfolio-test-session-1" }
+    { "key": "contactId", "value": "replace-with-contact-id" }
   ],
   "item": [
     {
@@ -235,7 +234,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"projectId\": 1,\n  \"slug\": \"portfolio-prime\",\n  \"title\": \"Portfolio Prime\",\n  \"shortDescription\": \"Personal portfolio with case studies, resume, contact workflows, and AI chat.\",\n  \"overview\": \"Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.\",\n  \"challengesAndSolutions\": \"The main challenge was replacing hardcoded UI content with structured backend data while keeping the experience polished.\",\n  \"improvements\": \"Add authentication, image uploads, and a dashboard CMS for content management.\",\n  \"highlightQuote\": \"Backend-driven content keeps the portfolio flexible and maintainable.\",\n  \"role\": \"Full-Stack Developer\",\n  \"duration\": \"3 Weeks\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"techStack\": [\"Next.js\", \"React\", \"Express\", \"MongoDB\", \"Tailwind CSS\"],\n  \"coverImage\": {\"url\": \"https://images.example.com/portfolio-cover.png\", \"alt\": \"Portfolio Prime cover image\", \"kind\": \"cover\"},\n  \"showcaseImages\": [{\"url\": \"https://images.example.com/portfolio-screen-1.png\", \"alt\": \"Home page showcase\", \"kind\": \"showcase\"}, {\"url\": \"https://images.example.com/portfolio-screen-2.png\", \"alt\": \"Projects page showcase\", \"kind\": \"showcase\"}],\n  \"actions\": [{\"label\": \"Live Demo\", \"url\": \"https://omidteimory.com\", \"kind\": \"liveDemo\"}, {\"label\": \"Source Code\", \"url\": \"https://github.com/omid2007hope/Omid-Teimory\", \"kind\": \"source\"}],\n  \"repositoryUrl\": \"https://github.com/omid2007hope/Omid-Teimory\",\n  \"liveDemoUrl\": \"https://omidteimory.com\",\n  \"sortOrder\": 1\n}"
+              "raw": "{\n  \"projectId\": 1,\n  \"slug\": \"portfolio-prime\",\n  \"title\": \"Portfolio Prime\",\n  \"shortDescription\": \"Personal portfolio with case studies, resume, and contact workflows.\",\n  \"overview\": \"Portfolio Prime is a full-stack portfolio system built with Next.js, Express, and MongoDB.\",\n  \"challengesAndSolutions\": \"The main challenge was replacing hardcoded UI content with structured backend data while keeping the experience polished.\",\n  \"improvements\": \"Add authentication, image uploads, and a dashboard CMS for content management.\",\n  \"highlightQuote\": \"Backend-driven content keeps the portfolio flexible and maintainable.\",\n  \"role\": \"Full-Stack Developer\",\n  \"duration\": \"3 Weeks\",\n  \"status\": \"published\",\n  \"featured\": true,\n  \"techStack\": [\"Next.js\", \"React\", \"Express\", \"MongoDB\", \"Tailwind CSS\"],\n  \"coverImage\": {\"url\": \"https://images.example.com/portfolio-cover.png\", \"alt\": \"Portfolio Prime cover image\", \"kind\": \"cover\"},\n  \"showcaseImages\": [{\"url\": \"https://images.example.com/portfolio-screen-1.png\", \"alt\": \"Home page showcase\", \"kind\": \"showcase\"}, {\"url\": \"https://images.example.com/portfolio-screen-2.png\", \"alt\": \"Projects page showcase\", \"kind\": \"showcase\"}],\n  \"actions\": [{\"label\": \"Live Demo\", \"url\": \"https://omidteimory.com\", \"kind\": \"liveDemo\"}, {\"label\": \"Source Code\", \"url\": \"https://github.com/omid2007hope/Omid-Teimory\", \"kind\": \"source\"}],\n  \"repositoryUrl\": \"https://github.com/omid2007hope/Omid-Teimory\",\n  \"liveDemoUrl\": \"https://omidteimory.com\",\n  \"sortOrder\": 1\n}"
             },
             "url": "{{baseUrl}}/projects"
           },
@@ -478,101 +477,6 @@
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/contacts/{{contactId}}"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Chat",
-      "item": [
-        {
-          "name": "Send Chat Message",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"sessionId\": \"{{chatSessionId}}\",\n  \"message\": \"Tell me about your latest projects\"\n}"
-            },
-            "url": "{{baseUrl}}/chat"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Chat message succeeded\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "const json = pm.response.json();",
-                  "if (json && json.sessionId) {",
-                  "  pm.collectionVariables.set(\"chatSessionId\", json.sessionId);",
-                  "}"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "List Chats",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/chats"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Chats list succeeded\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "const json = pm.response.json();",
-                  "if (Array.isArray(json) && json.length && json[0].sessionId) {",
-                  "  pm.collectionVariables.set(\"chatSessionId\", json[0].sessionId);",
-                  "}"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "List Active Chats",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/chats?status=active"
-          }
-        },
-        {
-          "name": "Get Chat By Session Id",
-          "request": {
-            "method": "GET",
-            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
-          }
-        },
-        {
-          "name": "Update Chat",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Project questions\",\n  \"status\": \"closed\"\n}"
-            },
-            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
-          }
-        },
-        {
-          "name": "Delete Chat",
-          "request": {
-            "method": "DELETE",
-            "url": "{{baseUrl}}/chat/{{chatSessionId}}"
           }
         }
       ]

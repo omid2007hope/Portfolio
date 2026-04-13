@@ -34,17 +34,8 @@ jest.mock("../services/ContactSubmissionService", () => ({
   deleteSubmission: jest.fn(),
 }));
 
-jest.mock("../services/ChatConversationService", () => ({
-  listConversations: jest.fn(),
-  createOrAppendMessage: jest.fn(),
-  getConversation: jest.fn(),
-  updateConversation: jest.fn(),
-  deleteConversation: jest.fn(),
-}));
-
 const profileService = require("../services/PortfolioProfileService");
 const contactService = require("../services/ContactSubmissionService");
-const chatService = require("../services/ChatConversationService");
 const app = require("../Server");
 
 describe("API app", () => {
@@ -173,32 +164,5 @@ describe("API app", () => {
 
     expect(response.status).toBe(201);
     expect(contactService.createFromRequest).toHaveBeenCalled();
-  });
-
-  test("rejects empty chat messages", async () => {
-    const response = await request(app).post("/api/chat").send({
-      message: "   ",
-    });
-
-    expect(response.status).toBe(400);
-    expect(chatService.createOrAppendMessage).not.toHaveBeenCalled();
-  });
-
-  test("sends valid chat messages", async () => {
-    chatService.createOrAppendMessage.mockResolvedValue({
-      sessionId: "session-1",
-      reply: "Hello",
-    });
-
-    const response = await request(app).post("/api/chat").send({
-      sessionId: " session-1 ",
-      message: " Hi ",
-    });
-
-    expect(response.status).toBe(200);
-    expect(chatService.createOrAppendMessage).toHaveBeenCalledWith({
-      sessionId: "session-1",
-      message: "Hi",
-    });
   });
 });

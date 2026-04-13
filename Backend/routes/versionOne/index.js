@@ -4,7 +4,6 @@ const profileRoutes = require("./profile");
 const projectRoutes = require("./projects");
 const resumeRoutes = require("./resume");
 const contactRoutes = require("./contact");
-const chatRoutes = require("./chat");
 
 const router = express.Router();
 
@@ -13,7 +12,6 @@ const router = express.Router();
   projectRoutes,
   resumeRoutes,
   contactRoutes,
-  chatRoutes,
 ].forEach((featureRouter) => {
   router.use(featureRouter);
 });

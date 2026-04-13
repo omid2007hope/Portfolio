@@ -1,6 +1,6 @@
 # Portfolio Prime
 
-Portfolio Prime is a full-stack portfolio platform built with Next.js, Express, and MongoDB. The frontend renders portfolio content from the backend API, while the backend manages profiles, projects, resume data, contact submissions, and chat conversations.
+Portfolio Prime is a full-stack portfolio platform built with Next.js, Express, and MongoDB. The frontend renders portfolio content from the backend API, while the backend manages profiles, projects, resume data, and contact submissions.
 
 ## System Overview
 
@@ -54,9 +54,9 @@ The frontend lives in `Frontend/` and uses Next.js App Router.
 ### Main Responsibilities
 
 - Render the public portfolio website
-- Fetch profile, projects, resume, contact, and chat data from the backend
+- Fetch profile, projects, resume, and contact data from the backend
 - Generate metadata and structured SEO content on the server
-- Handle interactive features such as the contact form and chat UI
+- Handle interactive features such as the contact form
 
 ### Frontend Structure
 
@@ -89,7 +89,7 @@ Route file in src/app
   - Defines routes like `/`, `/about`, `/projects`, `/projects/[slug]`, `/resume`, and `/contact`
   - Includes `layout.js`, `sitemap.js`, `robots.js`, and other metadata files
 - `src/features`
-  - Organizes the app by domain: `home`, `about`, `projects`, `resume`, `contact`, `chat`
+  - Organizes the app by domain: `home`, `about`, `projects`, `resume`, `contact`
   - Each feature owns its page composition and related subcomponents
 - `src/components`
   - Reusable building blocks
@@ -166,7 +166,6 @@ Incoming request
     - project
     - resume
     - contact submission
-    - chat conversation
 - `middleware/`
   - `request/` for request-level middleware such as CORS
   - `validation/` for sanitizing and validating input
@@ -195,7 +194,6 @@ This folder is documentation, not runtime application code.
 - Projects listing and project detail pages
 - Resume page backed by API data
 - Public contact submission flow
-- Portfolio chat flow
 - SEO metadata, sitemap, robots, and structured data
 
 ## API Surface
@@ -213,7 +211,6 @@ Main endpoint groups:
 - `GET /projects`
 - `GET /resume`
 - `POST /contact`
-- `POST /chat`
 
 The backend also supports versioned routes such as:
 
@@ -221,7 +218,6 @@ The backend also supports versioned routes such as:
 - `/api/v1/projects`
 - `/api/v1/resume`
 - `/api/v1/contact`
-- `/api/v1/chat`
 
 For full request and payload examples, see `Backend/API_REFERENCE.md`.
 
