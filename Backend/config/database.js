@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
+const { getMongoUrl } = require("./mongo");
 
 const connectDB = async () => {
-  const mongoUrl = process.env.MONGO_URL;
+  const mongoUrl = getMongoUrl();
 
   if (!mongoUrl) {
-    throw new Error("MongoDB connection failed: MONGO_URL is not set");
+    throw new Error(
+      "MongoDB connection failed: set MONGO_URL or MONGO_URI before starting the API",
+    );
   }
 
   await mongoose.connect(mongoUrl, {
