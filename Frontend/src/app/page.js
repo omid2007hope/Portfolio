@@ -9,10 +9,12 @@ import { getProfile } from "@/lib/server-api";
 
 export async function generateMetadata() {
   const profile = await getProfile();
+  const name = profile?.fullName || "Omid Teimory";
+  const jobTitle = profile?.jobTitle || "Frontend / Full-Stack Developer";
 
   return buildPageMetadata({
     profile,
-    title: "Omid Teimory | Frontend / Full-Stack Developer",
+    title: `${name} | ${jobTitle}`,
     path: "/",
     keywords: [
       "full-stack developer Vienna",

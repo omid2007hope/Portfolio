@@ -1,5 +1,14 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "404 — Page Not Found",
+  description: "The page you requested could not be found.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 export default function NotFound() {
   return (
     <section className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-16 text-white">

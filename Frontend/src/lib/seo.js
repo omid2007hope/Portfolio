@@ -156,8 +156,7 @@ export const getSeoProfile = (profile, resume) => {
       : DEFAULT_JOB_TITLE;
   const headline = jobTitle;
   const description = getMetaDescription(profile, resume);
-  const longDescription =
-    profile?.metaDescription?.trim() || description;
+  const longDescription = profile?.metaDescription?.trim() || description;
   const location = profile?.location || resume?.address || DEFAULT_LOCATION;
   const siteUrl = getSiteUrl(profile);
   const sameAs = dedupe([
@@ -261,11 +260,20 @@ export const buildRootMetadata = (profile, resume) => {
       siteName: seo.siteName,
       locale: seo.locale,
       type: "website",
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: defaultTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: defaultTitle,
       description: seo.description,
+      images: ["/opengraph-image"],
       ...(seo.twitterHandle ? { creator: seo.twitterHandle } : {}),
     },
     ...(Object.keys(verification).length ? { verification } : {}),
@@ -393,6 +401,14 @@ export const buildWebsiteJsonLd = (profile, resume) => {
       name: seo.personName,
       url: seo.siteUrl,
     },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${seo.siteUrl}/projects?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 };
 
@@ -411,6 +427,11 @@ export const buildWebPageJsonLd = ({
     (type === "ProfilePage"
       ? buildPersonReferenceJsonLd(profile, resume)
       : undefined);
+  const author = {
+    "@type": "Person",
+    name: seo.personName,
+    url: seo.siteUrl,
+  };
 
   return {
     "@context": "https://schema.org",
@@ -419,6 +440,9 @@ export const buildWebPageJsonLd = ({
     description,
     url: absoluteUrl(path, profile),
     inLanguage: seo.htmlLang,
+    author,
+    creator: author,
+    publisher: author,
     isPartOf: {
       "@type": "WebSite",
       name: seo.siteName,
@@ -473,25 +497,35 @@ export const buildProjectJsonLd = (project, profile, resume) => {
 
   return {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    // SoftwareApplication is more specific and enables richer Google results
+    // than the generic CreativeWork for web development projects.
+    "@type": "SoftwareApplication",
     name: project.title,
-    headline: project.title,
     description: project.overview || project.shortDescription,
-    abstract: project.shortDescription,
+    // Canonical URL is the portfolio page for this project.
     url: absoluteUrl(getProjectPath(project), profile),
+    // Live demo URL — where the app actually runs.
+    ...(project.liveDemoUrl ? { sameAs: project.liveDemoUrl } : {}),
+    // Source code repository (unofficial but widely understood by crawlers).
+    ...(project.repositoryUrl ? { codeRepository: project.repositoryUrl } : {}),
     image: project.coverImage?.url,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web",
     creator: {
       "@type": "Person",
       name: seo.personName,
       url: seo.siteUrl,
     },
-    keywords: dedupe(project.techStack || []),
-    genre: "Web development project",
+    keywords: dedupe(project.techStack || []).join(", "),
     inLanguage: seo.htmlLang,
     isAccessibleForFree: true,
-    sameAs: dedupe([project.liveDemoUrl, project.repositoryUrl]),
     dateCreated: project.createdAt,
     dateModified: project.updatedAt,
     about: toThingList(project.techStack || []),
+    isPartOf: {
+      "@type": "WebSite",
+      name: seo.siteName,
+      url: seo.siteUrl,
+    },
   };
 };
