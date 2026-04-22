@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { fetchJson } from "@/lib/api";
+import { fetchJson } from "@/api/client";
 
 const DEFAULT_REVALIDATE_SECONDS = 300;
 const METADATA_REVALIDATE_SECONDS = 3600;

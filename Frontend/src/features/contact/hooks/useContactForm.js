@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CONTACT_FORM_DEFAULTS } from "@/features/contact/constants/contactFormDefaults";
-import { createContactSubmission } from "@/lib/api";
+import { createContactSubmission } from "@/api";
 
 export function useContactForm() {
   const [form, setForm] = useState(CONTACT_FORM_DEFAULTS);

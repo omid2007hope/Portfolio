@@ -6,7 +6,7 @@ import Header from "@/components/layout/Header";
 import AboutPage from "@/features/about/AboutPage";
 import ContactPage from "@/features/contact/ContactPage";
 import ProjectsPage from "@/features/projects/ProjectsPage";
-import { createContactSubmission } from "@/lib/api";
+import { createContactSubmission } from "@/api";
 
 jest.mock("next/navigation", () => ({
   usePathname: () => "/",
@@ -22,7 +22,9 @@ describe("frontend UI flows", () => {
   });
 
   test("header keeps the resume link in navigation", () => {
-    render(<Header profile={{ navigationLinks: [{ label: "Home", to: "/" }] }} />);
+    render(
+      <Header profile={{ navigationLinks: [{ label: "Home", to: "/" }] }} />,
+    );
 
     expect(screen.getByRole("link", { name: "Resume" })).toBeInTheDocument();
   });
@@ -38,9 +40,13 @@ describe("frontend UI flows", () => {
       />,
     );
 
-    expect(screen.getByText("Open for product engineering roles")).toBeInTheDocument();
+    expect(
+      screen.getByText("Open for product engineering roles"),
+    ).toBeInTheDocument();
     expect(screen.getByText("Interviewing now")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Start a project" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Start a project" }),
+    ).toBeInTheDocument();
   });
 
   test("about page renders fallback content", () => {
@@ -81,7 +87,9 @@ describe("frontend UI flows", () => {
       />,
     );
 
-    expect(screen.getByText("About page intro from MongoDB.")).toBeInTheDocument();
+    expect(
+      screen.getByText("About page intro from MongoDB."),
+    ).toBeInTheDocument();
     expect(screen.getByText("Custom about paragraph.")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
@@ -170,6 +178,8 @@ describe("frontend UI flows", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("Direct contact")).toBeInTheDocument();
-    expect(screen.getByText("Email or call if you want a faster intro.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Email or call if you want a faster intro."),
+    ).toBeInTheDocument();
   });
 });
