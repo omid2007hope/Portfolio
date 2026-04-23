@@ -5,10 +5,7 @@ import {
   buildPageMetadata,
   buildProjectsPageJsonLd,
 } from "@/lib/seo";
-import {
-  getProfile,
-  getProjects,
-} from "@/lib/server-api";
+import { getProfile, getProjects } from "@/lib/server-api";
 
 export async function generateMetadata() {
   const profile = await getProfile();
@@ -16,6 +13,8 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: "Projects and Case Studies | Omid Teimory",
+    description:
+      "Browse real-world projects and case studies by Omid Teimory — full-stack web apps built with React, Next.js, Node.js, and MongoDB. Each project includes an overview, tech stack, and outcome.",
     path: "/projects",
     keywords: [
       "Next.js projects",
@@ -27,10 +26,7 @@ export async function generateMetadata() {
 }
 
 export default async function ProjectsRoute() {
-  const [projects, profile] = await Promise.all([
-    getProjects(),
-    getProfile(),
-  ]);
+  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
 
   return (
     <>

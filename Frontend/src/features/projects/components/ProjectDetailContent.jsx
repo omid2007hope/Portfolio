@@ -24,6 +24,8 @@ function ProjectDetailContent({ project }) {
                 key={`${image.url}-${index}`}
                 src={image.url}
                 alt={image.alt || `${project.title} showcase ${index + 1}`}
+                width={400}
+                height={256}
                 className="h-64 w-full rounded-xl bg-slate-700 object-cover"
               />
             ))}
@@ -39,7 +41,8 @@ function ProjectDetailContent({ project }) {
         ) : null}
 
         <p className="mt-6 leading-relaxed text-white/80">
-          {project.improvements || "Additional improvements have not been added yet."}
+          {project.improvements ||
+            "Additional improvements have not been added yet."}
         </p>
       </section>
     </div>

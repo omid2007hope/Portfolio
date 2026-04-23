@@ -14,6 +14,7 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
+    description: `Get in touch with ${profile?.fullName || "Omid Teimory"} — open to freelance projects, full-time roles, and collaborations. Reach out via the contact form or email.`,
     path: "/contact",
     keywords: [
       "hire full-stack developer Austria",

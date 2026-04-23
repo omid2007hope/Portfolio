@@ -18,6 +18,8 @@ function ResumeSidebar({
           <img
             src={resume.avatarImage}
             alt={`${resume.profileName || "Resume"} headshot`}
+            width={64}
+            height={64}
             className="h-16 w-16 rounded-full border border-white/10 bg-white/20 object-cover"
           />
         ) : (
@@ -118,7 +120,9 @@ function ResumeSidebar({
                     </p>
                   ) : null}
                   {certificate.score ? (
-                    <p className="text-xs opacity-70">Score: {certificate.score}</p>
+                    <p className="text-xs opacity-70">
+                      Score: {certificate.score}
+                    </p>
                   ) : null}
                 </div>
               </div>

@@ -10,6 +10,8 @@ function ResumeHero({ resume, profile }) {
         <img
           src={resume.avatarImage}
           alt={resume.profileName || "Resume avatar"}
+          width={160}
+          height={160}
           className="h-40 w-40 rounded-2xl border border-white/10 object-cover shadow-lg"
         />
       ) : (

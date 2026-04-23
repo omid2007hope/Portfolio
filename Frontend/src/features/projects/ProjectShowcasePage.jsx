@@ -27,7 +27,9 @@ function ProjectShowcasePage({ project, profile }) {
           <span className="text-white">{project.title}</span>
         </nav>
 
-        <h1 className="text-4xl font-extrabold leading-snug">{project.title}</h1>
+        <h1 className="text-4xl font-extrabold leading-snug">
+          {project.title}
+        </h1>
         <p className="mb-12 mt-2 max-w-3xl text-lg text-white/70">
           {project.shortDescription}
         </p>
@@ -37,6 +39,8 @@ function ProjectShowcasePage({ project, profile }) {
             <img
               src={project.coverImage.url}
               alt={project.coverImage.alt || `${project.title} cover`}
+              width={1200}
+              height={384}
               className="h-full w-full object-cover"
             />
           ) : (
@@ -47,8 +51,8 @@ function ProjectShowcasePage({ project, profile }) {
         </div>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          <ProjectDetailSidebar project={project} />
           <ProjectDetailContent project={project} />
+          <ProjectDetailSidebar project={project} />
         </div>
 
         <SiteFooter profile={profile} />

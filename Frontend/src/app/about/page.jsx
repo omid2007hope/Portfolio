@@ -14,6 +14,7 @@ export async function generateMetadata() {
   return buildPageMetadata({
     profile,
     title: `About ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
+    description: `Learn about ${profile?.fullName || "Omid Teimory"} — a ${profile?.jobTitle || "Frontend / Full-Stack Developer"} based in ${profile?.location || "Vienna, Austria"}. Background, process, and what drives the work.`,
     path: "/about",
     keywords: [
       "About Omid Teimory",

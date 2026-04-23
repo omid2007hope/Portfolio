@@ -1,8 +1,7 @@
 const DEFAULT_PROFILE_NAME = "Omid Teimory";
 const DEFAULT_HERO_DESCRIPTION =
   "I build fast, modern web applications that help businesses grow.";
-const DEFAULT_PRIMARY_STACK =
-  "React, Next.js, Tailwind CSS, Node.js, MongoDB";
+const DEFAULT_PRIMARY_STACK = "React, Next.js, Tailwind CSS, Node.js, MongoDB";
 
 const DEFAULT_SOCIAL_LINKS = [
   {
@@ -23,7 +22,7 @@ const DEFAULT_SOCIAL_LINKS = [
   {
     name: "Credly",
     iconKey: "",
-    url: "https://www.credly.com/users/omid-teimory/edit#credly",
+    url: "https://www.credly.com/users/omid-teimory",
   },
   {
     name: "Artstation",
@@ -193,7 +192,9 @@ export const getHomeSectionItems = (profile) =>
       ];
 
 export const getHomeInfoCards = (profile) =>
-  profile?.homeInfoCards?.length ? profile.homeInfoCards : DEFAULT_HOME_INFO_CARDS;
+  profile?.homeInfoCards?.length
+    ? profile.homeInfoCards
+    : DEFAULT_HOME_INFO_CARDS;
 
 export const getHomeWorkflowTitle = (profile) =>
   profile?.homeWorkflowTitle || "How I Work";
