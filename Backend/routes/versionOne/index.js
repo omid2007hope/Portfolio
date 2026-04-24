@@ -1,9 +1,9 @@
 const express = require("express");
 
-const profileRoutes = require("./profile");
-const projectRoutes = require("./projects");
-const resumeRoutes = require("./resume");
-const contactRoutes = require("./contact");
+const profileRoutes = require("./Profile");
+const projectRoutes = require("./Projects");
+const resumeRoutes = require("./Resume");
+const contactRoutes = require("./Contact");
 
 const router = express.Router();
 
