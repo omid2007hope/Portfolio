@@ -12,7 +12,7 @@ jest.mock("next/navigation", () => ({
   usePathname: () => "/",
 }));
 
-jest.mock("@/lib/api", () => ({
+jest.mock("@/api", () => ({
   createContactSubmission: jest.fn(),
 }));
 

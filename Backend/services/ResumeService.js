@@ -1,11 +1,7 @@
 const BaseService = require("./BaseService");
 const { Resume } = require("../model/version_1");
 
-class ResumeService extends BaseService {
-  constructor() {
-    super(Resume);
-  }
-
+module.exports = new (class ResumeService extends BaseService {
   _serializeResume = (resume) => ({
     id: String(resume._id),
     profileName: resume.profileName,
@@ -68,6 +64,4 @@ class ResumeService extends BaseService {
     const resume = await this.softDelete({ _id: id }, "system");
     return resume ? this._serializeResume(resume.toObject()) : null;
   };
-}
-
-module.exports = new ResumeService();
+})(Resume);

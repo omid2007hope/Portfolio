@@ -2,11 +2,7 @@ const BaseService = require("./BaseService");
 const { Project } = require("../model/version_1");
 const { mongoose } = require("../model/version_1/shared");
 
-class ProjectService extends BaseService {
-  constructor() {
-    super(Project);
-  }
-
+module.exports = new (class ProjectService extends BaseService {
   _serializeProject = (project) => ({
     id: String(project._id),
     projectId: project.projectId,
@@ -89,6 +85,4 @@ class ProjectService extends BaseService {
     const project = await this.softDelete({ _id: id }, "system");
     return project ? this._serializeProject(project.toObject()) : null;
   };
-}
-
-module.exports = new ProjectService();
+})(Project);

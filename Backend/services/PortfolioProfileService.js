@@ -4,11 +4,7 @@ const { PortfolioProfile } = require("../model/version_1");
 const DEFAULT_PROFILE_IMAGE =
   "https://avatars.githubusercontent.com/u/218600127?v=4";
 
-class PortfolioProfileService extends BaseService {
-  constructor() {
-    super(PortfolioProfile);
-  }
-
+module.exports = new (class PortfolioProfileService extends BaseService {
   _serializeProfile = (profile) => ({
     id: String(profile._id),
     fullName: profile.fullName,
@@ -116,6 +112,4 @@ class PortfolioProfileService extends BaseService {
     const profile = await this.softDelete({ _id: id }, "system");
     return profile ? this._serializeProfile(profile.toObject()) : null;
   };
-}
-
-module.exports = new PortfolioProfileService();
+})(PortfolioProfile);

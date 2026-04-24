@@ -1,11 +1,7 @@
 const BaseService = require("./BaseService");
 const { ContactSubmission } = require("../model/version_1");
 
-class ContactSubmissionService extends BaseService {
-  constructor() {
-    super(ContactSubmission);
-  }
-
+module.exports = new (class ContactSubmissionService extends BaseService {
   _serializeSubmission = (submission) => ({
     id: String(submission._id),
     name: submission.name,
@@ -58,7 +54,9 @@ class ContactSubmissionService extends BaseService {
   };
 
   getSubmissionById = async (id) => {
-    const submission = await this.model.findOne(this._active({ _id: id })).lean();
+    const submission = await this.model
+      .findOne(this._active({ _id: id }))
+      .lean();
     return submission ? this._serializeSubmission(submission) : null;
   };
 
@@ -77,6 +75,4 @@ class ContactSubmissionService extends BaseService {
     const submission = await this.softDelete({ _id: id }, "system");
     return submission ? this._serializeSubmission(submission.toObject()) : null;
   };
-}
-
-module.exports = new ContactSubmissionService();
+})(ContactSubmission);
