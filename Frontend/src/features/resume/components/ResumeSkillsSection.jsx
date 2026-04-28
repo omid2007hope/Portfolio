@@ -7,9 +7,9 @@ function ResumeSkillsSection({ skillGroups = [] }) {
       {skillGroups.length ? (
         skillGroups.map((group) => (
           <div key={group.title} className="mb-8">
-            <h4 className="text-sm font-semibold uppercase text-white/60">
+            <h3 className="text-sm font-semibold uppercase text-white/60">
               {group.title}
-            </h4>
+            </h3>
             <TagList
               items={group.items || []}
               className="mt-3"

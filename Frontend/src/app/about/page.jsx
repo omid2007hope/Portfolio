@@ -4,7 +4,6 @@ import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildWebPageJsonLd,
-  getSeoProfile,
 } from "@/lib/seo";
 import { getProfile } from "@/lib/server-api";
 
@@ -26,7 +25,10 @@ export async function generateMetadata() {
 
 export default async function AboutRoute() {
   const profile = await getProfile();
-  const seo = getSeoProfile(profile);
+  const name = profile?.fullName || "Omid Teimory";
+  const jobTitle = profile?.jobTitle || "Frontend / Full-Stack Developer";
+  const location = profile?.location || "Vienna, Austria";
+  const aboutDescription = `Learn about ${name} — a ${jobTitle} based in ${location}. Background, process, and what drives the work.`;
 
   return (
     <>
@@ -35,8 +37,8 @@ export default async function AboutRoute() {
           buildWebPageJsonLd({
             profile,
             path: "/about",
-            title: `About ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-            description: seo.description,
+            title: `About ${name} | Portfolio Prime`,
+            description: aboutDescription,
             type: "AboutPage",
           }),
           buildBreadcrumbJsonLd(

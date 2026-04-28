@@ -151,6 +151,8 @@ function HomeHeroSection({ profile }) {
                   <img
                     src={profile.portraitImage}
                     alt={`Portrait of ${profile.fullName || "Omid Teimory"}`}
+                    width={800}
+                    height={1000}
                     className="aspect-[4/5] w-full object-cover object-center"
                   />
                 ) : (

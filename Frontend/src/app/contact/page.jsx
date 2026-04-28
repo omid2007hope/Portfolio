@@ -4,7 +4,6 @@ import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildWebPageJsonLd,
-  getSeoProfile,
 } from "@/lib/seo";
 import { getProfile } from "@/lib/server-api";
 
@@ -26,7 +25,8 @@ export async function generateMetadata() {
 
 export default async function ContactRoute() {
   const profile = await getProfile();
-  const seo = getSeoProfile(profile);
+  const name = profile?.fullName || "Omid Teimory";
+  const contactDescription = `Get in touch with ${name} — open to freelance projects, full-time roles, and collaborations. Reach out via the contact form or email.`;
 
   return (
     <>
@@ -35,8 +35,8 @@ export default async function ContactRoute() {
           buildWebPageJsonLd({
             profile,
             path: "/contact",
-            title: `Contact ${profile?.fullName || "Omid Teimory"} | Portfolio Prime`,
-            description: seo.description,
+            title: `Contact ${name} | Portfolio Prime`,
+            description: contactDescription,
             type: "ContactPage",
           }),
           buildBreadcrumbJsonLd(

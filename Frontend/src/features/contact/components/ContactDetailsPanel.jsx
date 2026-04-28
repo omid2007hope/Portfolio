@@ -36,9 +36,9 @@ function ContactDetailsPanel({ profile }) {
       <hr className="border-white/10" />
 
       <div>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/60">
+        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/60">
           Find me on
-        </h2>
+        </h3>
 
         <div className="flex gap-4">
           {socialLinks.map((item) => {

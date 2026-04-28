@@ -4,7 +4,6 @@ import {
   buildBreadcrumbJsonLd,
   buildPageMetadata,
   buildWebPageJsonLd,
-  getSeoProfile,
 } from "@/lib/seo";
 import { getProfile, getResume } from "@/lib/server-api";
 
@@ -28,7 +27,10 @@ export async function generateMetadata() {
 
 export default async function ResumeRoute() {
   const [resume, profile] = await Promise.all([getResume(), getProfile()]);
-  const seo = getSeoProfile(profile, resume);
+  const name = resume?.profileName || profile?.fullName || "Omid Teimory";
+  const jobTitle = profile?.jobTitle || "Frontend / Full-Stack Developer";
+  const location = profile?.location || "Austria";
+  const resumeDescription = `Full resume of ${name} — ${jobTitle} based in ${location}. Skills, work experience, education, and certifications.`;
 
   return (
     <>
@@ -38,8 +40,8 @@ export default async function ResumeRoute() {
             profile,
             resume,
             path: "/resume",
-            title: `${resume?.profileName || profile?.fullName || "Omid Teimory"} Resume | Portfolio Prime`,
-            description: seo.description,
+            title: `${name} Resume | Portfolio Prime`,
+            description: resumeDescription,
             type: "ProfilePage",
           }),
           buildBreadcrumbJsonLd(

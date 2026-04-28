@@ -37,6 +37,8 @@ function Header({ profile }) {
             <img
               src={profile.logoImage}
               alt={`${getDisplayName(profile)} logo`}
+              width={56}
+              height={56}
               className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2 object-cover"
             />
           ) : (

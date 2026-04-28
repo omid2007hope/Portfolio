@@ -3,7 +3,6 @@ import JsonLd from "@/components/seo/JsonLd";
 import {
   buildPageMetadata,
   buildWebPageJsonLd,
-  getSeoProfile,
 } from "@/lib/seo";
 import { getProfile } from "@/lib/server-api";
 
@@ -29,7 +28,10 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const profile = await getProfile();
-  const seo = getSeoProfile(profile);
+  const name = profile?.fullName || "Omid Teimory";
+  const jobTitle = profile?.jobTitle || "Frontend / Full-Stack Developer";
+  const location = profile?.location || "Vienna, Austria";
+  const homeDescription = `${name} is a ${jobTitle} based in ${location}. Building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.`;
 
   return (
     <>
@@ -38,7 +40,7 @@ export default async function Page() {
           profile,
           path: "/",
           title: "Omid Teimory | Portfolio Prime",
-          description: seo.description,
+          description: homeDescription,
         })}
       />
       <HomePage profile={profile} />

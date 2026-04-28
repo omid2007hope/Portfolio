@@ -41,7 +41,7 @@ export async function generateMetadata({ params }) {
 
   return buildPageMetadata({
     profile,
-    title: `${project.title} Case Study | Omid Teimory`,
+    title: { absolute: `${project.title} Case Study | Omid Teimory` },
     description:
       project.shortDescription ||
       project.overview ||

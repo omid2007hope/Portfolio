@@ -32,9 +32,9 @@ function ResumeSidebar({
           />
         )}
         <div>
-          <h2 className="text-lg font-bold">
+          <p className="text-lg font-bold">
             {resume?.profileName || getDisplayName(profile)}
-          </h2>
+          </p>
           <p className="text-sm text-white/60">
             {resume?.headline || getJobTitle(profile)}
           </p>
@@ -59,9 +59,9 @@ function ResumeSidebar({
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
+        <p className="text-sm font-semibold uppercase tracking-wide text-white">
           Important Links
-        </h3>
+        </p>
 
         {importantLinks.length ? (
           importantLinks.map((link) => (
@@ -86,9 +86,9 @@ function ResumeSidebar({
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
+        <p className="text-sm font-semibold uppercase tracking-wide text-white">
           Languages
-        </h3>
+        </p>
         <ul className="mt-3 space-y-1 text-sm text-white/80">
           {languages.map((language) => (
             <li key={language}>{language}</li>
@@ -97,9 +97,9 @@ function ResumeSidebar({
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
+        <p className="text-sm font-semibold uppercase tracking-wide text-white">
           Certificates
-        </h3>
+        </p>
 
         <div className="mt-3 space-y-3 text-sm text-white/80">
           {certificates.length ? (

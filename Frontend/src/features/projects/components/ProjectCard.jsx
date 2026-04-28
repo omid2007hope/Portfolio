@@ -14,6 +14,8 @@ function ProjectCard({ project }) {
             <img
               src={project.coverImage.url}
               alt={project.coverImage.alt || project.title}
+              width={400}
+              height={192}
               className="h-full w-full object-cover"
             />
           ) : (
