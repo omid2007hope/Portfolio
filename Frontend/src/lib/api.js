@@ -66,6 +66,8 @@ export const fetchJson = async (path, options = {}) => {
     headers.set("Accept", "application/json");
   }
 
+  
+
   const response = await fetch(getApiUrl(path), {
     ...fetchOptions,
     ...(isReadRequest
@@ -82,6 +84,8 @@ export const fetchJson = async (path, options = {}) => {
         }),
     headers,
   });
+
+
 
   const data = await readResponseBody(response);
 
