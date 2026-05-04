@@ -110,6 +110,27 @@ const getResumeCached = unstable_cache(
   },
 );
 
+const getMagazineCached = unstable_cache(
+  async () => {
+    try {
+      const payload = await fetchJson("/magazine", {
+        revalidate: DEFAULT_REVALIDATE_SECONDS,
+      });
+      if (Array.isArray(payload)) return payload;
+      if (Array.isArray(payload?.data)) return payload.data;
+      if (Array.isArray(payload?.items)) return payload.items;
+      return [];
+    } catch (_error) {
+      return [];
+    }
+  },
+  ["magazine"],
+  {
+    revalidate: DEFAULT_REVALIDATE_SECONDS,
+    tags: ["magazine"],
+  },
+);
+
 export const getProfile = () => getProfileCached();
 
 export const getProjects = (query = "") => getProjectsCached(query);
@@ -117,6 +138,8 @@ export const getProjects = (query = "") => getProjectsCached(query);
 export const getProject = (identifier) => getProjectCached(identifier);
 
 export const getResume = () => getResumeCached();
+
+export const getMagazine = () => getMagazineCached();
 
 export const getMetadataProfile = () => getMetadataProfileCached();
 

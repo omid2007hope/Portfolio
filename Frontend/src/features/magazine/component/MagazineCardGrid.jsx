@@ -2,7 +2,7 @@ import Panel from "@/components/ui/Panel";
 
 function MagazineCard({ item }) {
   return (
-    <Panel className="group overflow-hidden border-white/10 bg-white/4 p-0 transition duration-300 hover:-translate-y-1 hover:border-sky-300/40 hover:bg-white/6">
+    <Panel className="group w-full overflow-hidden border-white/10 bg-white/4 p-0">
       {item.photo ? (
         <div className="aspect-16/10 overflow-hidden border-b border-white/10 bg-slate-900/50">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -34,7 +34,7 @@ function MagazineCard({ item }) {
 
 function MagazineCardGrid({ items }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="flex flex-col gap-5">
       {items.map((item) => (
         <MagazineCard key={item.id} item={item} />
       ))}

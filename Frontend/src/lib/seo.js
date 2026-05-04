@@ -529,3 +529,44 @@ export const buildProjectJsonLd = (project, profile, resume) => {
     },
   };
 };
+
+export const buildMagazineJsonLd = (entries, profile, resume) => {
+  const seo = getSeoProfile(profile, resume);
+  const author = {
+    "@type": "Person",
+    name: seo.personName,
+    url: seo.siteUrl,
+  };
+  const homeUrl = absoluteUrl("/", profile);
+
+  const blogPosts = (entries || []).map((entry) => ({
+    "@type": "BlogPosting",
+    headline: entry.title,
+    description: entry.description || undefined,
+    datePublished: entry.date || entry.createdAt || undefined,
+    dateModified: entry.updatedAt || entry.date || entry.createdAt || undefined,
+    url: homeUrl,
+    image: entry.photo || seo.image,
+    inLanguage: seo.htmlLang,
+    author,
+    publisher: author,
+    isPartOf: {
+      "@type": "Blog",
+      name: `${seo.personName} – Daily Log`,
+      url: homeUrl,
+    },
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${seo.personName} – Daily Log`,
+    description:
+      "A running log of daily progress, build notes, and development updates.",
+    url: homeUrl,
+    inLanguage: seo.htmlLang,
+    author,
+    publisher: author,
+    blogPost: blogPosts,
+  };
+};

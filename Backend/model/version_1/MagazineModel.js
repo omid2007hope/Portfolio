@@ -21,7 +21,7 @@ const magazineSchema = new Schema(
 
     title: requiredTrimmedString("Magazine title", 100),
 
-    description: requiredTrimmedString("Magazine description", 500),
+    description: requiredTrimmedString("Magazine description", 2000),
 
     date: {
       type: String,
