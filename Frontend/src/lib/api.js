@@ -3,6 +3,13 @@ const DEFAULT_PROD_SERVER_API_BASE = "http://127.0.0.1:4000/api";
 
 const trimTrailingSlash = (value) => value.replace(/\/+$/, "");
 const DEFAULT_REVALIDATE_SECONDS = 300;
+const PRIVATE_IP_PATTERN =
+  /^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/;
+
+const isLikelyLocalDevHost = (hostname) =>
+  hostname === "localhost" ||
+  hostname === "::1" ||
+  PRIVATE_IP_PATTERN.test(hostname);
 
 export const getApiBaseUrl = () => {
   const envBase =
@@ -14,7 +21,7 @@ export const getApiBaseUrl = () => {
   }
 
   if (typeof window !== "undefined") {
-    if (window.location.port === "3000") {
+    if (isLikelyLocalDevHost(window.location.hostname)) {
       return `${window.location.protocol}//${window.location.hostname}:4000/api`;
     }
 

@@ -17,12 +17,8 @@ const normalizeMagazineList = (payload) => {
 };
 
 export const getAllContent = async () => {
-  try {
-    const data = await fetchJson(`/magazine`);
-    return normalizeMagazineList(data);
-  } catch {
-    return [];
-  }
+  const data = await fetchJson(`/magazine`);
+  return normalizeMagazineList(data);
 };
 
 export const postMagazineContent = async (content) => {

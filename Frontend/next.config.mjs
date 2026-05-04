@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV !== "production";
+const connectSrc = [
+  "'self'",
+  "https:",
+  ...(isDev ? ["http://localhost:4000", "http://127.0.0.1:4000"] : []),
+].join(" ");
+
 const nextConfig = {
   reactCompiler: true,
   compress: true,
@@ -17,8 +24,7 @@ const nextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https:; frame-ancestors 'self';",
+            value: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src ${connectSrc}; frame-ancestors 'self';`,
           },
           {
             key: "Referrer-Policy",
