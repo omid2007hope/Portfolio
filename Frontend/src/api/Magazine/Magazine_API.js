@@ -37,3 +37,31 @@ export const postMagazineContent = async (content) => {
     return null;
   }
 };
+
+export const postMagazineContentWithImage = async ({
+  magazineId,
+  title,
+  description,
+  date,
+  image,
+}) => {
+  try {
+    const formData = new FormData();
+    formData.append("magazineId", String(magazineId));
+    formData.append("title", title || "");
+    formData.append("description", description || "");
+    formData.append("date", date || "");
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    return await fetchJson(`/magazine`, {
+      method: "POST",
+      body: formData,
+    });
+  } catch (error) {
+    console.error("Error posting magazine content with image:", error);
+    return null;
+  }
+};

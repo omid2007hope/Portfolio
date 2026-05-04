@@ -57,16 +57,16 @@ export const fetchJson = async (path, options = {}) => {
   const method = (fetchOptions.method || "GET").toUpperCase();
   const isReadRequest = method === "GET" || method === "HEAD";
   const headers = new Headers(fetchOptions.headers || {});
+  const isFormDataBody =
+    typeof FormData !== "undefined" && fetchOptions.body instanceof FormData;
 
-  if (fetchOptions.body && !headers.has("Content-Type")) {
+  if (fetchOptions.body && !isFormDataBody && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }
 
   if (!headers.has("Accept")) {
     headers.set("Accept", "application/json");
   }
-
-  
 
   const response = await fetch(getApiUrl(path), {
     ...fetchOptions,
@@ -84,8 +84,6 @@ export const fetchJson = async (path, options = {}) => {
         }),
     headers,
   });
-
-
 
   const data = await readResponseBody(response);
 
