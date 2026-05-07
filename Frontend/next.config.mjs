@@ -38,12 +38,14 @@ const nextConfig = {
       },
     ];
   },
+
+  // ! Page redirect
   async redirects() {
     return [
       {
         source: "/project/:path*",
         destination: "/projects/:path*",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/:path*",
@@ -54,7 +56,7 @@ const nextConfig = {
           },
         ],
         destination: "https://omidteimory.com/:path*",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
