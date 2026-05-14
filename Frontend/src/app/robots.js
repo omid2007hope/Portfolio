@@ -11,6 +11,14 @@ export default async function robots() {
       {
         userAgent: "*",
         allow: "/",
+        disallow: [
+          "/twitter-image",
+          "/opengraph-image",
+          "/favicon.ico",
+          "/icon.png",
+          "/apple-icon.png",
+          "/*.webmanifest",
+        ],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml", profile),

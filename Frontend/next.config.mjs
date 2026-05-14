@@ -12,6 +12,15 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: "/(twitter-image|opengraph-image)(.*)",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           {
