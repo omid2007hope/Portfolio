@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
 import EngagementBoard from "@/features/publicChat/components/EngagementBoard";
@@ -18,13 +17,13 @@ function PublicChatPage({ profile }) {
 
   return (
     <PageSection>
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Page header */}
         <header className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200/80">
             Community Discussion
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Public Chat
           </h1>
           <p className="max-w-3xl text-lg leading-8 text-slate-300">
@@ -34,7 +33,7 @@ function PublicChatPage({ profile }) {
         </header>
 
         {/* Chat container with sidebar and engagement board */}
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-[280px_1fr] min-h-[500px]">
+        <div className="grid min-h-[620px] grid-cols-1 gap-6 rounded-3xl border border-white/10 bg-slate-950/30 p-4 md:p-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
           {/* Sidebar for group selection */}
           <ChatSidebar
             groups={availableGroups}

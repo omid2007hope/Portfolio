@@ -237,33 +237,37 @@ function EngagementBoard({
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+    <section className="space-y-5 rounded-2xl border border-white/10 bg-slate-950/60 p-4 md:p-5 lg:min-h-[560px] lg:p-6">
       <div className="space-y-1">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        <h3 className="text-xl font-semibold text-white md:text-2xl">
+          {title}
+        </h3>
         {description ? (
-          <p className="text-sm text-slate-300">{description}</p>
+          <p className="text-sm leading-7 text-slate-300 md:text-base">
+            {description}
+          </p>
         ) : null}
       </div>
 
       <form
-        className="grid gap-2 sm:grid-cols-[220px_1fr_auto]"
+        className="grid gap-3 md:grid-cols-[minmax(180px,220px)_1fr_auto]"
         onSubmit={submitMessage}
       >
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Display name"
-          className="rounded-xl border border-white/15 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-slate-400"
+          className="rounded-xl border border-white/15 bg-slate-900/70 px-3 py-2.5 text-sm text-white placeholder:text-slate-400"
         />
         <input
           value={messageDraft}
           onChange={(event) => setMessageDraft(event.target.value)}
           placeholder={composerPlaceholder || "Write a message"}
-          className="rounded-xl border border-white/15 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-slate-400"
+          className="rounded-xl border border-white/15 bg-slate-900/70 px-3 py-2.5 text-sm text-white placeholder:text-slate-400"
         />
         <button
           type="submit"
-          className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+          className="rounded-xl bg-cyan-400 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
         >
           Send
         </button>
@@ -274,14 +278,14 @@ function EngagementBoard({
       ) : null}
       {error ? <p className="text-sm text-rose-300">{error}</p> : null}
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {sortedMessages.map((entry) => {
           const threadReplies = repliesByMessage[entry.id] || [];
 
           return (
             <article
               key={entry.id}
-              className="space-y-3 rounded-xl border border-white/10 bg-white/5 p-3"
+              className="space-y-3 rounded-xl border border-white/10 bg-white/5 p-4"
             >
               <header className="flex items-center justify-between gap-3">
                 <p className="text-sm font-semibold text-cyan-100">
@@ -292,7 +296,7 @@ function EngagementBoard({
                 </p>
               </header>
 
-              <p className="text-sm leading-7 text-slate-200">
+              <p className="text-sm leading-7 text-slate-200 md:text-[15px]">
                 {entry.message}
               </p>
 
