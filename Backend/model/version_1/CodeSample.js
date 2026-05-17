@@ -1,19 +1,19 @@
-const { Schema, trimString } = require("./shared");
+const {
+  Schema,
+  mongoose,
+  requiredTrimmedString,
+  schemaOptions,
+  trimString,
+} = require("./shared");
 
-const codeSample = new Schema({
-  id: {
-    type: String,
-    required: true,
-    index: true,
-    unique: true,
-    ...trimString,
+const codeSampleSchema = new Schema(
+  {
+    id: { ...requiredTrimmedString("ID"), index: true, unique: true },
+    title: { ...requiredTrimmedString("Title"), index: true },
+    code: requiredTrimmedString("Code", 20000),
+    description: { ...trimString, default: "" },
   },
+  schemaOptions,
+);
 
-  title: { type: String, require: true, index: true },
-  code: { type: String, require: true, index: true },
-  description: { type: String, require: true, index: true },
-  like: { type: Number, require: true },
-  dislike: {},
-  Comment: {},
-  replys: {},
-});
+module.exports = mongoose.model("CodeSample", codeSampleSchema);

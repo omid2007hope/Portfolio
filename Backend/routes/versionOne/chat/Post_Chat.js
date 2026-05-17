@@ -8,17 +8,27 @@ const replyController = require("../../../controller/ReplyController");
 const asyncHandler = require("../../../utils/asyncHandler");
 const {
   ensureBodyObject,
+  validateMessagePayload,
+  validateReplyPayload,
+  validateUserPayload,
 } = require("../../../middleware/validation/requestValidators");
 
-router.post("/users", ensureBodyObject, asyncHandler(userController.postUser));
+router.post(
+  "/users",
+  ensureBodyObject,
+  validateUserPayload,
+  asyncHandler(userController.postUser),
+);
 router.post(
   "/messages",
   ensureBodyObject,
+  validateMessagePayload,
   asyncHandler(messageController.postMessage),
 );
 router.post(
   "/replies",
   ensureBodyObject,
+  validateReplyPayload,
   asyncHandler(replyController.postReply),
 );
 

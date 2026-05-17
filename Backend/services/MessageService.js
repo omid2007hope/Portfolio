@@ -1,16 +1,11 @@
 const BaseService = require("./BaseService");
 const MessageModel = require("../model/version_1/message");
-
-const VALID_SCOPES = new Set(["group", "magazine", "qanda"]);
-
-const normalizeScope = (scope) => {
-  const normalized = String(scope || "group")
-    .trim()
-    .toLowerCase();
-  return VALID_SCOPES.has(normalized) ? normalized : "group";
-};
-
-const normalizeTargetId = (targetId) => String(targetId || "global").trim();
+const {
+  normalizeFeedLimit,
+  normalizeScope,
+  normalizeTargetId,
+  normalizeUserId,
+} = require("../utils/chatContext");
 
 module.exports = new (class MessageService extends BaseService {
   _serializeMessage = (message) => ({
@@ -39,9 +34,10 @@ module.exports = new (class MessageService extends BaseService {
 
   getMessages = async (filters = {}) => {
     const condition = this._active({});
+    const limit = normalizeFeedLimit(filters.limit);
 
     if (filters.userId) {
-      condition.id = String(filters.userId).trim();
+      condition.id = normalizeUserId(filters.userId);
     }
 
     if (filters.scope) {
@@ -55,6 +51,7 @@ module.exports = new (class MessageService extends BaseService {
     const messages = await this.model
       .find(condition)
       .sort({ createdAt: -1 })
+      .limit(limit)
       .lean();
 
     return messages.map(this._serializeMessage);
@@ -65,26 +62,34 @@ module.exports = new (class MessageService extends BaseService {
   };
 
   toggleLike = async (messageId, userId) => {
+    const normalizedUserId = normalizeUserId(userId);
     const message = await this.model.findById(messageId);
     if (!message) return null;
 
-    const hasLiked = message.likes.includes(userId);
+    const hasLiked = message.likes.includes(normalizedUserId);
     const update = hasLiked
-      ? { $pull: { likes: userId } }
-      : { $addToSet: { likes: userId }, $pull: { dislikes: userId } };
+      ? { $pull: { likes: normalizedUserId } }
+      : {
+          $addToSet: { likes: normalizedUserId },
+          $pull: { dislikes: normalizedUserId },
+        };
 
     const updated = await this.update({ _id: messageId }, update);
     return this._serializeMessage(updated);
   };
 
   toggleDislike = async (messageId, userId) => {
+    const normalizedUserId = normalizeUserId(userId);
     const message = await this.model.findById(messageId);
     if (!message) return null;
 
-    const hasDisliked = message.dislikes.includes(userId);
+    const hasDisliked = message.dislikes.includes(normalizedUserId);
     const update = hasDisliked
-      ? { $pull: { dislikes: userId } }
-      : { $addToSet: { dislikes: userId }, $pull: { likes: userId } };
+      ? { $pull: { dislikes: normalizedUserId } }
+      : {
+          $addToSet: { dislikes: normalizedUserId },
+          $pull: { likes: normalizedUserId },
+        };
 
     const updated = await this.update({ _id: messageId }, update);
     return this._serializeMessage(updated);

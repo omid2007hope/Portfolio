@@ -9,4 +9,5 @@ module.exports = {
   Reply: require("./Replys"),
   Resume: require("./ResumeModel"),
   User: require("./user"),
+  CodeSample: require("./CodeSample"),
 };
