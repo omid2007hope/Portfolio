@@ -1,100 +1,61 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
-import { Dice1, Send } from "lucide-react";
+import EngagementBoard from "@/features/publicChat/components/EngagementBoard";
+import ChatSidebar from "@/features/publicChat/components/ChatSidebar";
+import useChatGroups from "@/features/publicChat/hooks/useChatGroups";
 
-const dataSamlpe_1 = [
-  { id: 1, groupeName: "generalChat" },
-  { id: 2, groupeName: "QandA" },
-];
-
-const dataSample_2 = [
-  {
-    id: 1,
-    message: "test message",
-    date: new Date(),
-    likes: 10,
-    dislikes: 5,
-    replys: [
-      {
-        id: 1,
-        message: "test message",
-        date: new Date(),
-        likes: 10,
-        dislikes: 5,
-      },
-    ],
-  },
-];
-
+/**
+ * PublicChatPage - Main chat page with group selection sidebar and engagement board
+ * Allows users to switch between different chat channels (General, Q&A, etc.)
+ * Displays messages, replies, and reactions within the selected channel
+ */
 function PublicChatPage({ profile }) {
+  const { selectedGroupId, selectedGroup, switchGroup, availableGroups } =
+    useChatGroups("general");
+
   return (
     <PageSection>
-      <div className="w-full h-7/10 flex flex-col border">
-        <div className="w-full h-full flex flex-row">
-          <aside className="w-3/10 h-full border-r">
-            {/* chat box's EXP general, meme, QandA, ruls and more discord style  */}
-            <div className="flex flex-col justify-start items-center w-full h-9/10">
-              <div className="gap-1 mt-1 flex flex-col justify-start items-center w-full h-full">
-                {dataSamlpe_1.map((items) => {
-                  return (
-                    <div
-                      className="py-1 w-95/100 rounded-lg flex justify-center items-center border"
-                      key={items.id}
-                    >
-                      {items.groupeName}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+      <div className="space-y-6">
+        {/* Page header */}
+        <header className="space-y-3">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200/80">
+            Community Discussion
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            Public Chat
+          </h1>
+          <p className="max-w-3xl text-lg leading-8 text-slate-300">
+            Join the community conversation. Ask questions, share insights, and
+            engage with others.
+          </p>
+        </header>
 
-            {/* input box */}
-            <div className="flex flex-col w-full h-1/10s border-t p-2 gap-2">
-              <input
-                type="text"
-                placeholder="Name"
-                className="w-full border rounded-lg px-2 py-1"
-              />
-              <div className="flex gap-2 items-center">
-                <input
-                  type="text"
-                  placeholder="Message"
-                  className="flex-1 border rounded-lg px-2 py-1"
-                />
-                <button className="p-2 hover:bg-gray-100 rounded-lg">
-                  <Send />
-                </button>
-              </div>
-            </div>
-          </aside>
-          {/* Chat box -- Renrders chat here  */}
-          <div className="flex flex-col justify-center items-center w-7/10 h-full">
-            {dataSample_2.map((items) => {
-              return (
-                <div
-                  key={items.id}
-                  className="flex flex-col p-20 rounded-lg border"
-                >
-                  {/* Video or image for the future need bcakend first */}
-                  <div></div>
-                  {/* text  */}
-                  <div>
-                    {/* message */}
-                    <div className="flex flex-row items-center "></div>
-                    {/* like and dislikes  */}
-                    <div className="flex flex-row items-center "></div>
-                    {/* replys  */}
-                    {items.replys.map((rep) => {
-                      return null;
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* Chat container with sidebar and engagement board */}
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-[280px_1fr] min-h-[500px]">
+          {/* Sidebar for group selection */}
+          <ChatSidebar
+            groups={availableGroups}
+            selectedGroupId={selectedGroupId}
+            onSelectGroup={switchGroup}
+          />
+
+          {/* Main chat engagement board */}
+          <EngagementBoard
+            key={selectedGroupId}
+            scope={selectedGroup.scope}
+            targetId="main"
+            title={selectedGroup.label}
+            description={selectedGroup.description}
+            composerPlaceholder={`Start a conversation in ${selectedGroup.label}...`}
+          />
         </div>
+
+        {/* Footer */}
+        <SiteFooter profile={profile} />
       </div>
-      <SiteFooter profile={profile} />
     </PageSection>
   );
 }

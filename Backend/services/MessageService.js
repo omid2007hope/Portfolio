@@ -1,10 +1,24 @@
 const BaseService = require("./BaseService");
 const MessageModel = require("../model/version_1/message");
 
+const VALID_SCOPES = new Set(["group", "magazine", "qanda"]);
+
+const normalizeScope = (scope) => {
+  const normalized = String(scope || "group")
+    .trim()
+    .toLowerCase();
+  return VALID_SCOPES.has(normalized) ? normalized : "group";
+};
+
+const normalizeTargetId = (targetId) => String(targetId || "global").trim();
+
 module.exports = new (class MessageService extends BaseService {
   _serializeMessage = (message) => ({
     id: String(message._id),
     userId: message.id,
+    userName: message.userName || "",
+    scope: message.scope || "group",
+    targetId: message.targetId || "global",
     message: message.message,
     likes: message.likes || [],
     dislikes: message.dislikes || [],
@@ -15,14 +29,31 @@ module.exports = new (class MessageService extends BaseService {
   postMessage = async (data) => {
     const newMessage = await this.createObject({
       id: data.id,
+      userName: data.userName,
+      scope: normalizeScope(data.scope),
+      targetId: normalizeTargetId(data.targetId),
       message: data.message,
     });
     return this._serializeMessage(newMessage);
   };
 
-  getMessages = async () => {
+  getMessages = async (filters = {}) => {
+    const condition = this._active({});
+
+    if (filters.userId) {
+      condition.id = String(filters.userId).trim();
+    }
+
+    if (filters.scope) {
+      condition.scope = normalizeScope(filters.scope);
+    }
+
+    if (filters.targetId) {
+      condition.targetId = normalizeTargetId(filters.targetId);
+    }
+
     const messages = await this.model
-      .find(this._active({}))
+      .find(condition)
       .sort({ createdAt: -1 })
       .lean();
 
@@ -30,12 +61,7 @@ module.exports = new (class MessageService extends BaseService {
   };
 
   getMessagesByUser = async (userId) => {
-    const messages = await this.model
-      .find(this._active({ id: userId }))
-      .sort({ createdAt: -1 })
-      .lean();
-
-    return messages.map(this._serializeMessage);
+    return this.getMessages({ userId });
   };
 
   toggleLike = async (messageId, userId) => {

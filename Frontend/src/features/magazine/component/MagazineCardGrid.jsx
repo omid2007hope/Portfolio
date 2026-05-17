@@ -1,6 +1,9 @@
 import Panel from "@/components/ui/Panel";
+import EngagementBoard from "@/features/publicChat/components/EngagementBoard";
 
 function MagazineCard({ item }) {
+  const discussionTargetId = `magazine-${item.magazineId || item.id}`;
+
   return (
     <Panel className="group w-full overflow-hidden border-white/10 bg-white/4 p-0">
       {item.photo ? (
@@ -27,6 +30,15 @@ function MagazineCard({ item }) {
         <p className="text-sm leading-7 text-slate-300">
           {item.description || "No description available for this entry."}
         </p>
+
+        <EngagementBoard
+          scope="magazine"
+          targetId={discussionTargetId}
+          title="Comments & Reactions"
+          description="Share feedback, like/dislike comments, and reply in-thread."
+          composerPlaceholder="Write a comment about this post"
+          compact
+        />
       </article>
     </Panel>
   );

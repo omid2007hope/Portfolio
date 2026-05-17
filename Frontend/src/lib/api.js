@@ -22,7 +22,8 @@ export const getApiBaseUrl = () => {
 
   if (typeof window !== "undefined") {
     if (isLikelyLocalDevHost(window.location.hostname)) {
-      return `${window.location.protocol}//${window.location.hostname}:4000/api`;
+      // Local backend runs on plain HTTP by default.
+      return `http://${window.location.hostname}:4000/api`;
     }
 
     return `${window.location.origin}/api`;

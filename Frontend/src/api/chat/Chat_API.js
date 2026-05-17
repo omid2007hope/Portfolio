@@ -1,5 +1,20 @@
 import { fetchJson } from "@/api/client";
 
+const buildQuery = (params = {}) => {
+  const search = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") {
+      return;
+    }
+
+    search.set(key, String(value));
+  });
+
+  const query = search.toString();
+  return query ? `?${query}` : "";
+};
+
 // GET /users
 export const getUsers = async () => (await fetchJson("/users")) || [];
 
@@ -10,8 +25,9 @@ export const createUser = async (payload) =>
     body: JSON.stringify(payload),
   });
 
-// GET /messages
-export const getMessages = async () => (await fetchJson("/messages")) || [];
+// GET /messages?scope=&targetId=&userId=
+export const getMessages = async (filters = {}) =>
+  (await fetchJson(`/messages${buildQuery(filters)}`)) || [];
 
 // GET /messages/user/:userId
 export const getMessagesByUser = async (userId) =>
@@ -38,12 +54,17 @@ export const toggleMessageDislike = async (messageId, userId) =>
     body: JSON.stringify({ userId }),
   });
 
-// GET /replies
-export const getReplies = async () => (await fetchJson("/replies")) || [];
+// GET /replies?scope=&targetId=&messageId=&userId=
+export const getReplies = async (filters = {}) =>
+  (await fetchJson(`/replies${buildQuery(filters)}`)) || [];
 
 // GET /replies/user/:userId
 export const getRepliesByUser = async (userId) =>
   (await fetchJson(`/replies/user/${userId}`)) || [];
+
+// GET /replies/message/:messageId
+export const getRepliesByMessage = async (messageId) =>
+  (await fetchJson(`/replies/message/${messageId}`)) || [];
 
 // POST /replies
 export const createReply = async (payload) =>

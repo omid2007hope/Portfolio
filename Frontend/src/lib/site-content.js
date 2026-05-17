@@ -40,8 +40,34 @@ const DEFAULT_NAVIGATION_LINKS = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
+  { label: "Public Chat", to: "/public-chat" },
+  { label: "Q&A", to: "/qanda" },
   { label: "Contact", to: "/contact" },
 ];
+
+const ensureRequiredNavLinks = (items = []) => {
+  const required = [
+    { label: "Resume", to: "/resume" },
+    { label: "Public Chat", to: "/public-chat" },
+    { label: "Q&A", to: "/qanda" },
+  ];
+
+  const result = [...items];
+
+  required.forEach((entry) => {
+    if (!result.some((item) => item.to === entry.to)) {
+      const contactIndex = result.findIndex((item) => item.to === "/contact");
+
+      if (contactIndex >= 0) {
+        result.splice(contactIndex, 0, entry);
+      } else {
+        result.push(entry);
+      }
+    }
+  });
+
+  return result;
+};
 
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {
@@ -77,20 +103,8 @@ const DEFAULT_HOME_INFO_CARDS = [
   },
 ];
 
-export const ensureResumeLink = (items = []) => {
-  if (items.some((item) => item.to === "/resume")) {
-    return items;
-  }
-
-  return [
-    ...items.slice(0, 3),
-    { label: "Resume", to: "/resume" },
-    ...items.slice(3),
-  ];
-};
-
 export const getNavigationLinks = (profile) =>
-  ensureResumeLink(
+  ensureRequiredNavLinks(
     profile?.navigationLinks?.length
       ? profile.navigationLinks
       : DEFAULT_NAVIGATION_LINKS,

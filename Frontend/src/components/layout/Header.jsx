@@ -20,6 +20,9 @@ function Header({ profile }) {
   const [open, setOpen] = useState(false);
   const progressMessage = getHeaderBannerText(profile);
   const navItems = getNavigationLinks(profile);
+  const headerNavItems = navItems.filter(
+    (item) => item.to !== "/public-chat" && item.to !== "/qanda",
+  );
 
   const isActive = (route) => pathname === route;
   const availabilityText = getHeaderAvailabilityText(profile);
@@ -60,7 +63,7 @@ function Header({ profile }) {
         </div>
 
         <nav className="hidden items-center gap-10 md:flex">
-          {navItems.map((item) => (
+          {headerNavItems.map((item) => (
             <Link
               key={item.to}
               href={item.to}
@@ -103,7 +106,7 @@ function Header({ profile }) {
             {progressMessage}
           </div>
 
-          {navItems.map((item) => (
+          {headerNavItems.map((item) => (
             <Link
               key={item.to}
               href={item.to}

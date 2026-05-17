@@ -1,10 +1,25 @@
 const BaseService = require("./BaseService");
 const ReplyModel = require("../model/version_1/Replys");
 
+const VALID_SCOPES = new Set(["group", "magazine", "qanda"]);
+
+const normalizeScope = (scope) => {
+  const normalized = String(scope || "group")
+    .trim()
+    .toLowerCase();
+  return VALID_SCOPES.has(normalized) ? normalized : "group";
+};
+
+const normalizeTargetId = (targetId) => String(targetId || "global").trim();
+
 module.exports = new (class ReplyService extends BaseService {
   _serializeReply = (reply) => ({
     id: String(reply._id),
     userId: reply.id,
+    userName: reply.userName || "",
+    messageId: reply.messageId,
+    scope: reply.scope || "group",
+    targetId: reply.targetId || "global",
     message: reply.message,
     likes: reply.likes || [],
     dislikes: reply.dislikes || [],
@@ -15,14 +30,36 @@ module.exports = new (class ReplyService extends BaseService {
   postReply = async (data) => {
     const newReply = await this.createObject({
       id: data.id,
+      userName: data.userName,
+      messageId: data.messageId,
+      scope: normalizeScope(data.scope),
+      targetId: normalizeTargetId(data.targetId),
       message: data.message,
     });
     return this._serializeReply(newReply);
   };
 
-  getReplies = async () => {
+  getReplies = async (filters = {}) => {
+    const condition = this._active({});
+
+    if (filters.userId) {
+      condition.id = String(filters.userId).trim();
+    }
+
+    if (filters.messageId) {
+      condition.messageId = String(filters.messageId).trim();
+    }
+
+    if (filters.scope) {
+      condition.scope = normalizeScope(filters.scope);
+    }
+
+    if (filters.targetId) {
+      condition.targetId = normalizeTargetId(filters.targetId);
+    }
+
     const replies = await this.model
-      .find(this._active({}))
+      .find(condition)
       .sort({ createdAt: -1 })
       .lean();
 
@@ -30,12 +67,11 @@ module.exports = new (class ReplyService extends BaseService {
   };
 
   getRepliesByUser = async (userId) => {
-    const replies = await this.model
-      .find(this._active({ id: userId }))
-      .sort({ createdAt: -1 })
-      .lean();
+    return this.getReplies({ userId });
+  };
 
-    return replies.map(this._serializeReply);
+  getRepliesByMessage = async (messageId) => {
+    return this.getReplies({ messageId });
   };
 
   toggleLike = async (replyId, userId) => {

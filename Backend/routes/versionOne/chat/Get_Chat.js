@@ -20,5 +20,9 @@ router.get(
   "/replies/user/:userId",
   asyncHandler(replyController.getRepliesByUser),
 );
+router.get(
+  "/replies/message/:messageId",
+  asyncHandler(replyController.getRepliesByMessage),
+);
 
 module.exports = router;
