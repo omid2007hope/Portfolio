@@ -9,3 +9,4 @@ export * from "@/api/profile/Profile_API";
 export * from "@/api/projects/Project_API";
 export * from "@/api/resume/Resume_API";
 export * from "@/api/contact/Contact_API";
+export * from "@/api/chat/Chat_API";
