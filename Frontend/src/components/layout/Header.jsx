@@ -19,10 +19,7 @@ function Header({ profile }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const progressMessage = getHeaderBannerText(profile);
-  const navItems = getNavigationLinks(profile);
-  const headerNavItems = navItems.filter(
-    (item) => item.to !== "/public-chat" && item.to !== "/qanda",
-  );
+  const headerNavItems = getNavigationLinks(profile);
 
   const isActive = (route) => pathname === route;
   const availabilityText = getHeaderAvailabilityText(profile);

@@ -1,5 +1,23 @@
 import { fetchJson } from "@/api/client";
 
+const AUTH_TOKEN_KEY = "pp-chat-auth-token";
+
+const withAuthHeaders = (headers = {}) => {
+  if (typeof window === "undefined") {
+    return headers;
+  }
+
+  const token = window.localStorage.getItem(AUTH_TOKEN_KEY);
+  if (!token) {
+    return headers;
+  }
+
+  return {
+    ...headers,
+    Authorization: `Bearer ${token}`,
+  };
+};
+
 const buildQuery = (params = {}) => {
   const search = new URLSearchParams();
 
@@ -37,6 +55,7 @@ export const getMessagesByUser = async (userId) =>
 export const createMessage = async (payload) =>
   fetchJson("/messages", {
     method: "POST",
+    headers: withAuthHeaders(),
     body: JSON.stringify(payload),
   });
 
@@ -70,7 +89,20 @@ export const getRepliesByMessage = async (messageId) =>
 export const createReply = async (payload) =>
   fetchJson("/replies", {
     method: "POST",
+    headers: withAuthHeaders(),
     body: JSON.stringify(payload),
+  });
+
+export const requestAuthCode = async (email) =>
+  fetchJson("/auth/request-code", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
+
+export const verifyAuthCode = async ({ email, code }) =>
+  fetchJson("/auth/verify-code", {
+    method: "POST",
+    body: JSON.stringify({ email, code }),
   });
 
 // PATCH /replies/:replyId/like

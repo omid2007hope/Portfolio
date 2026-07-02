@@ -4,18 +4,18 @@
  */
 export const CHAT_GROUPS = [
   {
-    id: "general",
-    label: "General Chat",
-    scope: "general_chat",
-    description: "Casual conversations and general discussion",
-    icon: "💬",
+    id: "public",
+    label: "# public",
+    scope: "group",
+    description: "Open public channel for everyone to read and discuss.",
+    icon: "#",
   },
   {
     id: "qanda",
-    label: "Q&A",
+    label: "# q-a",
     scope: "qanda",
-    description: "Ask questions and share knowledge",
-    icon: "❓",
+    description: "Questions and answers in a focused channel.",
+    icon: "#",
   },
 ];
 

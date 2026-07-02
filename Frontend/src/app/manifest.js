@@ -10,9 +10,10 @@ export default async function manifest() {
   return {
     name: `${seo.siteName} | ${seo.personName}`,
     short_name: seo.siteName,
+    id: "/",
     description: seo.description,
     start_url: "/",
-    display: "standalone",
+    display: "browser",
     background_color: "#020617",
     theme_color: "#020617",
     lang: seo.htmlLang,

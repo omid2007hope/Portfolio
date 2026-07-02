@@ -6,12 +6,69 @@ const {
   normalizeTargetId,
   normalizeUserId,
 } = require("../utils/chatContext");
+const MessageModel = require("../model/version_1/message");
 
 module.exports = new (class ReplyService extends BaseService {
+  _buildAnonymousLabelMap = async (scope, targetId) => {
+    const normalizedScope = normalizeScope(scope);
+    const normalizedTargetId = normalizeTargetId(targetId);
+
+    const [messages, replies] = await Promise.all([
+      MessageModel.find({
+        isDeleted: { $ne: true },
+        scope: normalizedScope,
+        targetId: normalizedTargetId,
+      })
+        .sort({ createdAt: 1 })
+        .select({ id: 1, createdAt: 1 })
+        .lean(),
+      this.model
+        .find(
+          this._active({
+            scope: normalizedScope,
+            targetId: normalizedTargetId,
+          }),
+        )
+        .sort({ createdAt: 1 })
+        .select({ id: 1, createdAt: 1 })
+        .lean(),
+    ]);
+
+    const ordered = [...messages, ...replies].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+    );
+
+    const labelByUserId = new Map();
+    let counter = 0;
+
+    ordered.forEach((entry) => {
+      const userId = String(entry.id || "").trim();
+      if (!userId || labelByUserId.has(userId)) {
+        return;
+      }
+
+      counter += 1;
+      labelByUserId.set(userId, `Anonymous ${counter}`);
+    });
+
+    return labelByUserId;
+  };
+
+  _resolveAnonymousLabel = async (scope, targetId, userId) => {
+    const labelMap = await this._buildAnonymousLabelMap(scope, targetId);
+    const normalizedUserId = normalizeUserId(userId);
+
+    if (labelMap.has(normalizedUserId)) {
+      return labelMap.get(normalizedUserId);
+    }
+
+    return `Anonymous ${labelMap.size + 1}`;
+  };
+
   _serializeReply = (reply) => ({
     id: String(reply._id),
     userId: reply.id,
-    userName: reply.userName || "",
+    userName: reply.userName || "Anonymous",
     messageId: reply.messageId,
     scope: reply.scope || "group",
     targetId: reply.targetId || "global",
@@ -23,12 +80,21 @@ module.exports = new (class ReplyService extends BaseService {
   });
 
   postReply = async (data) => {
+    const normalizedScope = normalizeScope(data.scope);
+    const normalizedTargetId = normalizeTargetId(data.targetId);
+    const normalizedUserId = normalizeUserId(data.id);
+    const userName = await this._resolveAnonymousLabel(
+      normalizedScope,
+      normalizedTargetId,
+      normalizedUserId,
+    );
+
     const newReply = await this.createObject({
-      id: data.id,
-      userName: data.userName,
+      id: normalizedUserId,
+      userName,
       messageId: data.messageId,
-      scope: normalizeScope(data.scope),
-      targetId: normalizeTargetId(data.targetId),
+      scope: normalizedScope,
+      targetId: normalizedTargetId,
       message: data.message,
     });
     return this._serializeReply(newReply);

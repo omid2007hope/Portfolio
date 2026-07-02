@@ -1,5 +1,6 @@
 const DEFAULT_SITE_URL = "https://omidteimory.com";
 const DEFAULT_SITE_NAME = "Omid Teimory's Portfolio";
+const DEFAULT_SITE_NAME_SHORT = "Portfolio Prime";
 const DEFAULT_PERSON_NAME = "Omid Teimory";
 const DEFAULT_JOB_TITLE = "Frontend / Full-Stack Developer";
 const DEFAULT_LOCATION = "Austria";
@@ -176,6 +177,7 @@ export const getSeoProfile = (profile, resume) => {
 
   return {
     siteName: DEFAULT_SITE_NAME,
+    siteNameShort: DEFAULT_SITE_NAME_SHORT,
     siteUrl,
     personName,
     jobTitle,
@@ -251,6 +253,18 @@ export const buildRootMetadata = (profile, resume) => {
     referrer: "origin-when-cross-origin",
     alternates: {
       canonical: "/",
+      languages: {
+        "en-AT": "/",
+        en: "/",
+        "x-default": "/",
+      },
+    },
+    formatDetection: {
+      telephone: false,
+      date: false,
+      address: false,
+      email: false,
+      url: false,
     },
     robots: buildRobotsValue(false),
     openGraph: {
@@ -304,6 +318,11 @@ export const buildPageMetadata = ({
     keywords: dedupe([...seo.keywords, ...keywords]),
     alternates: {
       canonical,
+      languages: {
+        "en-AT": canonical,
+        en: canonical,
+        "x-default": canonical,
+      },
     },
     category: "technology",
     robots: buildRobotsValue(noIndex),
@@ -393,6 +412,7 @@ export const buildWebsiteJsonLd = (profile, resume) => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: seo.siteName,
+    alternateName: seo.siteNameShort,
     url: seo.siteUrl,
     description: seo.description,
     inLanguage: seo.htmlLang,
@@ -478,6 +498,17 @@ export const buildProjectsPageJsonLd = (projects, profile, resume) => {
     description:
       "Case studies and selected web development projects built with Next.js, React, and modern frontend tooling.",
     url: absoluteUrl("/projects", profile),
+    inLanguage: seo.htmlLang,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seo.siteName,
+      url: seo.siteUrl,
+    },
+    about: {
+      "@type": "Person",
+      name: seo.personName,
+      url: seo.siteUrl,
+    },
     mainEntity: {
       "@type": "ItemList",
       itemListOrder: "https://schema.org/ItemListOrderAscending",

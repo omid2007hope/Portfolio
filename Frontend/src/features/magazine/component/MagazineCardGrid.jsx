@@ -38,6 +38,7 @@ function MagazineCard({ item }) {
           description="Share feedback, like/dislike comments, and reply in-thread."
           composerPlaceholder="Write a comment about this post"
           compact
+          collapsible
         />
       </article>
     </Panel>

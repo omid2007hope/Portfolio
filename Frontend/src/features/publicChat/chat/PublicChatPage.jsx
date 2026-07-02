@@ -13,7 +13,7 @@ import useChatGroups from "@/features/publicChat/hooks/useChatGroups";
  */
 function PublicChatPage({ profile }) {
   const { selectedGroupId, selectedGroup, switchGroup, availableGroups } =
-    useChatGroups("general");
+    useChatGroups("public");
 
   return (
     <PageSection>

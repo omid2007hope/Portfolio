@@ -42,6 +42,7 @@ const DEFAULT_NAVIGATION_LINKS = [
   { label: "Projects", to: "/projects" },
   { label: "Public Chat", to: "/public-chat" },
   { label: "Q&A", to: "/qanda" },
+  { label: "Sign Up", to: "/signup" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -50,6 +51,7 @@ const ensureRequiredNavLinks = (items = []) => {
     { label: "Resume", to: "/resume" },
     { label: "Public Chat", to: "/public-chat" },
     { label: "Q&A", to: "/qanda" },
+    { label: "Sign Up", to: "/signup" },
   ];
 
   const result = [...items];
@@ -68,6 +70,11 @@ const ensureRequiredNavLinks = (items = []) => {
 
   return result;
 };
+
+export const ensureResumeLink = (items = []) =>
+  ensureRequiredNavLinks(items).filter((item) => item.to === "/resume").length
+    ? ensureRequiredNavLinks(items)
+    : [...ensureRequiredNavLinks(items), { label: "Resume", to: "/resume" }];
 
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {

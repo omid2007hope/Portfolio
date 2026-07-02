@@ -5,6 +5,7 @@ const router = express.Router();
 const userController = require("../../../controller/UserController");
 const messageController = require("../../../controller/MessageController");
 const replyController = require("../../../controller/ReplyController");
+const requireAuth = require("../../../middleware/auth/requireAuth");
 const asyncHandler = require("../../../utils/asyncHandler");
 const {
   ensureBodyObject,
@@ -21,12 +22,14 @@ router.post(
 );
 router.post(
   "/messages",
+  asyncHandler(requireAuth),
   ensureBodyObject,
   validateMessagePayload,
   asyncHandler(messageController.postMessage),
 );
 router.post(
   "/replies",
+  asyncHandler(requireAuth),
   ensureBodyObject,
   validateReplyPayload,
   asyncHandler(replyController.postReply),

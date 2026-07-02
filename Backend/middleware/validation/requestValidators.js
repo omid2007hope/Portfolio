@@ -78,16 +78,49 @@ const validateUserPayload = (req, _res, next) => {
   return next();
 };
 
-const validateMessagePayload = (req, _res, next) => {
-  const { id, message } = req.body;
+const validateAuthCodeRequestPayload = (req, _res, next) => {
+  const email = toTrimmedOrEmpty(req.body?.email).toLowerCase();
 
-  if (![id, message].every(requireTrimmedString)) {
-    return next(createHttpError(400, "id and message are required."));
+  if (!email || !email.includes("@")) {
+    return next(createHttpError(400, "A valid email address is required."));
   }
 
   req.body = {
     ...req.body,
-    id: id.trim(),
+    email,
+  };
+
+  return next();
+};
+
+const validateAuthCodeVerifyPayload = (req, _res, next) => {
+  const email = toTrimmedOrEmpty(req.body?.email).toLowerCase();
+  const code = toTrimmedOrEmpty(req.body?.code);
+
+  if (!email || !email.includes("@") || !code) {
+    return next(createHttpError(400, "email and code are required."));
+  }
+
+  req.body = {
+    ...req.body,
+    email,
+    code,
+  };
+
+  return next();
+};
+
+const validateMessagePayload = (req, _res, next) => {
+  const { id, message } = req.body;
+  const resolvedId = toTrimmedOrEmpty(id) || toTrimmedOrEmpty(req.auth?.userId);
+
+  if (![resolvedId, message].every(requireTrimmedString)) {
+    return next(createHttpError(400, "message is required."));
+  }
+
+  req.body = {
+    ...req.body,
+    id: resolvedId,
     userName: toTrimmedOrEmpty(req.body.userName),
     scope: normalizeScope(req.body.scope),
     targetId: normalizeTargetId(req.body.targetId),
@@ -99,16 +132,17 @@ const validateMessagePayload = (req, _res, next) => {
 
 const validateReplyPayload = (req, _res, next) => {
   const { id, messageId, message } = req.body;
+  const resolvedId = toTrimmedOrEmpty(id) || toTrimmedOrEmpty(req.auth?.userId);
 
-  if (![id, messageId, message].every(requireTrimmedString)) {
+  if (![resolvedId, messageId, message].every(requireTrimmedString)) {
     return next(
-      createHttpError(400, "id, messageId, and message are required."),
+      createHttpError(400, "messageId and message are required."),
     );
   }
 
   req.body = {
     ...req.body,
-    id: id.trim(),
+    id: resolvedId,
     userName: toTrimmedOrEmpty(req.body.userName),
     messageId: messageId.trim(),
     scope: normalizeScope(req.body.scope),
@@ -136,6 +170,8 @@ const validateReactionPayload = (req, _res, next) => {
 
 module.exports = {
   ensureBodyObject,
+  validateAuthCodeRequestPayload,
+  validateAuthCodeVerifyPayload,
   validateChatMessage,
   validateContactSubmission,
   validateMessagePayload,

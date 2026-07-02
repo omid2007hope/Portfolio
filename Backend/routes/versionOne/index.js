@@ -3,6 +3,7 @@ const express = require("express");
 const profileRoutes = require("./Profile");
 const projectRoutes = require("./Projects");
 const chatRoutes = require("./chat");
+const authRoutes = require("./auth");
 const magazineRoutes = require("./magazine");
 const resumeRoutes = require("./Resume");
 const contactRoutes = require("./Contact");
@@ -14,6 +15,7 @@ const router = express.Router();
   profileRoutes,
   projectRoutes,
   chatRoutes,
+  authRoutes,
   magazineRoutes,
   resumeRoutes,
   contactRoutes,

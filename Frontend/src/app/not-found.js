@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "404 — Page Not Found",
   description: "The page you requested could not be found.",
+  alternates: {
+    canonical: "/404",
+  },
   robots: {
     index: false,
     follow: false,

@@ -18,7 +18,7 @@ function HomePage({ profile }) {
           <HomeWorkflowSection profile={profile} />
           <HomeStatusSection profile={profile} />
 
-          <section className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 sm:grid-cols-2">
+          <section className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
             <Link
               href="/public-chat"
               className="rounded-xl border border-cyan-300/25 bg-cyan-400/10 p-4 transition hover:bg-cyan-400/20"
@@ -27,23 +27,10 @@ function HomePage({ profile }) {
                 Community
               </p>
               <h3 className="mt-2 text-xl font-semibold text-white">
-                Public Chat
+                Live Chat Channels
               </h3>
               <p className="mt-2 text-sm text-slate-200">
-                Join the live group chat and reply in threaded discussions.
-              </p>
-            </Link>
-
-            <Link
-              href="/qanda"
-              className="rounded-xl border border-amber-300/25 bg-amber-400/10 p-4 transition hover:bg-amber-400/20"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-100">
-                Knowledge
-              </p>
-              <h3 className="mt-2 text-xl font-semibold text-white">Q&A Hub</h3>
-              <p className="mt-2 text-sm text-slate-200">
-                Ask coding questions and publish practical answers for others.
+                Join Discord-style channels with # public and # q-a discussions.
               </p>
             </Link>
           </section>

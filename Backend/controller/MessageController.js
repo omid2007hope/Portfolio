@@ -16,7 +16,10 @@ const getMessagesByUser = async (req, res) => {
 };
 
 const postMessage = async (req, res) => {
-  const response = await messageService.postMessage(req.body || {});
+  const response = await messageService.postMessage({
+    ...(req.body || {}),
+    id: req.auth?.userId || req.body?.id,
+  });
   return res.status(201).json(response);
 };
 

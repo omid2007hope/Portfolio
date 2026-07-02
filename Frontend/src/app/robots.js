@@ -5,6 +5,7 @@ export const revalidate = 3600;
 
 export default async function robots() {
   const profile = await getMetadataProfile();
+  const siteUrl = absoluteUrl("/", profile).replace(/\/$/, "");
 
   return {
     rules: [
@@ -12,15 +13,12 @@ export default async function robots() {
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/twitter-image",
-          "/opengraph-image",
           "/favicon.ico",
-          "/icon.png",
-          "/apple-icon.png",
-          "/*.webmanifest",
+          "/_next/",
         ],
       },
     ],
+    host: siteUrl,
     sitemap: absoluteUrl("/sitemap.xml", profile),
   };
 }

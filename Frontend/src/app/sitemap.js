@@ -10,12 +10,13 @@ export default async function sitemap() {
   ]);
   const now = new Date();
   const staticRoutes = [
-    { path: "/", priority: 1, changeFrequency: "weekly" },
-    { path: "/projects", priority: 0.9, changeFrequency: "weekly" },
-    { path: "/public-chat", priority: 0.85, changeFrequency: "daily" },
-    { path: "/qanda", priority: 0.85, changeFrequency: "daily" },
+    { path: "/", priority: 1, changeFrequency: "daily" },
+    { path: "/projects", priority: 0.92, changeFrequency: "weekly" },
+    { path: "/public-chat", priority: 0.88, changeFrequency: "daily" },
+    { path: "/qanda", priority: 0.86, changeFrequency: "daily" },
+    { path: "/signup", priority: 0.7, changeFrequency: "monthly" },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/resume", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/resume", priority: 0.84, changeFrequency: "monthly" },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
   ];
 

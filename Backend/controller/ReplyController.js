@@ -22,7 +22,10 @@ const getRepliesByUser = async (req, res) => {
 };
 
 const postReply = async (req, res) => {
-  const response = await replyService.postReply(req.body || {});
+  const response = await replyService.postReply({
+    ...(req.body || {}),
+    id: req.auth?.userId || req.body?.id,
+  });
   return res.status(201).json(response);
 };
 
