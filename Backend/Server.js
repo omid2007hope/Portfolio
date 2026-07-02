@@ -12,6 +12,9 @@ loadEnv();
 
 const app = express();
 
+const dns = require('node:dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 app.use(applyCorsHeaders);
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
