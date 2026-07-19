@@ -41,7 +41,6 @@ const DEFAULT_NAVIGATION_LINKS = [
   { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
   { label: "Public Chat", to: "/public-chat" },
-  { label: "Q&A", to: "/qanda" },
   { label: "Sign Up", to: "/signup" },
   { label: "Contact", to: "/contact" },
 ];
@@ -50,7 +49,6 @@ const ensureRequiredNavLinks = (items = []) => {
   const required = [
     { label: "Resume", to: "/resume" },
     { label: "Public Chat", to: "/public-chat" },
-    { label: "Q&A", to: "/qanda" },
     { label: "Sign Up", to: "/signup" },
   ];
 

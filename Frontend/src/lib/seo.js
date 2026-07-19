@@ -1,20 +1,23 @@
 const DEFAULT_SITE_URL = "https://omidteimory.com";
-const DEFAULT_SITE_NAME = "Omid Teimory's Portfolio";
-const DEFAULT_SITE_NAME_SHORT = "Portfolio Prime";
+const DEFAULT_SITE_NAME = "Omid Teimory";
+const DEFAULT_SITE_NAME_SHORT = "Omid Teimory";
 const DEFAULT_PERSON_NAME = "Omid Teimory";
-const DEFAULT_JOB_TITLE = "Frontend / Full-Stack Developer";
+const DEFAULT_JOB_TITLE = "Full-Stack Developer";
 const DEFAULT_LOCATION = "Austria";
 const DEFAULT_DESCRIPTION =
-  "Frontend / Full-Stack Developer in Vienna, Austria building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.";
+  "Full-Stack Developer in Austria, building fast, production-ready web apps with React, Next.js, Node.js, and MongoDB.";
 
 const DEFAULT_KEYWORDS = [
   "Omid Teimory",
-  "Omid Teimory's Portfolio",
-  "full-stack developer Austria",
-  "frontend specialist Austria",
-  "React developer Austria",
-  "web developer Austria",
-  "frontend-focused full-stack developer",
+  "Full-Stack",
+  "Front-End",
+  "Back-End",
+  "Full-Stack Developer",
+  "Front-End Developer",
+  "Back-End Developer",
+  "Full-Stack Developer Austria",
+  "Front-End Developer Austria",
+  "Back-End Developer Austria",
 ];
 
 const SOCIAL_NAME_MAP = {
