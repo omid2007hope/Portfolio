@@ -1,5 +1,6 @@
 const BaseService = require("./BaseService");
 const { ContactSubmission } = require("../model/version_1");
+const { sendContactSubmissionAlert } = require("../utils/email");
 
 module.exports = new (class ContactSubmissionService extends BaseService {
   _serializeSubmission = (submission) => ({
@@ -33,6 +34,10 @@ module.exports = new (class ContactSubmissionService extends BaseService {
       source: payload.source || "portfolio-contact-form",
       ipAddress,
       userAgent,
+    });
+
+    sendContactSubmissionAlert(submission).catch((err) => {
+      console.error("Failed to send contact submission alert email:", err);
     });
 
     return this._serializeSubmission(submission.toObject());

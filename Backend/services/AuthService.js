@@ -4,6 +4,7 @@ const BaseService = require("./BaseService");
 const UserModel = require("../model/version_1/user");
 const { createHttpError } = require("../utils/httpError");
 const { issueAuthToken } = require("../utils/token");
+const { sendLoginCodeEmail, sendWelcomeEmail } = require("../utils/email");
 
 const LOGIN_CODE_LENGTH = 6;
 const LOGIN_CODE_TTL_MINUTES = 15;
@@ -62,6 +63,10 @@ module.exports = new (class AuthService extends BaseService {
         isEmailVerified: false,
         authTokenVersion: 1,
       });
+
+      sendWelcomeEmail(email, anonymousName).catch((err) => {
+        console.error("Failed to send welcome email:", err);
+      });
     }
 
     const code = randomDigits(LOGIN_CODE_LENGTH);
@@ -71,12 +76,14 @@ module.exports = new (class AuthService extends BaseService {
     user.loginCodeExpiresAt = expiresAt;
     await user.save();
 
+    await sendLoginCodeEmail(email, code);
+
     return {
       email,
       code,
       expiresAt,
       message:
-        "Login code generated. Integrate an email provider to deliver this code externally.",
+        "Login code generated and sent to email.",
     };
   };
 

@@ -14,7 +14,13 @@ module.exports = new (class UserService extends BaseService {
   });
 
   postUser = async (user) => {
-    const newUser = await this.createObject({ id: user.id, name: user.name });
+    const newUser = await this.createObject({ id: user.id, name: user.name, email: user.email });
+    if (newUser.email) {
+      const { sendWelcomeEmail } = require("../utils/email");
+      sendWelcomeEmail(newUser.email, newUser.name).catch((err) => {
+        console.error("Failed to send welcome email:", err);
+      });
+    }
     return this._serializeUser(newUser);
   };
 
