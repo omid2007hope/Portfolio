@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import JsonLd from "@/components/seo/JsonLd";
 import PageSection from "@/components/layout/PageSection";
 import SiteFooter from "@/components/layout/SiteFooter";
@@ -50,7 +51,9 @@ export default async function SignupRoute() {
 
       <PageSection>
         <div className="space-y-8">
-          <SignupPage />
+          <Suspense fallback={<div className="text-center py-10">Loading signup...</div>}>
+            <SignupPage />
+          </Suspense>
           <SiteFooter profile={profile} />
         </div>
       </PageSection>

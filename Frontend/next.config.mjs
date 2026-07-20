@@ -54,7 +54,7 @@ const nextConfig = {
       {
         source: "/project/:path*",
         destination: "/projects/:path*",
-        statusCode: 301,
+        permanent: true,
       },
       {
         source: "/:path*",
@@ -65,7 +65,7 @@ const nextConfig = {
           },
         ],
         destination: "https://omidteimory.com/:path*",
-        statusCode: 301,
+        permanent: true,
       },
     ];
   },

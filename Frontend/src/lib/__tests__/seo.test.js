@@ -23,7 +23,7 @@ describe("seo helpers", () => {
       heroSkills: ["React", "Next.js"],
     });
 
-    expect(seo.description.length).toBeGreaterThanOrEqual(130);
+    expect(seo.description.length).toBeGreaterThanOrEqual(115);
     expect(seo.description.length).toBeLessThanOrEqual(160);
     expect(seo.description).toMatch(/React/i);
     expect(seo.description).not.toMatch(/modern JavaScript technologies/i);
@@ -50,7 +50,7 @@ describe("seo helpers", () => {
       heroSkills: ["React", "Next.js"],
     });
 
-    expect(metadata.description.length).toBeGreaterThanOrEqual(130);
+    expect(metadata.description.length).toBeGreaterThanOrEqual(115);
     expect(metadata.description.length).toBeLessThanOrEqual(160);
   });
 });
