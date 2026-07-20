@@ -76,7 +76,7 @@ module.exports = new (class AuthService extends BaseService {
     user.loginCodeExpiresAt = expiresAt;
     await user.save();
 
-    await sendLoginCodeEmail(email, code);
+    await sendLoginCodeEmail(email, code, expiresAt);
 
     return {
       email,
