@@ -140,15 +140,7 @@ function EngagementBoard({
     return map;
   }, [replies]);
 
-  useEffect(() => {
-    if (!collapsible) {
-      return;
-    }
 
-    if (messages.length > 0) {
-      setExpanded(true);
-    }
-  }, [collapsible, messages.length]);
 
   const signupHref = `/signup?next=${encodeURIComponent(
     `/public-chat?scope=${scope}&targetId=${targetId}`,
