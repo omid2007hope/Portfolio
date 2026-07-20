@@ -247,9 +247,9 @@ function EngagementBoard({
   };
 
   return (
-    <section className="space-y-5 rounded-2xl border border-white/10 bg-slate-950/60 p-4 md:p-5 lg:min-h-[560px] lg:p-6">
+    <section className="space-y-5 rounded-2xl border border-white/10 bg-slate-950/60 p-4 md:p-5 lg:min-h-[165px] lg:p-6">
       <div className="space-y-1">
-        <h3 className="text-xl font-semibold text-white md:text-2xl">
+        <h3 className="text-xl font-semibold text-white md:text-2xl ">
           {title}
         </h3>
         {description ? (
@@ -312,14 +312,14 @@ function EngagementBoard({
           ) : null}
           {error ? <p className="text-sm text-rose-300">{error}</p> : null}
 
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {sortedMessages.map((entry) => {
               const threadReplies = repliesByMessage[entry.id] || [];
 
               return (
                 <article
                   key={entry.id}
-                  className="space-y-3 rounded-xl border border-white/10 bg-white/5 p-4"
+                  className="space-y-3  rounded-xl border border-white/10 bg-white/5 p-4"
                 >
                   <header className="flex items-center justify-between gap-3">
                     <p className="text-sm font-semibold text-cyan-100">
@@ -330,7 +330,7 @@ function EngagementBoard({
                     </p>
                   </header>
 
-                  <p className="text-sm leading-7 text-slate-200 md:text-[15px]">
+                  <p className="text-sm leading-7  text-slate-200 md:text-[15px]">
                     {entry.message}
                   </p>
 

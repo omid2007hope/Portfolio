@@ -13,6 +13,7 @@ import {
   getHeaderContactCtaLabel,
   getJobTitle,
   getNavigationLinks,
+  getSignUpCtaLabel,
 } from "@/lib/site-content";
 
 function Header({ profile }) {
@@ -24,6 +25,7 @@ function Header({ profile }) {
   const isActive = (route) => pathname === route;
   const availabilityText = getHeaderAvailabilityText(profile);
   const contactCtaLabel = getHeaderContactCtaLabel(profile);
+  const signUpLabel = getSignUpCtaLabel(profile);
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-slate-950/65 backdrop-blur-xl">
@@ -83,6 +85,12 @@ function Header({ profile }) {
             className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
           >
             {contactCtaLabel}
+          </Link>
+          <Link
+            href="/signup"
+            className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+          >
+            {signUpLabel}
           </Link>
         </nav>
 

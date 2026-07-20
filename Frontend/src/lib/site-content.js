@@ -41,7 +41,6 @@ const DEFAULT_NAVIGATION_LINKS = [
   { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
   { label: "Public Chat", to: "/public-chat" },
-  { label: "Sign Up", to: "/signup" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -49,7 +48,6 @@ const ensureRequiredNavLinks = (items = []) => {
   const required = [
     { label: "Resume", to: "/resume" },
     { label: "Public Chat", to: "/public-chat" },
-    { label: "Sign Up", to: "/signup" },
   ];
 
   const result = [...items];
@@ -147,6 +145,9 @@ export const getHeaderAvailabilityText = (profile) =>
 
 export const getHeaderContactCtaLabel = (profile) =>
   profile?.headerContactCtaLabel || "Hire Me";
+
+export const getSignUpCtaLabel = (profile) =>
+  profile?.headerSignUpCtaLabel || "Sign Up";
 
 export const getHomeEyebrow = (profile) =>
   profile?.homeEyebrow || getJobTitle(profile);
