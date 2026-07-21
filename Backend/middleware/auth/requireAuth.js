@@ -29,7 +29,9 @@ const requireAuth = async (req, _res, next) => {
     return next(createHttpError(401, "Verified account required."));
   }
 
-  if (Number(user.authTokenVersion || 1) !== Number(decoded.tokenVersion || 1)) {
+  if (
+    Number(user.authTokenVersion || 1) !== Number(decoded.tokenVersion || 1)
+  ) {
     return next(createHttpError(401, "Auth token is no longer valid."));
   }
 
