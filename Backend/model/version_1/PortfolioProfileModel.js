@@ -110,7 +110,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeDescription: {
       ...trimString,
-      maxlength: [300, "Home description cannot exceed 300 characters."],
+      maxlength: [1000, "Home description cannot exceed 1000 characters."],
       default: "",
     },
     homeAvailabilityNote: {
@@ -140,7 +140,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeStrengthsText: {
       ...trimString,
-      maxlength: [400, "Home strengths text cannot exceed 400 characters."],
+      maxlength: [1000, "Home strengths text cannot exceed 1000 characters."],
       default: "",
     },
     homeNextStepTitle: {
@@ -150,7 +150,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeNextStepText: {
       ...trimString,
-      maxlength: [400, "Home next-step text cannot exceed 400 characters."],
+      maxlength: [1000, "Home next-step text cannot exceed 1000 characters."],
       default: "",
     },
     homeSectionEyebrow: {
@@ -165,7 +165,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeSectionDescription: {
       ...trimString,
-      maxlength: [500, "Home section description cannot exceed 500 characters."],
+      maxlength: [1500, "Home section description cannot exceed 1500 characters."],
       default: "",
     },
     homeSectionItems: {
@@ -183,7 +183,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeWorkflowDescription: {
       ...trimString,
-      maxlength: [500, "Home workflow description cannot exceed 500 characters."],
+      maxlength: [1500, "Home workflow description cannot exceed 1500 characters."],
       default: "",
     },
     homeStatusTitle: {
@@ -193,7 +193,7 @@ const portfolioProfileSchema = new Schema(
     },
     homeStatusDescription: {
       ...trimString,
-      maxlength: [400, "Home status description cannot exceed 400 characters."],
+      maxlength: [1200, "Home status description cannot exceed 1200 characters."],
       default: "",
     },
     location: requiredTrimmedString("Location", 160),
@@ -256,7 +256,7 @@ const portfolioProfileSchema = new Schema(
     },
     aboutIntroDescription: {
       ...trimString,
-      maxlength: [500, "About intro description cannot exceed 500 characters."],
+      maxlength: [1000, "About intro description cannot exceed 1000 characters."],
       default: "",
     },
     aboutSectionTitle: {
@@ -276,7 +276,7 @@ const portfolioProfileSchema = new Schema(
     },
     aboutProcessDescription: {
       ...trimString,
-      maxlength: [1000, "About process description cannot exceed 1000 characters."],
+      maxlength: [2000, "About process description cannot exceed 2000 characters."],
       default: "",
     },
     navigationLinks: {
@@ -312,7 +312,7 @@ const portfolioProfileSchema = new Schema(
     },
     contactIntroDescription: {
       ...trimString,
-      maxlength: [1000, "Contact intro description cannot exceed 1000 characters."],
+      maxlength: [2000, "Contact intro description cannot exceed 2000 characters."],
       default: "",
     },
     contactFormTitle: {
