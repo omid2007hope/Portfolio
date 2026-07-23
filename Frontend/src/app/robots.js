@@ -15,6 +15,7 @@ export default async function robots() {
         disallow: [
           "/favicon.ico",
           "/_next/",
+          "/signup",
         ],
       },
     ],

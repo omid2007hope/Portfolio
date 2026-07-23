@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import Image from "next/image";
 import Link from "next/link";
@@ -36,9 +35,12 @@ function Header({ profile }) {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-4">
           {profile?.logoImage ? (
-            <img
+            <Image
               src={profile.logoImage}
               alt={`${getDisplayName(profile)} logo`}
+              width={56}
+              height={56}
+              priority
               className="h-14 w-14 rounded-2xl border border-white/15 bg-white/5 p-2 object-cover"
             />
           ) : (

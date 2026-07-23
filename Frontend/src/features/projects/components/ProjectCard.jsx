@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import Image from "next/image";
 import Panel from "@/components/ui/Panel";
 import TagList from "@/components/ui/TagList";
 import { getProjectPath } from "@/lib/seo";
@@ -11,9 +11,12 @@ function ProjectCard({ project }) {
       <Link href={getProjectPath(project)}>
         <div className="mb-5 h-48 w-full overflow-hidden rounded-xl">
           {project.coverImage?.url ? (
-            <img
+            <Image
               src={project.coverImage.url}
               alt={project.coverImage.alt || project.title}
+              width={600}
+              height={192}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="h-full w-full object-cover"
             />
           ) : (

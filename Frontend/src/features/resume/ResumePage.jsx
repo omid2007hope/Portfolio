@@ -23,7 +23,7 @@ function ResumePage({ resume, profile }) {
           certificates={certificates}
         />
 
-        <main className="w-full space-y-16 lg:w-3/4">
+        <div className="w-full space-y-16 lg:w-3/4">
           <ResumeHero resume={resume} profile={profile} />
           <ResumeTimelineSection
             title="Experience"
@@ -38,7 +38,7 @@ function ResumePage({ resume, profile }) {
           />
           <ResumeSkillsSection skillGroups={skillGroups} />
           <SiteFooter profile={profile} />
-        </main>
+        </div>
       </div>
     </div>
   );

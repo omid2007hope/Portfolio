@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { Award, Link as LinkIcon, Mail, MapPin, Phone } from "lucide-react";
 import Me from "@/app/assets/image/Home Page.webp";
@@ -15,7 +14,7 @@ function ResumeSidebar({
     <aside className="h-fit w-full space-y-10 rounded-2xl border border-white/10 bg-white/5 p-6 lg:w-1/4">
       <div className="flex items-center gap-4">
         {resume?.avatarImage ? (
-          <img
+          <Image
             src={resume.avatarImage}
             alt={`${resume.profileName || "Resume"} headshot`}
             width={64}

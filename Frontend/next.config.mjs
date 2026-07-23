@@ -9,6 +9,19 @@ const connectSrc = [
 const nextConfig = {
   reactCompiler: true,
   compress: true,
+  images: {
+    // Allow next/image to load external images from any HTTPS source.
+    // Narrow "hostname" to your specific CMS/CDN host in production for stricter security.
+    // e.g.: { protocol: "https", hostname: "api.omidteimory.com" }
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+    // Prefer AVIF (smallest), fall back to WebP
+    formats: ["image/avif", "image/webp"],
+  },
   async headers() {
     return [
       {

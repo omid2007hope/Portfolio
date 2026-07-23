@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import Image from "next/image";
 import Link from "next/link";
@@ -148,9 +147,13 @@ function HomeHeroSection({ profile }) {
 
               <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/50">
                 {profile?.portraitImage ? (
-                  <img
+                  <Image
                     src={profile.portraitImage}
                     alt={`Portrait of ${profile.fullName || "Omid Teimory"}`}
+                    width={480}
+                    height={600}
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
                     className="aspect-[4/5] w-full object-cover object-center"
                   />
                 ) : (

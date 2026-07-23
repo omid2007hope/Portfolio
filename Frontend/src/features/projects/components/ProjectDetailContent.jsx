@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
+
 function ProjectDetailContent({ project }) {
   return (
     <div className="space-y-14 lg:col-span-2">
@@ -20,12 +21,13 @@ function ProjectDetailContent({ project }) {
         {!!project.showcaseImages?.length && (
           <div className="my-8 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
             {project.showcaseImages.map((image, index) => (
-              <img
+              <Image
                 key={`${image.url}-${index}`}
                 src={image.url}
                 alt={image.alt || `${project.title} showcase ${index + 1}`}
                 width={400}
                 height={256}
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="h-64 w-full rounded-xl bg-slate-700 object-cover"
               />
             ))}

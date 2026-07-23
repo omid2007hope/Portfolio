@@ -14,7 +14,6 @@ export default async function sitemap() {
     { path: "/projects", priority: 0.92, changeFrequency: "weekly" },
     { path: "/public-chat", priority: 0.88, changeFrequency: "daily" },
     { path: "/qanda", priority: 0.86, changeFrequency: "daily" },
-    { path: "/signup", priority: 0.7, changeFrequency: "monthly" },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" },
     { path: "/resume", priority: 0.84, changeFrequency: "monthly" },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
