@@ -75,15 +75,23 @@ export const ensureResumeLink = (items = []) =>
 const DEFAULT_ABOUT_PARAGRAPHS = [
   {
     content:
-      "I build complete web applications from idea to launch, starting with a clear frontend and the simplest useful user flow.",
+      "Omid Teimory is a Full-Stack Developer based in Vienna, Austria, focused on building complete web applications from idea to production. Every project starts with a clear frontend — one that communicates what the product does before a user has to think about it. Structure, typography, and interaction are not decoration; they are the first layer of a working product.",
   },
   {
     content:
-      "When a project needs more than good visuals, I connect the interface to APIs, authentication, and data flows without making the product feel heavy.",
+      "When a project needs more than a polished interface, Omid Teimory connects the frontend to APIs, authentication systems, databases, and data flows without making the experience feel technical or heavy. The backend exists to support the user experience, not to impose its own complexity on it. Node.js and MongoDB handle the data layer; React and Next.js handle the interface — and both sides are built to stay predictable over time.",
   },
   {
     content:
-      "The goal is always the same: fast pages, clean structure, and code that is easy to maintain after launch.",
+      "Working as a Full-Stack Developer in Austria means taking responsibility for the complete product: from the first pixel to the deployed system running in production. That includes performance budgets, asset optimization, caching strategy, and the kind of component architecture that does not require a rewrite six months later. Fast pages, clean structure, and maintainable code are the baseline expectation on every project Omid Teimory works on.",
+  },
+  {
+    content:
+      "The technology choices are intentional. React and Next.js are used because they produce fast, indexable pages with a predictable component model. Tailwind CSS keeps styling co-located and consistent. Node.js is used for the API layer because it shares the same language as the frontend, reducing context-switching and making data contracts easier to reason about. MongoDB provides the flexibility needed for content-heavy or rapidly iterating products.",
+  },
+  {
+    content:
+      "Beyond the technical stack, the work is shaped by a practical belief: the best software is the smallest correct version of the experience, delivered reliably. Omid Teimory approaches every project with that constraint in mind — building the feature that solves the real problem first, then expanding from a stable foundation rather than planning for every possible future use case from day one.",
   },
 ];
 
@@ -182,14 +190,14 @@ export const getHomeStrengthsTitle = (profile) =>
 export const getHomeStrengthsText = (profile) =>
   profile?.homeStrengthsText ||
   profile?.primaryStack ||
-  `${DEFAULT_PRIMARY_STACK}, and production-ready UI systems.`;
+  `${DEFAULT_PRIMARY_STACK} — the Full-Stack toolkit ${getDisplayName(profile)} uses to ship production-ready web applications in Vienna, Austria and beyond.`;
 
 export const getHomeNextStepTitle = (profile) =>
   profile?.homeNextStepTitle || "Next step";
 
 export const getHomeNextStepText = (profile) =>
   profile?.homeNextStepText ||
-  "I build with frontend quality first, then support it with backend structure, APIs, and data flows that keep the product fast, reliable, and maintainable.";
+  `${getDisplayName(profile)} builds with frontend quality first — clear layout, fast load time, and accessible interaction — then supports it with backend structure, APIs, and data flows that keep the product reliable and maintainable long after the initial launch.`;
 
 export const getHomeSectionEyebrow = (profile) =>
   profile?.homeSectionEyebrow || "What I Do";
@@ -200,15 +208,17 @@ export const getHomeSectionTitle = (profile) =>
 
 export const getHomeSectionDescription = (profile) =>
   profile?.homeSectionDescription ||
-  "I focus on speed, clarity, and real-world usability so the product feels polished for users and easy to maintain for the team.";
+  `${getDisplayName(profile)} is a Full-Stack Developer based in Vienna, Austria, focused on speed, clarity, and real-world usability. Every application is built to feel polished for end users and easy to maintain for the engineering team — whether that team is one person or ten. The stack is chosen to match the problem: React and Next.js for fast, indexable frontends; Node.js and MongoDB for reliable, flexible backend systems.`;
 
 export const getHomeSectionItems = (profile) =>
   profile?.homeSectionItems?.length
     ? profile.homeSectionItems
     : [
-        "Modern frontend development with React and Next.js",
-        "Backend APIs and authentication systems with Node.js",
-        "Clean, scalable architecture for real-world applications",
+        "Modern frontend development with React and Next.js — fast, accessible, and production-ready",
+        "Backend APIs and authentication systems with Node.js and MongoDB",
+        "Full-Stack architecture: from database schema to deployed UI, built to stay maintainable",
+        "Performance-first development: optimized assets, lightweight interactions, and minimal render-blocking",
+        "Based in Vienna, Austria — available for full-time roles and contract work",
       ];
 
 export const getHomeInfoCards = (profile) =>
@@ -221,14 +231,14 @@ export const getHomeWorkflowTitle = (profile) =>
 
 export const getHomeWorkflowDescription = (profile) =>
   profile?.homeWorkflowDescription ||
-  "I focus on building clear, fast, and maintainable applications from idea to production.";
+  `${getDisplayName(profile)} builds clear, fast, and maintainable web applications from idea to production. The process starts with the simplest honest version of the user experience, then adds the technical infrastructure that makes it reliable — authentication, data persistence, caching, and deployment. Every decision is made to reduce future maintenance cost, not to demonstrate technical complexity. The output is a product that works well on day one and continues to work well as requirements change.`;
 
 export const getHomeStatusTitle = (profile) =>
   profile?.homeStatusTitle || "Status";
 
 export const getHomeStatusDescription = (profile) =>
   profile?.homeStatusDescription ||
-  "Currently building real-world full-stack applications and actively seeking opportunities in Austria.";
+  `${getDisplayName(profile)} is currently building real-world Full-Stack applications and actively seeking full-time and contract opportunities in Vienna, Austria and the wider European market. Available for immediate engagement. Open to remote and hybrid roles in addition to on-site positions in Austria.`;
 
 export const getHighlights = (profile) =>
   profile?.highlights?.length
@@ -272,10 +282,11 @@ export const getAboutIntroTitle = (profile) =>
 
 export const getAboutIntroDescription = (profile) =>
   profile?.aboutIntroDescription ||
-  `A short look at how ${getDisplayName(profile)} builds fast, production-ready web applications.`;
+  `${getDisplayName(profile)} is a Full-Stack Developer based in Vienna, Austria — building fast, production-ready web applications with React, Next.js, Node.js, and MongoDB. This page covers background, process, and approach to building real-world products.`;
 
 export const getAboutSectionTitle = (profile) =>
-  profile?.aboutSectionTitle || DEFAULT_HERO_DESCRIPTION;
+  profile?.aboutSectionTitle ||
+  `${getDisplayName(profile)} — Full-Stack Developer in Vienna, Austria`;
 
 export const getAboutProcessEyebrow = (profile) =>
   profile?.aboutProcessEyebrow || "How I work";
@@ -286,7 +297,7 @@ export const getAboutProcessTitle = (profile) =>
 
 export const getAboutProcessDescription = (profile) =>
   profile?.aboutProcessDescription ||
-  "I start by clarifying the goal, then build the smallest useful version of the experience and shape the technical layer around that. The result is work that is easy to understand, quick to use, and straightforward to maintain after launch.";
+  `${getDisplayName(profile)} starts every project by clarifying the actual goal — not the assumed goal. From there, the smallest useful version of the experience is built first, and the technical layer is shaped around the product requirements rather than the other way around. This means the API surface stays narrow, the component tree stays flat, and the data model reflects real usage patterns. The result is software that is easy to understand when someone else picks it up, quick to use from day one, and straightforward to modify after launch without triggering unintended side effects. As a Full-Stack Developer working in Vienna, Austria, this process is applied across every engagement — from short contract work to longer product collaborations.`;
 
 export const getFooterText = (profile) =>
   profile?.footerText ||
