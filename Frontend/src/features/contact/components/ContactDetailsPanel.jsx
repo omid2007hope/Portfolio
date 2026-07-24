@@ -1,11 +1,11 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import Panel from "@/components/ui/Panel";
-import { getSocialIcon } from "@/lib/social-icons";
+import { Mail, MapPin, Phone } from 'lucide-react';
+import Panel from '@/components/ui/Panel';
+import { getSocialIcon } from '@/lib/social-icons';
 import {
   getContactPanelDescription,
   getContactPanelTitle,
   getSocialLinks,
-} from "@/lib/site-content";
+} from '@/lib/site-content';
 
 function ContactDetailsPanel({ profile }) {
   const socialLinks = getSocialLinks(profile);
@@ -20,17 +20,17 @@ function ContactDetailsPanel({ profile }) {
       <ContactDetail
         icon={Mail}
         label="Email"
-        value={profile?.email || "omidhope2007@gmail.com"}
+        value={profile?.email || 'omidhope2007@gmail.com'}
       />
       <ContactDetail
         icon={Phone}
         label="Phone Number"
-        value={profile?.phoneNumber || "+43 681-81580180"}
+        value={profile?.phoneNumber || '+43 681-81580180'}
       />
       <ContactDetail
         icon={MapPin}
         label="Address"
-        value={profile?.address || "Vienna, Austria"}
+        value={profile?.address || 'Vienna, Austria'}
       />
 
       <hr className="border-white/10" />
@@ -41,7 +41,7 @@ function ContactDetailsPanel({ profile }) {
         </h2>
 
         <div className="flex gap-4">
-          {socialLinks.map((item) => {
+          {socialLinks.slice(0, 3).map((item) => {
             const Icon = getSocialIcon(item.iconKey);
 
             return (
