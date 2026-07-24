@@ -20,7 +20,7 @@ describe("site-content helpers", () => {
 
   test("returns fallback hero skills and social links", () => {
     expect(getHeroSkills({})).toContain("Next.js");
-    expect(getSocialLinks({})).toHaveLength(6);
+    expect(getSocialLinks({})).toHaveLength(9);
   });
 
   test("returns fallback about paragraphs when profile data is missing", () => {

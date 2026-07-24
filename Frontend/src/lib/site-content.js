@@ -12,12 +12,42 @@ const DEFAULT_SOCIAL_LINKS = [
   {
     name: 'LinkedIn',
     iconKey: 'linkedin',
-    url: 'https://www.linkedin.com/in/omid-teimory-48233638b/',
+    url: 'https://linkedin.com/in/omidteimory',
   },
   {
     name: 'X',
     iconKey: 'x',
     url: 'https://x.com/Omid2007hope',
+  },
+  {
+    name: 'YouTube',
+    iconKey: 'youtube',
+    url: 'https://www.youtube.com/@SgtMajor_Vining',
+  },
+  {
+    name: 'Kick',
+    iconKey: 'kick',
+    url: 'https://kick.com/sgtmajor-vining',
+  },
+  {
+    name: 'Instagram',
+    iconKey: 'instagram',
+    url: 'https://www.instagram.com/omid2007hope',
+  },
+  {
+    name: 'ArtStation',
+    iconKey: 'artstation',
+    url: 'https://www.artstation.com/omid2007hope',
+  },
+  {
+    name: 'Credly',
+    iconKey: 'credly',
+    url: 'https://www.credly.com/users/omid-teimory',
+  },
+  {
+    name: 'Wonderful.dev',
+    iconKey: 'wonderful.dev',
+    url: 'https://wonderful.dev/omid2007hope',
   },
 ];
 

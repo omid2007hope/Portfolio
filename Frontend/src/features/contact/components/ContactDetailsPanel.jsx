@@ -40,8 +40,8 @@ function ContactDetailsPanel({ profile }) {
           Find me on
         </h2>
 
-        <div className="flex gap-4">
-          {socialLinks.slice(0, 3).map((item) => {
+        <div className="flex flex-wrap gap-3">
+          {socialLinks.map((item) => {
             const Icon = getSocialIcon(item.iconKey);
 
             return (
@@ -50,10 +50,11 @@ function ContactDetailsPanel({ profile }) {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10"
                 aria-label={`${item.name} profile`}
+                title={item.name}
               >
-                <Icon />
+                <Icon className="h-5 w-5" />
               </a>
             );
           })}
